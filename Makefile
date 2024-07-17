@@ -26,7 +26,8 @@ OBJ_DIR = ./src/temp
 MLX_DIR = ./MLX42
 
 #------------- SOURCE FILES ------#
-CFILES = $(SRCS_DIR)/cub3d.c $(SRCS_DIR)/utils.c $(SRCS_DIR)/init.c $(SRCS_DIR)/parsing.c
+CFILES = 	$(SRCS_DIR)/cub3d.c $(SRCS_DIR)/utils.c $(SRCS_DIR)/init.c $(SRCS_DIR)/parsing.c \
+			$(SRCS_DIR)/mlx.c
 
 OFILES = $(CFILES:.c=.o)
 
@@ -39,7 +40,7 @@ MLX_LIBS = -L$(MLX_DIR)/build -lmlx42 -L"/User/$(USER)/.brew/opt/glfw/lib" -lglf
 
 #--------- FLAGS ----------#
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g -Wunreachable-code -Ofast
+CFLAGS = #-Wall -Wextra -Werror -g -Wunreachable-code -Ofast
 HEADERS	:= -I ./include -I $(MLX_DIR)/include/MLX42/
 
 all: mlx42 libmlx $(NAME)

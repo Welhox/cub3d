@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/16 18:41:07 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/17 10:49:14 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	check_line(char *line, t_data *data)
 	}
 	if (ft_strncmp(line, "NO ./", 5) == 0) 
 	{
-		if (data->wall_text[0] == NULL)
+		if (!data->wall_text[0])
 			data->wall_text[0] = get_path(line);
 		else
 			return (printf("exit 2\n"));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/16 18:26:42 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:36:04 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef struct s_data t_data;
 
 typedef struct s_images
 {
-	
+	mlx_image_t	*mm; //minimap
+	mlx_image_t	*bg; //background
+	mlx_image_t	*pl; //player
 }	t_images;
 
 typedef struct s_ray
@@ -60,15 +62,19 @@ typedef	struct s_data
 	float		fov_depth;
 	t_ray		*ray;
 	t_images	*images;
+	mlx_t		*mlx;
 	
 	
 }	t_data;
 
 
-int	parsing(int argc, char **argv, t_data *data);
+int		parsing(int argc, char **argv, t_data *data);
 void	ft_nullfree(char *str);
 int		ret_error(char *str);
 void    init_all(t_data *data, t_ray *ray);
+void	update_params(t_data *data);
+void	mlx_main(t_data *data, t_ray *ray);
+int32_t colourise(int32_t r, int32_t g, int32_t b, int32_t a);
 
 
 # endif
