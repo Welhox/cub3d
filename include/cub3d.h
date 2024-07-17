@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/17 11:36:04 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:06:54 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,21 @@
 
 typedef struct s_data t_data;
 
+typedef	enum e_key
+{
+	LEFT,
+	RIGHT,
+	FORWARD,
+	BACK,
+	S_LEFT,
+	S_RIGHT
+} t_key;
+
 typedef struct s_images
 {
 	mlx_image_t	*mm; //minimap
+	mlx_image_t	*wall; //wall 	
+	mlx_image_t	*mm_floor; //floor
 	mlx_image_t	*bg; //background
 	mlx_image_t	*pl; //player
 }	t_images;
@@ -63,7 +75,7 @@ typedef	struct s_data
 	t_ray		*ray;
 	t_images	*images;
 	mlx_t		*mlx;
-	
+	float		scale;
 	
 }	t_data;
 
@@ -74,7 +86,11 @@ int		ret_error(char *str);
 void    init_all(t_data *data, t_ray *ray);
 void	update_params(t_data *data);
 void	mlx_main(t_data *data, t_ray *ray);
-int32_t colourise(int32_t r, int32_t g, int32_t b, int32_t a);
-
+int 	make_color(int r, int g, int b, int a);
+void	color_image(mlx_image_t *image, int color);
+void	mm_render(t_data *data, t_images *img);
+void	minimap(t_data *data, t_images *img);
+void	keypress(mlx_key_data_t keydata, void *param);
+float	get_scale(t_data *data);
 
 # endif
