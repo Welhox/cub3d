@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/17 15:07:58 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:41:48 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,25 @@ void	update_params(t_data *data)
 	data->scale = get_scale(data);
 }
 
-void	keypress(mlx_key_data_t keydata, void *param)
+void	keypress(void *param)
 {
 	t_data *data;
 
 	data = param;
-	if (keydata.key == MLX_KEY_ESCAPE)
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
-/*	else if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
-		//move_forward
- 	else if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
-		//move_backward
-	else if (keydata.key == MLX_KEY_LEFT)
-		//turn_left
-	else if (keydata.key == MLX_KEY_RIGHT)
-		//turn_right
-	else if (keydata.key == MLX_KEY_A)
-		//strafe_left
-	else if (keydata.key == MLX_KEY_D)
-		//strafe_right */
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W) || mlx_is_key_down(data->mlx, MLX_KEY_UP))
+		move_player(data, FORWARD);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S) || mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
+		move_player(data, BACK);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		move_player(data, S_LEFT);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		move_player(data, S_RIGHT);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		move_player(data, LEFT);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+		move_player(data, RIGHT);
 }
 
 void	mlx_main(t_data *data, t_ray *ray)
@@ -54,7 +54,8 @@ void	mlx_main(t_data *data, t_ray *ray)
 	if (!data->mlx)
 		exit (1);
 	minimap(data, data->images);
-	mlx_key_hook(data->mlx, &keypress, data);
-
+	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop(data->mlx);
+	mlx_delete_image(data->mlx, img.pl);
+	mlx_image_to_window(data->mlx, img.pl, data->scale * data->player_x - ((data->scale / 5) / 2), data->scale * data->player_y - ((data->scale / 5) / 2));
 }

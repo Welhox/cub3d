@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/17 15:06:54 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:03:13 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int 	make_color(int r, int g, int b, int a);
 void	color_image(mlx_image_t *image, int color);
 void	mm_render(t_data *data, t_images *img);
 void	minimap(t_data *data, t_images *img);
-void	keypress(mlx_key_data_t keydata, void *param);
+void	keypress(void *param);
 float	get_scale(t_data *data);
+void	move_player(t_data *data, t_key key);
 
 # endif
