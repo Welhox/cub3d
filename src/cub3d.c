@@ -3,14 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/18 11:11:27 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:24:09 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/cub3d.h" 
+
+void	free_images(t_images *img)
+{
+	if(img->bg)
+		mlx_delete_image(img->mlx, img->bg);
+	if(img->mm)
+		mlx_delete_image(img->mlx, img->mm);	
+	if(img->mm_floor)
+		mlx_delete_image(img->mlx, img->mm_floor);
+	if(img->wall)
+		mlx_delete_image(img->mlx, img->wall);
+	if(img->pl)
+		mlx_delete_image(img->mlx, img->pl);
+}
+
+//oh-oh, something went wrong, oh well, kill it all and start again ;)
+void	armageddon(t_data *data, char *error)
+{
+	if (data->mlx)
+	{
+		free_images(data->images);
+		mlx_close_window(data->mlx);
+		mlx_terminate(data->mlx);
+		//free textures
+	}
+	ft_arrfree(data->map);
+	if(error)
+	{
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd(error, 2);
+	}
+	exit(1);
+	
+}
 
 int main(int ac, char **av)
 {
