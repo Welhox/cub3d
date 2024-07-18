@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/17 15:04:50 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:27:27 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,18 @@ void	mm_render(t_data *data, t_images *img)
 void	minimap(t_data *data, t_images *img)
 {
 	data->images->mm = mlx_new_image(data->mlx, data->s_width, data->s_height);
+	if (!data->images->mm)
+		armageddon(data, "image mallocing failed");
 	data->images->pl = mlx_new_image(data->mlx, data->scale / 5, data->scale / 5);
+	if (!data->images->mm)
+		armageddon(data, "image mallocing failed");
 	data->images->wall = mlx_new_image(data->mlx, data->scale -1, data->scale -1);
+	if (!data->images->mm)
+		armageddon(data, "image mallocing failed");
 	data->images->mm_floor = mlx_new_image(data->mlx, data->scale -1, data->scale -1);
-	ft_memset(img->mm->pixels, 100, img->mm->width * img->mm->height * sizeof(int32_t));
+	if (!data->images->mm)
+		armageddon(data, "image mallocing failed");
+	color_image(data->images->mm, make_color(1000, 100, 100, 255));	
 	color_image(data->images->pl, make_color(255, 0, 0, 255));
 	color_image(data->images->wall, make_color(0, 0, 0, 255));
 	color_image(data->images->mm_floor, make_color(200, 200, 200, 255));

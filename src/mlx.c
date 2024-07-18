@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/18 11:41:48 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:26:22 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	keypress(void *param)
 
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(data->mlx);
+		armageddon(data, NULL);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) || mlx_is_key_down(data->mlx, MLX_KEY_UP))
 		move_player(data, FORWARD);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) || mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
@@ -51,6 +51,7 @@ void	mlx_main(t_data *data, t_ray *ray)
 
 	data->images = &img;
 	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
+	img.mlx = data->mlx;
 	if (!data->mlx)
 		exit (1);
 	minimap(data, data->images);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/18 12:03:13 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:15:04 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_images
 	mlx_image_t	*mm_floor; //floor
 	mlx_image_t	*bg; //background
 	mlx_image_t	*pl; //player
+	mlx_t		*mlx;
 }	t_images;
 
 typedef struct s_ray
@@ -93,5 +94,7 @@ void	minimap(t_data *data, t_images *img);
 void	keypress(void *param);
 float	get_scale(t_data *data);
 void	move_player(t_data *data, t_key key);
+void	armageddon(t_data *data, char *error);
+void	free_images(t_images *img);
 
 # endif
