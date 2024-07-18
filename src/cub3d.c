@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/18 15:24:09 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:01:03 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,21 @@ void	free_images(t_images *img)
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
 void	armageddon(t_data *data, char *error)
 {
+	int	i;
+
+	i = 0;
 	if (data->mlx)
 	{
 		free_images(data->images);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
-		//free textures
+		//free mlx textures
+	}
+	while(i < 4)
+	{
+		if (data->wall_text[i])
+			ft_nullfree(data->wall_text[i]);
+		i++;
 	}
 	ft_arrfree(data->map);
 	if(error)

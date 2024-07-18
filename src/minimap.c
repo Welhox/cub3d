@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/18 15:27:27 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:02:03 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	minimap(t_data *data, t_images *img)
 	data->images->mm_floor = mlx_new_image(data->mlx, data->scale -1, data->scale -1);
 	if (!data->images->mm)
 		armageddon(data, "image mallocing failed");
-	color_image(data->images->mm, make_color(1000, 100, 100, 255));	
+	color_image(data->images->mm, make_color(100, 100, 100, 255));	
 	color_image(data->images->pl, make_color(255, 0, 0, 255));
 	color_image(data->images->wall, make_color(0, 0, 0, 255));
 	color_image(data->images->mm_floor, make_color(200, 200, 200, 255));
