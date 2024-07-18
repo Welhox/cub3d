@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/17 10:49:14 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:56:44 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_ismap(char *line)
 int	get_color(int *arr, char *str)
 {
 	str += 2;
-	ft_atoi(str); //useless but needs investigating
+	ft_atoi(str);	
 	arr[0] = ft_atoi(str);
 	while (*str && (*str >= '0' && *str <= '9'))
 		str++;
@@ -71,14 +71,53 @@ int	get_color(int *arr, char *str)
 	return (1);
 }
 
+int	ft_isspace(char c)
+{
+	if ((c == 32 || c >= 9 && c <= 13))
+		return (1);
+	return (0);
+}
 char *get_path(char *line)
 {
 	int	i;
 
 	i = 0;
+	while (!ft_isspace(line[i]))
+		i++;
+	while (ft_isspace(line[i]) == 1 && line[i])
+		i++;
 	while (line[i] && line[i] != '\n')
 		i++;
 	return (ft_substr(line, 3, i -3));
+}
+
+
+int	check_assets(char *line, t_data *data)
+{
+	char *elements[5];
+	int	i;
+
+	elements[0] = "NO";
+	elements[1] = "EA";
+	elements[2] = "SO";
+	elements[3] = "WE";
+	elements[4] = NULL;
+	i = -1;
+	while (elements[++i])
+	{
+		if (ft_strncmp(line, elements[i], 2) == 0)
+		{	
+			if (!data->wall_text[i])
+			{
+				data->wall_text[i] = get_path(line);
+				printf("%s\n", data->wall_text[i]);
+				if (!data->wall_text[i])
+					return (1);
+				return (0);
+			}
+		}
+	}
+	return (0);
 }
 
 // need to add malloc checks && count spaces between orientation and file path
@@ -91,35 +130,9 @@ int	check_line(char *line, t_data *data)
 		else
 			return (printf("exit 1\n"));
 	}
-	if (ft_strncmp(line, "NO ./", 5) == 0) 
-	{
-		if (!data->wall_text[0])
-			data->wall_text[0] = get_path(line);
-		else
-			return (printf("exit 2\n"));
-	}
-	else if (ft_strncmp(line, "SO ./", 5) == 0)	
-	{
-		if (!data->wall_text[2])
-			data->wall_text[2] = get_path(line);
-		else
-			return (printf("exit 3\n"));
-	}
-	else if (ft_strncmp(line, "WE ./", 5) == 0)	
-	{
-		if (!data->wall_text[3])
-			data->wall_text[3] = get_path(line);
-		else
-			return (printf("exit 4\n"));
-	}
-	else if (ft_strncmp(line, "EA ./", 5) == 0)
-	{
-		if (!data->wall_text[1])
-			data->wall_text[1] = get_path(line);
-		else
-			return (printf("exit 5\n"));
-	}
-	else if (ft_strncmp(line, "F ", 2) == 0)
+	if (check_assets(line, data) == 1)
+	 	return (printf("Error elements"));	
+	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		if (data->floor[3] == 0)
 		{
@@ -129,7 +142,7 @@ int	check_line(char *line, t_data *data)
 		else
 			return (printf("exit 7\n"));
 	}
-	else if (ft_strncmp(line, "C ", 2) == 0)
+	if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		if (data->ceiling[3] == 0)
 		{
@@ -139,17 +152,17 @@ int	check_line(char *line, t_data *data)
 		else
 			return (printf("exit 9\n"));
 	}
-	else if (ft_ismap(line) == 0)
+	if (ft_ismap(line) == 0)
 	{
 		if (data->mapstart < 0)
 			data->mapstart = 1;
 		return (0);
 	}
-	else
+	/* else
 	{
 		printf("invalid data triggered\n");
 		return (1);
-	}
+	} */
 	return (0);
 }
 
