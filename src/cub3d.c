@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/18 16:01:03 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:29:05 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int ac, char **av)
 	t_ray		ray;
 	init_all(&data, &ray);
 	if (parsing(ac, av, &data) != 0)
-		return (1);
+		armageddon(&data, NULL);
 	update_params(&data);
 	mlx_main(&data, &ray);
 	printf("great success!\n");

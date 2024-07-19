@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/18 15:15:04 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:53:20 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ float	get_scale(t_data *data);
 void	move_player(t_data *data, t_key key);
 void	armageddon(t_data *data, char *error);
 void	free_images(t_images *img);
-
+int		all_data_found(t_data *data, char *map_str);
 # endif
