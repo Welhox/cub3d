@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/19 16:15:37 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:30:24 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ void	mlx_main(t_data *data, t_ray *ray)
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);
-	mlx_delete_image(data->mlx, img.pl);
-	mlx_image_to_window(data->mlx, img.pl, data->scale * data->player_x - ((data->scale / 5) / 2), data->scale * data->player_y - ((data->scale / 5) / 2));
+	//mlx_delete_image(data->mlx, img.pl);
+	//mlx_image_to_window(data->mlx, img.pl, data->scale * data->player_x - ((data->scale / 5) / 2), data->scale * data->player_y - ((data->scale / 5) / 2));
 }
