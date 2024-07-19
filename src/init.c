@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/17 15:05:41 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:15:04 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void    init_all(t_data *data, t_ray *ray)
     data->s_width = 0;
     data->fov = 0;
     data->fov_depth = 0;
+    data->mlx = NULL;
+    data->map = NULL;
     while (i < 3)
     {
         data->floor[i] = -1;
