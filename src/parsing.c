@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/18 15:56:44 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:24:41 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,16 @@ int	ft_isspace(char c)
 }
 char *get_path(char *line)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (!ft_isspace(line[i]))
+	while (!ft_isspace(*line) && *line)
+		line++;
+	while (ft_isspace(*line) && *line)
+		line++;
+	while (line[i] != '\n' && !ft_isspace(line[i]) && line[i])
 		i++;
-	while (ft_isspace(line[i]) == 1 && line[i])
-		i++;
-	while (line[i] && line[i] != '\n')
-		i++;
-	return (ft_substr(line, 3, i -3));
+	return (ft_substr(line, 0, i));
 }
 
 
@@ -110,7 +110,6 @@ int	check_assets(char *line, t_data *data)
 			if (!data->wall_text[i])
 			{
 				data->wall_text[i] = get_path(line);
-				printf("%s\n", data->wall_text[i]);
 				if (!data->wall_text[i])
 					return (1);
 				return (0);
@@ -119,7 +118,10 @@ int	check_assets(char *line, t_data *data)
 	}
 	return (0);
 }
-
+// int	check_colours(char *line, t_data *data)
+// {
+	
+// }
 // need to add malloc checks && count spaces between orientation and file path
 int	check_line(char *line, t_data *data)
 {
