@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 10:53:20 by clundber         ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2024/07/19 11:39:35 by tcampbel         ###   ########.fr       */                                                    */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
@@ -96,5 +95,7 @@ float	get_scale(t_data *data);
 void	move_player(t_data *data, t_key key);
 void	armageddon(t_data *data, char *error);
 void	free_images(t_images *img);
+int		ft_atoi_cubd(const char *str);
+int		ft_isspace(char c);
 int		all_data_found(t_data *data, char *map_str);
 # endif

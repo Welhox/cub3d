@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:04:25 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/16 17:44:48 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:39:03 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,43 @@ void	ft_nullfree(char *str)
 		str = NULL;
 	}
 }
+
+static int	ft_overflow(int neg, const char *str, int len, int i)
+
+{
+	if (str[neg] == '-')
+		return (-1);
+	else
+		return (-1);
+}
+
+int	ft_atoi_cubd(const char *str)
+{
+	long int	num;
+	int			i;
+	int			neg;
+	long int	buf;
+	int			len;
+
+	i = 0;
+	num = 0;
+	buf = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	neg = i;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	len = i;
+	while (ft_isdigit(str[i]))
+	{
+		num = (num * 10) + (str[i++] - 48);
+		if (buf > num)
+			return (ft_overflow(neg, str, len, i));
+		buf = num;
+	}
+	if (i - len > 3)
+		return (-1);
+	return (num);
+}
+
+

@@ -6,11 +6,18 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 11:36:14 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:41:04 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	ft_isspace(char c)
+{
+	if ((c == 32 || c >= 9 && c <= 13))
+		return (1);
+	return (0);
+}
 
 int	check_name(char *str)
 {
@@ -47,48 +54,64 @@ int	ft_ismap(char *line)
 		return (0);
 	return (1);
 }
-//No atoi protection for overflow etc and over 255 for colours
+
+int	check_colour_value(int *arr)
+{
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+	{
+		if (arr[i] > 255 || arr[i] < 0)
+			return (i);
+	}
+	return (0);
+}
+
 int	get_color(int *arr, char *str)
 {
 	str += 2;
-	ft_atoi(str);	
-	arr[0] = ft_atoi(str);
+	while (ft_isspace(*str) && *str)
+		str++;
+	arr[0] = ft_atoi_cubd(str);
 	while (*str && (*str >= '0' && *str <= '9'))
 		str++;
 	if (*str && *str == ',')
 		str++;
-	arr[1] = ft_atoi(str);
+	while (ft_isspace(*str) && *str)
+		str++;
+	arr[1] = ft_atoi_cubd(str);
 	while (*str && (*str >= '0' && *str <= '9'))
 		str++;
 	if (str && *str == ',')
 		str++;
-	arr[2] = ft_atoi(str);
+	while (ft_isspace(*str) && *str)
+		str++;
+	arr[2] = ft_atoi_cubd(str);
 	while (*str && (*str >= '0' && *str <= '9'))
 		str++;
 	arr[3] = 1; //transparency
+	if (check_colour_value(arr))
+		return (1);
+	while (ft_isspace(*str) && *str)
+		str++;
 	if (*str == '\0' || *str == '\n')
 		return (0);
 	return (1);
 }
 
-int	ft_isspace(char c)
-{
-	if (c == 32 || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
-}
 char *get_path(char *line)
 {
-	int		i;
+	int		len;
 
-	i = 0;
+	len = 0;
 	while (!ft_isspace(*line) && *line)
 		line++;
 	while (ft_isspace(*line) && *line)
 		line++;
-	while (line[i] != '\n' && !ft_isspace(line[i]) && line[i])
-		i++;
-	return (ft_substr(line, 0, i));
+	while (line[len] != '\n' && !ft_isspace(line[len]) && line[len])
+		len++;
+	return (ft_substr(line, 0, len));
 }
 
 
@@ -118,11 +141,8 @@ int	check_assets(char *line, t_data *data)
 	}
 	return (0);
 }
-// int	check_colours(char *line, t_data *data)
-// {
-	
-// }
-// need to add malloc checks && count spaces between orientation and file path
+
+// need to add malloc checks
 int	check_line(char *line, t_data *data)
 {
 	if (ft_empty(line) == 0)
@@ -130,29 +150,29 @@ int	check_line(char *line, t_data *data)
 		if (data->mapstart < 0)
 			return (0);
 		else
-			return (printf("exit 1\n"));
+			return (1);
 	}
 	if (check_assets(line, data) == 1)
-	 	return (printf("Error elements"));	
+	 	return (1);	
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		if (data->floor[3] == 0)
 		{
 			if (get_color(data->floor, line) == 1)
-				return (printf("exit 6\n"));
+				return (1);
 		}
 		else
-			return (printf("exit 7\n"));
+			return (1);
 	}
 	if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		if (data->ceiling[3] == 0)
 		{
 			if (get_color(data->ceiling, line) == 1)
-				return (printf("exit 8\n"));
+				return (1);
 		}
 		else
-			return (printf("exit 9\n"));
+			return (1);
 	}
 	if (ft_ismap(line) == 0)
 	{
@@ -160,11 +180,6 @@ int	check_line(char *line, t_data *data)
 			data->mapstart = 1;
 		return (0);
 	}
-	/* else
-	{
-		printf("invalid data triggered\n");
-		return (1);
-	} */
 	return (0);
 }
 
