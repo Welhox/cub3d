@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 11:29:05 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:40:58 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,20 @@ void	armageddon(t_data *data, char *error)
 			ft_nullfree(data->wall_text[i]);
 		i++;
 	}
-	ft_arrfree(data->map);
+	ft_mapfree(data->map);
 	if(error)
 	{
 		ft_putendl_fd("Error", 2);
 		ft_putendl_fd(error, 2);
 	}
 	exit(1);
-	
 }
 
 int main(int ac, char **av)
 {
 	t_data		data;
 	t_ray		ray;
+	
 	init_all(&data, &ray);
 	if (parsing(ac, av, &data) != 0)
 		armageddon(&data, NULL);

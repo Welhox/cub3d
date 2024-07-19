@@ -6,7 +6,8 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 11:39:35 by tcampbel         ###   ########.fr       */                                                    */
+/*   Updated: 2024/07/19 13:56:04 by tcampbel         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
@@ -98,4 +99,6 @@ void	free_images(t_images *img);
 int		ft_atoi_cubd(const char *str);
 int		ft_isspace(char c);
 int		all_data_found(t_data *data, char *map_str);
+void	ft_mapfree(char **array);
+
 # endif

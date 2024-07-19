@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:04:25 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 11:39:03 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:47:29 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,30 @@ int	ft_atoi_cubd(const char *str)
 	}
 	if (i - len > 3)
 		return (-1);
+	if (str[neg] == '-')
+		num *= -1;
 	return (num);
+}
+
+void	ft_mapfree(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (array)
+	{
+		while (array[i])
+			i++;
+		// if (i > 0)
+		// 	free(array[i + 1]);
+		while (i >= 0)
+		{
+			free (array[i]);
+			i--;
+		}
+		free (array);
+		array = NULL;
+	}
 }
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 11:41:04 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:57:59 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,35 +62,39 @@ int	check_colour_value(int *arr)
 	i = -1;
 	while (arr[++i])
 	{
-		if (arr[i] > 255 || arr[i] < 0)
-			return (i);
+		if (arr[i] > 255)
+			return (1);
 	}
 	return (0);
 }
 
+char *jump_str(char *str)
+{
+	if (*str == '-')
+		str++;
+	while (*str && (*str >= '0' && *str <= '9'))
+		str++;
+	while (ft_isspace(*str) && *str)
+		str++;
+	if (*str && *str == ',')
+		str++;
+	while (ft_isspace(*str) && *str)
+		str++;
+	return (str);
+}
+//leaking 24 bytes when colour is garbage
 int	get_color(int *arr, char *str)
 {
 	str += 2;
 	while (ft_isspace(*str) && *str)
 		str++;
 	arr[0] = ft_atoi_cubd(str);
-	while (*str && (*str >= '0' && *str <= '9'))
-		str++;
-	if (*str && *str == ',')
-		str++;
-	while (ft_isspace(*str) && *str)
-		str++;
+	str = jump_str(str);
 	arr[1] = ft_atoi_cubd(str);
-	while (*str && (*str >= '0' && *str <= '9'))
-		str++;
-	if (str && *str == ',')
-		str++;
-	while (ft_isspace(*str) && *str)
-		str++;
+	str = jump_str(str);
 	arr[2] = ft_atoi_cubd(str);
 	while (*str && (*str >= '0' && *str <= '9'))
 		str++;
-	arr[3] = 1; //transparency
 	if (check_colour_value(arr))
 		return (1);
 	while (ft_isspace(*str) && *str)
@@ -142,7 +146,6 @@ int	check_assets(char *line, t_data *data)
 	return (0);
 }
 
-// need to add malloc checks
 int	check_line(char *line, t_data *data)
 {
 	if (ft_empty(line) == 0)
@@ -260,8 +263,8 @@ int	all_data_found(t_data *data, char *map_str)
 	i = -1;
 	while (++i < 3)
 	{
-		if(!data->wall_text[i] || !data->wall_text[3] || data->floor < 0 \
-			|| data->ceiling < 0 || !map_str)
+		if(!data->wall_text[i] || !data->wall_text[3] || data->floor[i] < 0 \
+			|| data->ceiling[i] < 0 || !map_str)
 			return (1);
 	}
 	return (0);
@@ -292,6 +295,7 @@ int	extract_data(char *arg, t_data *data)
 			ft_nullfree(map_str);
 			armageddon(data, "invalid file data");
 		}
+		printf("%s\n", buffer);
 		if (data->mapstart > 0)
 		{
 			if (!map_str)
@@ -315,7 +319,7 @@ int	extract_data(char *arg, t_data *data)
 		ft_nullfree(map_str);
 		return (1);
 	}
-	if (map_parse(map_str, data) != 0) //check return value
+	if (map_parse(map_str, data) != 0)
 	{
 		ft_nullfree(map_str);
 		return(1);
@@ -398,7 +402,7 @@ int	validate_data(t_data *data)
 	fd = 0;
 	i = 0;
 	if (data->ceiling[0] < 0 || data->ceiling[1] < 0 || data->ceiling[2] < 0 || data->floor[0] < 0 || \
-		data->floor[1] < 0 || data->floor[2] < 0) //check if over 255?
+		data->floor[1] < 0 || data->floor[2] < 0)
 		return (ret_error("invalid floor/ceiling color"));
 	while (i < 4)
 	{
