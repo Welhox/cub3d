@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/18 16:02:03 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:15:36 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,16 @@ void	minimap(t_data *data, t_images *img)
 	if (!data->images->mm)
 		armageddon(data, "image mallocing failed");
 	data->images->pl = mlx_new_image(data->mlx, data->scale / 5, data->scale / 5);
-	if (!data->images->mm)
+	if (!data->images->pl)
 		armageddon(data, "image mallocing failed");
 	data->images->wall = mlx_new_image(data->mlx, data->scale -1, data->scale -1);
-	if (!data->images->mm)
+	if (!data->images->wall)
 		armageddon(data, "image mallocing failed");
 	data->images->mm_floor = mlx_new_image(data->mlx, data->scale -1, data->scale -1);
-	if (!data->images->mm)
+	if (!data->images->mm_floor)
+		armageddon(data, "image mallocing failed");
+	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width, data->s_height);
+	if (!data->images->ray_grid)
 		armageddon(data, "image mallocing failed");
 	color_image(data->images->mm, make_color(100, 100, 100, 255));	
 	color_image(data->images->pl, make_color(255, 0, 0, 255));
@@ -56,6 +59,7 @@ void	minimap(t_data *data, t_images *img)
 	mlx_image_to_window(data->mlx, img->mm, 0, 0);
 	mm_render(data, img);
 	mlx_image_to_window(data->mlx, img->pl, data->scale * data->player_x - ((data->scale / 5) / 2), data->scale * data->player_y - ((data->scale / 5) / 2)); // a bit wrong position for the moment	
+	mlx_image_to_window(data->mlx, img->ray_grid, 0, 0);
 }
 
 float	get_scale(t_data *data)

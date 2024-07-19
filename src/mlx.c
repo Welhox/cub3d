@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/18 16:02:05 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:15:37 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	keypress(void *param)
 
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		armageddon(data, NULL);
+		{
+			printf("Great success!\n");
+			armageddon(data, NULL);
+		}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) || mlx_is_key_down(data->mlx, MLX_KEY_UP))
 		move_player(data, FORWARD);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) || mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
@@ -56,6 +59,7 @@ void	mlx_main(t_data *data, t_ray *ray)
 		exit (1);
 	minimap(data, data->images);
 	mlx_loop_hook(data->mlx, &keypress, data);
+	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, img.pl);
 	mlx_image_to_window(data->mlx, img.pl, data->scale * data->player_x - ((data->scale / 5) / 2), data->scale * data->player_y - ((data->scale / 5) / 2));

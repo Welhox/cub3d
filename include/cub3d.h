@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 13:56:04 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:09:11 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_images
 	mlx_image_t	*mm_floor; //floor
 	mlx_image_t	*bg; //background
 	mlx_image_t	*pl; //player
+	mlx_image_t *ray_grid; //layer for all the rays
 	mlx_t		*mlx;
 }	t_images;
 
@@ -55,6 +56,7 @@ typedef struct s_ray
 	float	ray_x;
 	float	ray_y;
 	float	ray_orient;
+	float	distance;
 }	t_ray;
 
 typedef	struct s_data
@@ -100,5 +102,5 @@ int		ft_atoi_cubd(const char *str);
 int		ft_isspace(char c);
 int		all_data_found(t_data *data, char *map_str);
 void	ft_mapfree(char **array);
-
+void	ray_main(void *param);
 # endif

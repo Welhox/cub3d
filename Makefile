@@ -27,7 +27,8 @@ MLX_DIR = ./MLX42
 
 #------------- SOURCE FILES ------#
 CFILES = 	$(SRCS_DIR)/cub3d.c $(SRCS_DIR)/utils.c $(SRCS_DIR)/init.c $(SRCS_DIR)/parsing.c \
-			$(SRCS_DIR)/mlx.c $(SRCS_DIR)/image_utils.c $(SRCS_DIR)/minimap.c $(SRCS_DIR)/movement.c
+			$(SRCS_DIR)/mlx.c $(SRCS_DIR)/image_utils.c $(SRCS_DIR)/minimap.c $(SRCS_DIR)/movement.c \
+			$(SRCS_DIR)/ray_caster.c
 
 OFILES = $(CFILES:.c=.o)
 

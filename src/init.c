@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 11:15:04 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:22:57 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void    init_all(t_data *data, t_ray *ray)
     ray->ray_x = 0;
     ray->ray_y = 0;
     ray->ray_orient = 0;
+    ray->distance = 0;
     data->ray = ray;
     data->scale = 0;
 }
