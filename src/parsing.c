@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
 /*   Updated: 2024/07/19 11:41:04 by tcampbel         ###   ########.fr       */
@@ -18,6 +18,7 @@ int	ft_isspace(char c)
 		return (1);
 	return (0);
 }
+
 int	check_name(char *str)
 {
 	int	i;
@@ -202,10 +203,14 @@ int	map_init(char **temp_data, t_data *data)
 	data->map_x_border = max;
 	data->map_y_border = y;
 	data->map = ft_calloc((y +2), sizeof(char *)); //calloc checks
+	if (!data->map)
+		return(1);
 	x = 0;
 	while (x <= y)
 	{
 		data->map[x] = ft_calloc(max + 1, sizeof(char));
+		if(!data->map[x])
+			return(1);
 		x++;
 	}
 	return (0);
@@ -220,10 +225,14 @@ int	map_parse(char *map_str, t_data *data)
 	y = 0;
 	temp_data = NULL;
 	temp_data = ft_split(map_str, '\n');
+	ft_nullfree(map_str);
 	if (!temp_data)
 		return (ret_error("malloc failed"));
-	ft_nullfree(map_str);
-	map_init(temp_data, data); //calloc checks
+	if (map_init(temp_data, data) != 0)
+	{
+		ft_nullfree(map_str);
+		return(1);
+	}	
 	while (temp_data[y])
 	{
 		x = 0;
@@ -235,12 +244,26 @@ int	map_parse(char *map_str, t_data *data)
 		y++;
 	}
 	 y = 0;
-	while (temp_data[y])
+/* 	while (temp_data[y])
 	{
 		printf("data: %s\n", temp_data[y]);
 		y++;
-	} 
+	}  */
 	ft_arrfree(temp_data);
+	return (0);
+}
+
+int	all_data_found(t_data *data, char *map_str)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		if(!data->wall_text[i] || !data->wall_text[3] || data->floor < 0 \
+			|| data->ceiling < 0 || !map_str)
+			return (1);
+	}
 	return (0);
 }
 
@@ -249,7 +272,9 @@ int	extract_data(char *arg, t_data *data)
 	char	*buffer;
 	int		fd;
 	char	*map_str;
+	char	*ptr;
 
+	ptr = NULL;
 	map_str = NULL;
 	fd = 0;
 	buffer = NULL;
@@ -262,19 +287,39 @@ int	extract_data(char *arg, t_data *data)
 		if (!buffer)
 			break ;
 		if (check_line(buffer, data) != 0)
-			return (1); //Add freeing here
+		{
+			ft_nullfree(buffer);
+			ft_nullfree(map_str);
+			armageddon(data, "invalid file data");
+		}
 		if (data->mapstart > 0)
 		{
 			if (!map_str)
 				map_str = ft_strdup(buffer);
 			else
-				map_str = ft_strjoin(map_str, buffer); //this will leak for now
+			{
+				ptr = map_str;
+				map_str = ft_strjoin(map_str, buffer);
+				ft_nullfree(ptr);
+			}
 			if (!map_str)
-				return (1); //needs malloc error func
+			{
+				ft_nullfree(buffer);
+				armageddon(data, "malloc failed in parsing");
+			}
 		}
 		ft_nullfree(buffer);
 	}
-	map_parse(map_str, data); //check return value
+	if (all_data_found(data, map_str) != 0)
+	{
+		ft_nullfree(map_str);
+		return (1);
+	}
+	if (map_parse(map_str, data) != 0) //check return value
+	{
+		ft_nullfree(map_str);
+		return(1);
+	}
 	return (0);
 }
 
