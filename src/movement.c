@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 15:22:52 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:39:23 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	fwd_or_back(t_data *data, t_key key)
 	offset_x = 0.1 * sin(data->p_orientation - (90 * DEG_RAD));
 	bubble_y = (0.1 + bubble) * cos(data->p_orientation - (90 * DEG_RAD));
 	bubble_x = (0.1 + bubble) * sin(data->p_orientation - (90 * DEG_RAD));
-	if (key == BACK)
+	if (key == FORWARD)
 	{
 		if (!ft_collision(data, data->player_y + offset_y, data->player_x - offset_x) && \
 			!ft_collision(data, data->player_y + bubble_y, data->player_x - bubble_x))
@@ -54,7 +54,7 @@ void	fwd_or_back(t_data *data, t_key key)
 			data->player_x -= offset_x;
 		}
 	}
-	if (key == FORWARD)
+	if (key == BACK)
 	{
 		if (!ft_collision(data, data->player_y - offset_y, data->player_x + offset_x)&& \
 			!ft_collision(data, data->player_y - bubble_y, data->player_x + bubble_x))

@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 16:09:11 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:41:56 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,6 @@ int		ft_isspace(char c);
 int		all_data_found(t_data *data, char *map_str);
 void	ft_mapfree(char **array);
 void	ray_main(void *param);
+void	safe_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+
 # endif

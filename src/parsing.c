@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 15:23:10 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:38:11 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,15 +344,15 @@ int	pos_check(t_data *data, int y, int x)
 void    set_player_pos(char c, t_data *data, int y, int x)
 {
     if (c == 'N')
-        data->p_orientation = 90 * DEG_RAD;
+        data->p_orientation = 270 * DEG_RAD;
     else if (c == 'E')
         data->p_orientation = 0;
     else if (c == 'S')
-        data->p_orientation = 270 * DEG_RAD;    
+        data->p_orientation = 90 * DEG_RAD;    
     else if (c == 'W')
 		data->p_orientation = 180 * DEG_RAD;
 	data->player_x = (float)x + 0.5;
-	data->player_y = (float)y + 0.5;       
+	data->player_y = (float)y + 0.5;   
 }
 
 int	validate_map(t_data *data)
