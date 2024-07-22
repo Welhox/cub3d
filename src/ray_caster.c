@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/22 14:35:30 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:50:42 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,23 @@ void	print_penis(t_data *data)
 	printf("p->orient = %f\n", data->p_orientation / DEG_RAD);
  	while (i < 1 * data->scale)
 	{
-		safe_pixel(data->images->ray_grid, (data->player_x * data->scale) + i * sin(data->p_orientation - (90 * DEG_RAD)), (data->player_y * data->scale) - i * cos(data->p_orientation - (90 * DEG_RAD)), make_color(255, 0, 0, 255));
-		//mlx_put_pixel(data->images->ray_grid, (data->player_x * data->scale) + i * sin(data->p_orientation - (90 * DEG_RAD)), (data->player_y * data->scale) - i * cos(data->p_orientation - (90 * DEG_RAD)), make_color(255, 0, 0, 255));
+		safe_pixel(data->images->ray_grid, (data->player_x * data->scale) - i * sin(data->p_orientation - (90 * DEG_RAD)), (data->player_y * data->scale) + i * cos(data->p_orientation - (90 * DEG_RAD)), make_color(255, 0, 0, 255));
 		i++;
 	}
 }
 
 void	mm_rayprint(t_data *data, float dist)
 {
-	int	i;
-	//int	x;
-	//int	y;
-
-	i = 0;
-	//x = 0;
-	//y = 0;
+	int		i;
+	float	x;
+	float	y;
 	
- 	while (i < dist * data->scale)
+	i = 0;
+	while (i < dist * data->scale)
 	{
-		safe_pixel(data->images->ray_grid, (data->player_x * data->scale) + i * sin(data->p_orientation - (90 * DEG_RAD)), (data->player_y * data->scale) - i * cos(data->p_orientation - (90 * DEG_RAD)), make_color(0, 255, 0, 255));
+		x = (data->player_x * data->scale) - i * sin(data->p_orientation - (90 * DEG_RAD));
+		y = (data->player_y * data->scale) + i * cos(data->p_orientation - (90 * DEG_RAD));
+		safe_pixel(data->images->ray_grid, x, y, make_color(0, 255, 0, 255));
 		i++;
 	}
 }
@@ -95,11 +93,12 @@ void	ray_main(void *param)
 	dist = 0;
 	data->ray->ray_orient = data->p_orientation;
 	//dist = wall_dist(data, data->ray);
+	dist = 2;
 	mlx_delete_image(data->mlx, data->images->ray_grid);
 	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width, data->s_height);
 	if (!data->images->ray_grid)
 		armageddon(data, "image mallocing failed");
 	mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
-	print_penis(data);
-	//mm_rayprint(data, dist);
+	//print_penis(data);
+	mm_rayprint(data, dist);
 }
