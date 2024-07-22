@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/22 14:39:23 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:04:30 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	left_or_right(t_data *data, t_key key)
 	bubble_x = (0.1 + bubble) * sin(data->p_orientation);
 
 
-	if (key == S_RIGHT)
+	if (key == S_LEFT)
 	{
 		if (!ft_collision(data, data->player_y - offset_y, data->player_x + offset_x) && \
 			!ft_collision(data, data->player_y - bubble_y, data->player_x + bubble_x))
@@ -89,7 +89,7 @@ void	left_or_right(t_data *data, t_key key)
 			data->player_x += offset_x;
 		}
 	}
-	if (key == S_LEFT)
+	if (key == S_RIGHT)
 	{
 		if (!ft_collision(data, data->player_y + offset_y, data->player_x - offset_x) && \
 			!ft_collision(data, data->player_y + bubble_y, data->player_x - bubble_x))
@@ -107,13 +107,13 @@ void	move_player(t_data *data, t_key key)
 		left_or_right(data, key);
 	if (key == LEFT)
 	{
-		data->p_orientation -= 2 * DEG_RAD;
+		data->p_orientation -= 4 * DEG_RAD;
 		if (data->p_orientation < 0)
 			data->p_orientation += 2 * PI;
 	}
 	if (key == RIGHT)
 	{
-		data->p_orientation += 2 * DEG_RAD;
+		data->p_orientation += 4 * DEG_RAD;
 		if (data->p_orientation > (2 * PI))
 			data->p_orientation -= 2 * PI;
 	}

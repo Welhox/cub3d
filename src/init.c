@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 15:22:57 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:14:32 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,14 @@ void    init_all(t_data *data, t_ray *ray)
 	data->floor[3] = 0;
 	data->ceiling[3] = 0;
    	ray->data = data;
-    ray->ray_x = 0;
-    ray->ray_y = 0;
+    ray->hori_x = 0;
+    ray->hori_y = 0;
+	ray->vert_x = 0;
+	ray->vert_y = 0;
     ray->ray_orient = 0;
     ray->distance = 0;
+	ray->horizontal_dist = 0;
+	ray->vertical_dist = 0;
     data->ray = ray;
     data->scale = 0;
 }
