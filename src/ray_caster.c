@@ -3,53 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/22 14:50:42 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:58:51 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-float	wall_dist(t_data *data, t_ray *ray)
+static void first_vertical(t_data *data, t_ray *ray)
 {
-	float	horizontal_dist;
-	float	vertical_dist;
-
-	vertical_dist = 0;
-	horizontal_dist = 0;
-	//HORIZONTAL
-	if (ray->ray_orient == 0 || ray->ray_orient == PI || ray->ray_orient == (2 * PI))
-		horizontal_dist += data->fov_depth + 100;
-	if (ray->ray_orient < 180) //ray facing down, tan is inverted
+	if (!(ray->ray_orient == PI / 2 || ray->ray_orient == 1.5 * PI))
 	{
-		ray->ray_y = ceilf(data->player_y);
-		ray->ray_x = data->player_x + ((ceilf(data->player_y) - data->player_y) * -tan(ray->ray_orient));
+		if (ray->ray_orient < 1.5 * PI  && ray->ray_orient > PI / 2) // going left
+		{
+			
+			ray->vert_x = floor(data->player_x);
+			ray->vert_y = data->player_y + ((data->player_x - ray->vert_x) * tan(ray->ray_orient));
+		}
+		else
+		{
+			ray->vert_x = ceil(data->player_x);
+			ray->vert_y = data->player_y + ((ray->vert_x - data->player_x) * -tan(ray->ray_orient));
+		}
+		ray->vertical_dist = sqrt(pow(data->player_x - ray->vert_x, 2) + pow(data->player_y - ray->vert_y, 2));
 	}
-	else //ray facing up
-	{
-		ray->ray_y = floorf(data->player_y);
-		ray->ray_x = data->player_x + ((data->player_y - floorf(data->player_y)) * tan(ray->ray_orient)); 
-	}
-	//printf("p_x = %f p_y = %f\nr_x = %f r_y = %f\n", data->player_x, data->player_y, ray->ray_x, ray->ray_y);
-	
-	horizontal_dist = sqrt(pow(data->player_x - ray->ray_y, 2) + pow(data->player_y - ray->ray_y, 2));
-	printf("horizontal dist = %f ray orient = %f\n", horizontal_dist, ray->ray_orient);
-		printf("player pos = %f\n", data->p_orientation);    
-	//map->ray->y_dist = sqrt(pow((float)map->p_pos_x - ray_x, 2) + pow((float)map->p_pos_y - ray_y, 2));
-
-	return (horizontal_dist);
-
-	//VERTICAL
+	else
+		ray->vertical_dist = data->fov_depth + 42; //redundant, need to remove later
 }
 
-
-void	safe_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
-{
-	if (y < img->height && x < img->width)
-		mlx_put_pixel(img, x, y, color);
+static void	first_horizontal(t_data *data, t_ray *ray)
+{	
+	if (!(ray->ray_orient == 0 || ray->ray_orient == PI || ray->ray_orient == (2 * PI)))
+	{
+		if (ray->ray_orient > PI) // going up
+		{	
+			ray->hori_y = floor(data->player_y);
+			ray->hori_x = data->player_x + ((data->player_y - ray->hori_y) / -tan(ray->ray_orient));
+		}
+		else
+		{
+			ray->hori_y = ceil(data->player_y);
+			ray->hori_x = data->player_x + ((ray->hori_y - data->player_y) / tan(ray->ray_orient));
+		}
+		ray->horizontal_dist = sqrt(pow(data->player_x - ray->hori_x, 2) + pow(data->player_y - ray->hori_y, 2));
+	}
+	else
+		ray->horizontal_dist = data->fov_depth + 42; //redundant, need to remove later
 }
+//horizontal lines = y, vertical lines = x
+void	get_dist(t_data *data, t_ray *ray)
+{
+	first_horizontal(data, ray);
+	first_vertical(data, ray);
+	if (ray->horizontal_dist < ray->vertical_dist)
+		ray->distance = ray->horizontal_dist;
+	else
+		ray->distance = ray->vertical_dist;
+}
+
 // Delete later? :D
 void	print_penis(t_data *data)
 {
@@ -60,7 +73,7 @@ void	print_penis(t_data *data)
 	i = 0;
 	x = 0;
 	y = 0;
-	printf("p->orient = %f\n", data->p_orientation / DEG_RAD);
+	//printf("p->orient = %f\n", data->p_orientation / DEG_RAD);
  	while (i < 1 * data->scale)
 	{
 		safe_pixel(data->images->ray_grid, (data->player_x * data->scale) - i * sin(data->p_orientation - (90 * DEG_RAD)), (data->player_y * data->scale) + i * cos(data->p_orientation - (90 * DEG_RAD)), make_color(255, 0, 0, 255));
@@ -68,37 +81,34 @@ void	print_penis(t_data *data)
 	}
 }
 
-void	mm_rayprint(t_data *data, float dist)
+void	mm_rayprint(t_data *data)
 {
 	int		i;
 	float	x;
 	float	y;
 	
 	i = 0;
-	while (i < dist * data->scale)
+	while (i < data->ray->distance * data->scale)
 	{
 		x = (data->player_x * data->scale) - i * sin(data->p_orientation - (90 * DEG_RAD));
 		y = (data->player_y * data->scale) + i * cos(data->p_orientation - (90 * DEG_RAD));
-		safe_pixel(data->images->ray_grid, x, y, make_color(0, 255, 0, 255));
+		safe_pixel(data->images->ray_grid, x, y, make_color(0, 0, 255, 255));
 		i++;
 	}
 }
 
 void	ray_main(void *param)
 {
-	float	dist;
 	t_data	*data;
 
 	data = param;
-	dist = 0;
 	data->ray->ray_orient = data->p_orientation;
-	//dist = wall_dist(data, data->ray);
-	dist = 2;
+	get_dist(data, data->ray);
 	mlx_delete_image(data->mlx, data->images->ray_grid);
 	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width, data->s_height);
 	if (!data->images->ray_grid)
 		armageddon(data, "image mallocing failed");
 	mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
 	//print_penis(data);
-	mm_rayprint(data, dist);
+	mm_rayprint(data);
 }
