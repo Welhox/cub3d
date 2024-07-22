@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 15:23:10 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 13:07:39 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,7 +352,8 @@ void    set_player_pos(char c, t_data *data, int y, int x)
     else if (c == 'W')
 		data->p_orientation = 180 * DEG_RAD;
 	data->player_x = (float)x + 0.5;
-	data->player_y = (float)y + 0.5;       
+	data->player_y = (float)y + 0.5;   
+	printf("player pos = %f\n", data->p_orientation);    
 }
 
 int	validate_map(t_data *data)
