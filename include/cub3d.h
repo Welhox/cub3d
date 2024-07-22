@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/22 12:41:56 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:13:57 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ typedef struct s_images
 typedef struct s_ray
 {
 	t_data 	*data;
-	float	ray_x;
-	float	ray_y;
+	float	hori_x;
+	float	hori_y;
+	float	vert_x;
+	float	vert_y;
+	float	horizontal_dist;
+	float	vertical_dist;
 	float	ray_orient;
 	float	distance;
 }	t_ray;
@@ -79,7 +83,6 @@ typedef	struct s_data
 	t_images	*images;
 	mlx_t		*mlx;
 	float		scale;
-	
 }	t_data;
 
 
