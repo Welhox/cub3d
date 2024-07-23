@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/22 17:05:02 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:31:21 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ float	get_scale(t_data *data)
 	height = 0;
 	width = 0;
 	height = data->s_height / data->map_y_border;
-	width = data->s_width / data->map_x_border;
+	width = data->s_width / data->map_x_border;	
 	if (height < width)
 		return (height);
 	else
