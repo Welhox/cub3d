@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/19 15:25:43 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:33:53 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	free_images(t_images *img)
 {
-	if(img->bg)
-		mlx_delete_image(img->mlx, img->bg);
 	if(img->mm)
 		mlx_delete_image(img->mlx, img->mm);	
-	if(img->mm_floor)
-		mlx_delete_image(img->mlx, img->mm_floor);
 	if(img->wall)
 		mlx_delete_image(img->mlx, img->wall);
+	if(img->mm_floor)
+		mlx_delete_image(img->mlx, img->mm_floor);
+	if(img->bg)
+		mlx_delete_image(img->mlx, img->bg);
 	if(img->pl)
 		mlx_delete_image(img->mlx, img->pl);
 }
@@ -34,7 +34,8 @@ void	armageddon(t_data *data, char *error)
 	i = 0;
 	if (data->mlx)
 	{
-		free_images(data->images);
+		if (data->images)
+			free_images(data->images);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
 		//free mlx textures
@@ -50,8 +51,10 @@ void	armageddon(t_data *data, char *error)
 	{
 		ft_putendl_fd("Error", 2);
 		ft_putendl_fd(error, 2);
+		exit(1);
 	}
-	exit(1);
+	printf("Great success!\n");
+	exit(0);
 }
 
 int main(int ac, char **av)
@@ -64,6 +67,6 @@ int main(int ac, char **av)
 		armageddon(&data, NULL);
 	update_params(&data);
 	mlx_main(&data, &ray);
-	printf("great success!\n");
+	armageddon(&data, NULL);
 	return (0);
 }

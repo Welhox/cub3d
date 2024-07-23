@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/22 14:38:11 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:17:39 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,18 +145,8 @@ int	check_assets(char *line, t_data *data)
 	}
 	return (0);
 }
-
-int	check_line(char *line, t_data *data)
+int check_color(char *line, t_data *data)
 {
-	if (ft_empty(line) == 0)
-	{
-		if (data->mapstart < 0)
-			return (0);
-		else
-			return (1);
-	}
-	if (check_assets(line, data) == 1)
-	 	return (1);	
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		if (data->floor[3] == 0)
@@ -177,6 +167,22 @@ int	check_line(char *line, t_data *data)
 		else
 			return (1);
 	}
+	return (0);
+}
+
+int	check_line(char *line, t_data *data)
+{
+	if (ft_empty(line) == 0)
+	{
+		if (data->mapstart < 0)
+			return (0);
+		else
+			return (1);
+	}
+	if (check_assets(line, data) == 1)
+	 	return (1);	
+	if (check_color(line, data) == 1)
+		return (1);
 	if (ft_ismap(line) == 0)
 	{
 		if (data->mapstart < 0)
@@ -260,7 +266,7 @@ int	all_data_found(t_data *data, char *map_str)
 {
 	int	i;
 
-	i = -1;
+	i = -1;	
 	while (++i < 3)
 	{
 		if(!data->wall_text[i] || !data->wall_text[3] || data->floor[i] < 0 \
