@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/24 12:50:03 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:20:59 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	mlx_main(t_data *data, t_ray *ray)
 {
 	t_images	img;
 
-	data->images = &img;
 	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
+	data->images = &img;
 	img.mlx = data->mlx;
 	if (!data->mlx)
 		exit (1);
