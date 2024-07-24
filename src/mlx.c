@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/23 15:33:37 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:50:03 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	update_params(t_data *data)
 	data->s_height = 1600;
 	data->s_width = 1800;
 	data->fov = 60;
-	data->fov_depth = 8;
+	data->render_dist = 8;
 	data->scale = get_scale(data);
 }
 

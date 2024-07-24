@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/23 15:35:57 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:44:53 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void first_vertical(t_data *data, t_ray *ray)
+static void first_vertical(t_data *data, t_ray *ray, bool *end)
 {
 	if (!(ray->ray_orient == PI / 2 || ray->ray_orient == 1.5 * PI))
 	{
@@ -30,10 +30,14 @@ static void first_vertical(t_data *data, t_ray *ray)
 		ray->vertical_dist = sqrt(pow(data->player_x - ray->vert_x, 2) + pow(data->player_y - ray->vert_y, 2));
 	}
 	else
-		ray->vertical_dist = data->fov_depth + 42; //redundant, need to remove later
+	{
+		ray->vertical_dist = data->render_dist + 42; //redundant, need to remove later
+		*end = true; 
+	}
 }
 
-static void	first_horizontal(t_data *data, t_ray *ray)
+
+static void	first_horizontal(t_data *data, t_ray *ray, bool *end)
 {	
 	if (!(ray->ray_orient == 0 || ray->ray_orient == PI || ray->ray_orient == (2 * PI)))
 	{
@@ -50,13 +54,81 @@ static void	first_horizontal(t_data *data, t_ray *ray)
 		ray->horizontal_dist = sqrt(pow(data->player_x - ray->hori_x, 2) + pow(data->player_y - ray->hori_y, 2));
 	}
 	else
-		ray->horizontal_dist = data->fov_depth + 42; //redundant, need to remove later
+	{
+		ray->horizontal_dist = data->render_dist + 42; //redundant, need to remove later
+		*end = true;
+	}
+}
+
+void	horizontal_delta(t_data *data, t_ray *ray)
+{
+	if (ray->ray_orient > PI) // going up
+	{
+		ray->h_delta_y = -1;
+		ray->h_delta_x = 1 / -tan(ray->ray_orient);
+	}
+	else
+	{
+		ray->h_delta_y = 1;
+		ray->h_delta_x = 1 / tan(ray->ray_orient);
+	}
+	ray->h_step_dist = sqrt(pow(ray->hori_x - (ray->hori_x + ray->h_delta_x), 2) \
+		+ pow(ray->hori_y - (ray->hori_y + ray->h_delta_y), 2));	
+}
+
+void	vertical_delta(t_data *data, t_ray *ray)
+{
+	if (ray->ray_orient < 1.5 * PI  && ray->ray_orient > PI / 2) // going left
+	{
+		ray->v_delta_x = -1;
+		ray->v_delta_y = 1 * tan(ray->ray_orient);
+	}
+	else
+	{
+		ray->v_delta_x = 1;
+		ray->v_delta_y = 1 * -tan(ray->ray_orient);
+	}
+	ray->v_step_dist = sqrt(pow(ray->vert_x - (ray->vert_x + ray->v_delta_x), 2) \
+		+ pow(ray->vert_y - (ray->vert_y + ray->v_delta_y), 2));
 }
 //horizontal lines = y, vertical lines = x
 void	get_dist(t_data *data, t_ray *ray)
 {
-	first_horizontal(data, ray);
-	first_vertical(data, ray);
+	bool	vert_end;
+	bool	hori_end;
+
+	vert_end = false;
+	hori_end = false;
+	first_horizontal(data, ray, &hori_end);
+	first_vertical(data, ray, &vert_end);
+	if (hori_end == false)
+		horizontal_delta(data, ray);
+	if (vert_end == false)
+		vertical_delta(data, ray);
+/* 	while(42)
+	{
+		if ()
+		ray->hori_x += ray->h_delta_x;
+		ray->hori_y += ray->h_delta_y;
+
+		ray->vert_x += ray->v_delta_x;
+		ray->vert_y += ray->v_delta_y;
+	}
+	 */
+ 	if (vert_end == false)
+	{
+		ray->vertical_dist += ray->v_step_dist;
+		ray->vertical_dist += ray->v_step_dist;
+	}
+	if (hori_end == false)
+	{
+		ray->horizontal_dist += ray->h_step_dist;	
+		ray->horizontal_dist += ray->h_step_dist;
+	}
+	//ray->horizontal_dist = sqrt(pow(data->player_x - ray->hori_x, 2) + pow(data->player_y - ray->hori_y, 2));
+	//ray->vertical_dist = sqrt(pow(data->player_x - ray->vert_x, 2) + pow(data->player_y - ray->vert_y, 2));
+	//ray->distance = sqrt(pow(data->player_x - ray->hori_x, 2) + pow(data->player_y - ray->hori_y, 2));
+
 	if (ray->horizontal_dist < ray->vertical_dist)
 		ray->distance = ray->horizontal_dist;
 	else
@@ -103,6 +175,8 @@ void	ray_main(void *param)
 
 	data = param;
 	data->ray->ray_orient = data->p_orientation;
+/* 	data->ray->v_step_dist = 0;
+	data->ray->h_step_dist = 0; */
 	get_dist(data, data->ray);
 	mlx_delete_image(data->mlx, data->images->ray_grid);
 	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width, data->s_height);

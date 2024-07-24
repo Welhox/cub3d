@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/22 17:04:30 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:43:27 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void update_mm_player(t_data *data)
 	data->images->pl->instances[0].x = scale_x;
 	data->images->pl->instances[0].y = scale_y;
 }
-//returns 1 if char is found
+//returns 1 if sq is wall or outside border
 int	ft_collision(t_data *data, float y, float x)
 {
 	if (y < 0 || x < 0 || y > data->map_y_border || x > data->map_x_border)

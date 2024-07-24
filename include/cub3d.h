@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/22 15:13:57 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:38:26 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,16 @@ typedef struct s_ray
 	float	hori_y;
 	float	vert_x;
 	float	vert_y;
+	float	h_delta_x;
+	float	h_delta_y;
+	float	v_delta_x;
+	float	v_delta_y;
 	float	horizontal_dist;
 	float	vertical_dist;
 	float	ray_orient;
 	float	distance;
+	float	h_step_dist;
+	float	v_step_dist;
 }	t_ray;
 
 typedef	struct s_data
@@ -78,7 +84,7 @@ typedef	struct s_data
 	float		s_height;
 	float		s_width;
 	float		fov;
-	float		fov_depth;
+	float		render_dist;
 	t_ray		*ray;
 	t_images	*images;
 	mlx_t		*mlx;
@@ -107,5 +113,6 @@ int		all_data_found(t_data *data, char *map_str);
 void	ft_mapfree(char **array);
 void	ray_main(void *param);
 void	safe_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+int		ft_collision(t_data *data, float y, float x);
 
 # endif
