@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/23 15:33:37 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:20:59 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	update_params(t_data *data)
 	data->s_height = 1600;
 	data->s_width = 1800;
 	data->fov = 60;
-	data->fov_depth = 8;
+	data->render_dist = 8;
 	data->scale = get_scale(data);
 }
 
@@ -49,8 +49,8 @@ void	mlx_main(t_data *data, t_ray *ray)
 {
 	t_images	img;
 
-	data->images = &img;
 	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
+	data->images = &img;
 	img.mlx = data->mlx;
 	if (!data->mlx)
 		exit (1);
