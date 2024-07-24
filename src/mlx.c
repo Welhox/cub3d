@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/24 14:20:59 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:14:30 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	update_params(t_data *data)
 	data->fov = 60;
 	data->render_dist = 8;
 	data->scale = get_scale(data);
+	data->ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
 }
 
 void	keypress(void *param)
@@ -45,6 +46,16 @@ void	keypress(void *param)
 		move_player(data, RIGHT);
 }
 
+void	initial_render(t_data *data)
+{
+
+	data->images->fg = mlx_new_image(data->mlx, data->s_width, data->s_height);
+	if (!data->images->fg)
+		armageddon(data, "image mallocing failed");
+	mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
+	minimap(data, data->images);
+}
+
 void	mlx_main(t_data *data, t_ray *ray)
 {
 	t_images	img;
@@ -54,7 +65,8 @@ void	mlx_main(t_data *data, t_ray *ray)
 	img.mlx = data->mlx;
 	if (!data->mlx)
 		exit (1);
-	minimap(data, data->images);
+	initial_render(data);
+
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 16:25:36 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:00:55 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,24 +180,6 @@ void	get_dist(t_data *data, t_ray *ray)
 		ray->distance = ray->vertical_dist;
 }
 
-// Delete later? :D
-void	print_penis(t_data *data)
-{
-	int	i;
-	int	x;
-	int	y;
-
-	i = 0;
-	x = 0;
-	y = 0;
-	//printf("p->orient = %f\n", data->p_orientation / DEG_RAD);
- 	while (i < 1 * data->scale)
-	{
-		safe_pixel(data->images->ray_grid, (data->player_x * data->scale) - i * sin(data->p_orientation - (90 * DEG_RAD)), (data->player_y * data->scale) + i * cos(data->p_orientation - (90 * DEG_RAD)), make_color(255, 0, 0, 255));
-		i++;
-	}
-}
-
 void	mm_rayprint(t_data *data)
 {
 	int		i;
@@ -214,30 +196,64 @@ void	mm_rayprint(t_data *data)
 	}
 }
 
+void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
+{
+	int	height;
+	int	start;
+
+	printf("proj plane = %f\n", ray->proj_plane);
+	ray->distance = ray->distance * cos(data->p_orientation - ray->ray_orient);
+	height = (64 / (ray->distance * 64)) * ray->proj_plane;
+	start = (data->s_height / 2) - (height / 2);
+
+	while (height > 0)
+	{
+		safe_pixel(data->images->fg, pixel_row, start, make_color(0, 200, 0, 200));
+		start++;
+		height--;
+	}
+	
+}
+
 void	ray_main(void *param)
 {
 	t_data	*data;
-	float	rays;
+	float	ray_offset;
+	t_ray	*ray;
+	int		pixel_row;
 
+	pixel_row = 0;
 	data = param;
-	rays = -30;
+	ray = data->ray;
+	ray_offset = (data->fov / data->s_width) * DEG_RAD;
+
+
+
+
+	
+	mlx_delete_image(data->mlx, data->images->fg);
+	data->images->fg = mlx_new_image(data->mlx, data->s_width, data->s_height);
+	if (!data->images->fg)
+		armageddon(data, "image mallocing failed");
+	mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
+
 	mlx_delete_image(data->mlx, data->images->ray_grid);
-	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width, data->s_height);
+	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width / 3, data->s_height / 3); // scale according to mm
 	if (!data->images->ray_grid)
 		armageddon(data, "image mallocing failed");
 	mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
-	while (rays <= 30)
+
+	ray->ray_orient = data->p_orientation - ((data->fov / 2) * DEG_RAD);
+	while (pixel_row < data->s_width)
 	{
-		data->ray->ray_orient = data->p_orientation;
-		data->ray->ray_orient += (rays * DEG_RAD);
 		if (data->ray->ray_orient < 0)
 			data->ray->ray_orient += 2 * PI;
 		else if (data->ray->ray_orient > 2 * PI)
 			data->ray->ray_orient -= 2 * PI;
 		get_dist(data, data->ray);
-		//print_penis(data);
 		mm_rayprint(data);
-		rays += 1;
-		printf("dist = %f\n", data->ray->distance);
+		paint_row(data, ray, pixel_row);
+		ray->ray_orient += ray_offset;
+		pixel_row++;
 	}
 }
