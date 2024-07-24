@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/23 15:31:21 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:29:03 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	mm_render(t_data *data, t_images *img)
 
 void	minimap(t_data *data, t_images *img)
 {
-	data->images->mm = mlx_new_image(data->mlx, data->s_width, data->s_height);
+	data->images->mm = mlx_new_image(data->mlx, data->s_width / 3 , data->s_height / 3);
 	if (!data->images->mm)
 		armageddon(data, "image mallocing failed");
 	data->images->pl = mlx_new_image(data->mlx, data->scale / 5, data->scale / 5);
@@ -49,7 +49,7 @@ void	minimap(t_data *data, t_images *img)
 	data->images->mm_floor = mlx_new_image(data->mlx, data->scale -1, data->scale -1);
 	if (!data->images->mm_floor)
 		armageddon(data, "image mallocing failed");
-	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width, data->s_height);
+	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width / 3, data->s_height / 3);
 	if (!data->images->ray_grid)
 		armageddon(data, "image mallocing failed");
 	color_image(data->images->mm, make_color(100, 100, 100, 255));	
@@ -69,8 +69,8 @@ float	get_scale(t_data *data)
 
 	height = 0;
 	width = 0;
-	height = data->s_height / data->map_y_border;
-	width = data->s_width / data->map_x_border;	
+	height = (data->s_height / data->map_y_border) / 3;
+	width = (data->s_width / data->map_x_border) / 3;	
 	if (height < width)
 		return (height);
 	else
