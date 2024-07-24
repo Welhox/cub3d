@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 16:22:17 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:25:36 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static void first_vertical(t_data *data, t_ray *ray, bool *end)
 		{
 			
 			ray->vert_x = floorf(data->player_x);
-			ray->vert_y = data->player_y + ((data->player_x - ray->vert_x) * tan(ray->ray_orient));
+			ray->vert_y = data->player_y + ((data->player_x - ray->vert_x) * -tan(ray->ray_orient));
 		}
 		else
 		{
 			ray->vert_x = ceilf(data->player_x);
-			ray->vert_y = data->player_y + ((ray->vert_x - data->player_x) * -tan(ray->ray_orient));
+			ray->vert_y = data->player_y + ((ray->vert_x - data->player_x) * tan(ray->ray_orient));
 		}
 		ray->vertical_dist = sqrt(pow(data->player_x - ray->vert_x, 2) + pow(data->player_y - ray->vert_y, 2));
 	}
@@ -81,12 +81,12 @@ void	vertical_delta(t_data *data, t_ray *ray)
 	if (ray->ray_orient < 1.5 * PI  && ray->ray_orient > PI / 2) // going left
 	{
 		ray->v_delta_x = -1;
-		ray->v_delta_y = 1 * tan(ray->ray_orient);
+		ray->v_delta_y = 1 * -tan(ray->ray_orient);
 	}
 	else
 	{
 		ray->v_delta_x = 1;
-		ray->v_delta_y = 1 * -tan(ray->ray_orient);
+		ray->v_delta_y = 1 * tan(ray->ray_orient);
 	}
 	ray->v_step_dist = sqrt(pow(ray->vert_x - (ray->vert_x + ray->v_delta_x), 2) \
 		+ pow(ray->vert_y - (ray->vert_y + ray->v_delta_y), 2));
@@ -205,7 +205,7 @@ void	mm_rayprint(t_data *data)
 	float	y;
 	
 	i = 0;
-	while (i < data->ray->distance * data->scale)// && i < data->render_dist * data->scale)
+	while (i < data->ray->distance * data->scale && i < data->render_dist * data->scale)
 	{
 		x = (data->player_x * data->scale) - i * sin(data->ray->ray_orient - (90 * DEG_RAD));
 		y = (data->player_y * data->scale) + i * cos(data->ray->ray_orient - (90 * DEG_RAD));
