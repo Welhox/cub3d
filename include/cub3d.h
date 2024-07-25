@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 12:38:26 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:14:59 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_images
 	mlx_image_t	*bg; //background
 	mlx_image_t	*pl; //player
 	mlx_image_t *ray_grid; //layer for all the rays
+	mlx_image_t	*fg; //foreground
 	mlx_t		*mlx;
 }	t_images;
 
@@ -67,6 +68,7 @@ typedef struct s_ray
 	float	distance;
 	float	h_step_dist;
 	float	v_step_dist;
+	float	proj_plane;
 }	t_ray;
 
 typedef	struct s_data

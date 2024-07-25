@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 12:38:27 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:02:48 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void    init_all(t_data *data, t_ray *ray)
     ray->h_step_dist = 0;
     ray->v_step_dist = 0;
 
+    ray->proj_plane = 0;
     ray->ray_orient = 0;
     ray->distance = 0;
 	ray->horizontal_dist = 0;
