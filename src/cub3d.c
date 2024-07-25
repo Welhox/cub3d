@@ -6,23 +6,23 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 14:18:24 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:51:11 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/cub3d.h" 
+#include "../include/cub3d.h" 
 
 void	free_images(t_images *img)
 {
-	if(img->mm)
-		mlx_delete_image(img->mlx, img->mm);	
-	if(img->wall)
+	if (img->mm)
+		mlx_delete_image(img->mlx, img->mm);
+	if (img->wall)
 		mlx_delete_image(img->mlx, img->wall);
-	if(img->mm_floor)
+	if (img->mm_floor)
 		mlx_delete_image(img->mlx, img->mm_floor);
-	if(img->bg)
+	if (img->bg)
 		mlx_delete_image(img->mlx, img->bg);
-	if(img->pl)
+	if (img->pl)
 		mlx_delete_image(img->mlx, img->pl);
 }
 
@@ -39,14 +39,14 @@ void	armageddon(t_data *data, char *error)
 		mlx_terminate(data->mlx);
 		//free mlx textures
 	}
-	while(i < 4)
+	while (i < 4)
 	{
 		if (data->wall_text[i])
-			ft_nullfree(data->wall_text[i]);
+			ft_nullfree(data->wall_text[i], 0);
 		i++;
 	}
 	ft_mapfree(data->map);
-	if(error)
+	if (error)
 	{
 		ft_putendl_fd("Error", 2);
 		ft_putendl_fd(error, 2);
@@ -56,16 +56,17 @@ void	armageddon(t_data *data, char *error)
 	exit(0);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data		data;
 	t_ray		ray;
-	
-	init_all(&data, &ray);
+	t_player	player;
+
+	init_all(&data, &ray, &player);
 	if (parsing(ac, av, &data) != 0)
 		armageddon(&data, NULL);
-	update_params(&data);
-	mlx_main(&data, &ray);
+	update_params(&data, &ray);
+	mlx_main(&data);
 	armageddon(&data, NULL);
 	return (0);
 }

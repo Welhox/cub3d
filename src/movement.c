@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 12:43:27 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:06:16 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void update_mm_player(t_data *data)
+void	update_mm_player(t_data *data, t_player *pl)
 {
 	float	scale_x;
 	float	scale_y;
 
-	scale_x = data->scale * data->player_x - ((data->scale / 5) / 2);
-	scale_y = data->scale * data->player_y - ((data->scale / 5) / 2);
+	scale_x = data->scale * pl->pl_x - ((data->scale / 5) / 2);
+	scale_y = data->scale * pl->pl_y - ((data->scale / 5) / 2);
 	data->images->pl->instances[0].x = scale_x;
 	data->images->pl->instances[0].y = scale_y;
 }
+
 //returns 1 if sq is wall or outside border
 int	ft_collision(t_data *data, float y, float x)
 {
@@ -32,91 +33,77 @@ int	ft_collision(t_data *data, float y, float x)
 	return (0);
 }
 
-void	fwd_or_back(t_data *data, t_key key)
-{
-	float	offset_y;
-	float	offset_x;
-	float	bubble_y;
-	float	bubble_x;
-	float	bubble;
+// void	move_f_or_b(t_data *data, t_key key, )
 
-	bubble = 0.1;
-	offset_y = 0.1 * cos(data->p_orientation - (90 * DEG_RAD));
-	offset_x = 0.1 * sin(data->p_orientation - (90 * DEG_RAD));
-	bubble_y = (0.1 + bubble) * cos(data->p_orientation - (90 * DEG_RAD));
-	bubble_x = (0.1 + bubble) * sin(data->p_orientation - (90 * DEG_RAD));
+void	fwd_or_back(t_data *data, t_player *pl, t_key key)
+{
+	pl->step_y = 0.1 * cos(pl->p_orientation - (90 * DEG_RAD));
+	pl->step_x = 0.1 * sin(pl->p_orientation - (90 * DEG_RAD));
+	pl->bub_y = BUBBLE * cos(pl->p_orientation - (90 * DEG_RAD));
+	pl->bub_x = BUBBLE * sin(pl->p_orientation - (90 * DEG_RAD));
 	if (key == FORWARD)
 	{
-		if (!ft_collision(data, data->player_y + offset_y, data->player_x - offset_x) && \
-			!ft_collision(data, data->player_y + bubble_y, data->player_x - bubble_x))
+		if (!ft_collision(data, pl->pl_y + pl->step_y, pl->pl_x - pl->step_x) \
+		&& !ft_collision(data, pl->pl_y + pl->bub_y, pl->pl_x - pl->bub_x))
 		{
-			data->player_y += offset_y;
-			data->player_x -= offset_x;
+			pl->pl_y += pl->step_y;
+			pl->pl_x -= pl->step_x;
 		}
 	}
 	if (key == BACK)
 	{
-		if (!ft_collision(data, data->player_y - offset_y, data->player_x + offset_x)&& \
-			!ft_collision(data, data->player_y - bubble_y, data->player_x + bubble_x))
+		if (!ft_collision(data, pl->pl_y - pl->step_y, pl->pl_x + pl->step_x) \
+		&& !ft_collision(data, pl->pl_y - pl->bub_y, pl->pl_x + pl->bub_x))
 		{
-			data->player_y -= offset_y;
-			data->player_x += offset_x;
+			pl->pl_y -= pl->step_y;
+			pl->pl_x += pl->step_x;
 		}
 	}
 }
 
-void	left_or_right(t_data *data, t_key key)
+void	left_or_right(t_data *data, t_player *pl, t_key key)
 {
-	float	offset_y;
-	float	offset_x;
-	float	bubble_y;
-	float	bubble_x;
-	float	bubble;
-
-	bubble = 0.1;
-	offset_y = 0.1 * cos(data->p_orientation);
-	offset_x = 0.1 * sin(data->p_orientation);
-	bubble_y = (0.1 + bubble) * cos(data->p_orientation);
-	bubble_x = (0.1 + bubble) * sin(data->p_orientation);
-
-
+	pl->step_y = 0.1 * cos(pl->p_orientation);
+	pl->step_x = 0.1 * sin(pl->p_orientation);
+	pl->bub_y = BUBBLE * cos(pl->p_orientation);
+	pl->bub_x = BUBBLE * sin(pl->p_orientation);
 	if (key == S_LEFT)
 	{
-		if (!ft_collision(data, data->player_y - offset_y, data->player_x + offset_x) && \
-			!ft_collision(data, data->player_y - bubble_y, data->player_x + bubble_x))
+		if (!ft_collision(data, pl->pl_y - pl->step_y, pl->pl_x + pl->step_x) \
+			&& !ft_collision(data, pl->pl_y - pl->bub_y, pl->pl_x + pl->bub_x))
 		{
-			data->player_y -= offset_y;
-			data->player_x += offset_x;
+			pl->pl_y -= pl->step_y;
+			pl->pl_x += pl->step_x;
 		}
 	}
 	if (key == S_RIGHT)
 	{
-		if (!ft_collision(data, data->player_y + offset_y, data->player_x - offset_x) && \
-			!ft_collision(data, data->player_y + bubble_y, data->player_x - bubble_x))
+		if (!ft_collision(data, pl->pl_y + pl->step_y, pl->pl_x - pl->step_x) \
+			&& !ft_collision(data, pl->pl_y + pl->bub_y, pl->pl_x - pl->bub_x))
 		{
-			data->player_y += offset_y;
-			data->player_x -= offset_x;
+			pl->pl_y += pl->step_y;
+			pl->pl_x -= pl->step_x;
 		}
 	}
 }
-void	move_player(t_data *data, t_key key)
+
+void	move_player(t_data *data, t_player *pl, t_key key)
 {
 	if (key == FORWARD || key == BACK)
-		fwd_or_back(data, key);
+		fwd_or_back(data, pl, key);
 	if (key == S_LEFT || key == S_RIGHT)
-		left_or_right(data, key);
+		left_or_right(data, pl, key);
 	if (key == LEFT)
 	{
-		data->p_orientation -= 4 * DEG_RAD;
-		if (data->p_orientation < 0)
-			data->p_orientation += 2 * PI;
+		pl->p_orientation -= 4 * DEG_RAD;
+		if (pl->p_orientation < 0)
+			pl->p_orientation += 4 * PI;
 	}
 	if (key == RIGHT)
 	{
-		data->p_orientation += 4 * DEG_RAD;
-		if (data->p_orientation > (2 * PI))
-			data->p_orientation -= 2 * PI;
+		pl->p_orientation += 4 * DEG_RAD;
+		if (pl->p_orientation > (2 * PI))
+			pl->p_orientation -= 4 * PI;
 	}
-	update_mm_player(data);
+	update_mm_player(data, pl);
 }
-
