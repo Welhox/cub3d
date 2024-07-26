@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 14:07:24 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:21:20 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,10 +179,10 @@ void	mm_rayprint(t_data *data)
 	{
 		x = (data->player->pl_x * data->scale) - i * sin(data->ray->ray_orient - (90 * DEG_RAD));
 		y = (data->player->pl_y * data->scale) + i * cos(data->ray->ray_orient - (90 * DEG_RAD));
-		safe_pixel(data->images->ray_grid, x, y, make_color(255, 0, 0, 200));
+		safe_pixel(data->img->ray_grid, x, y, make_color(255, 0, 0, 200));
 		i++;
 	}
-	//mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
+	//mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 }
 
 void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
@@ -200,14 +200,14 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 
 	while (height > 0)
 	{
-		safe_pixel(data->images->fg, pixel_row, start, make_color(100, 50 * ray->wall_face, 100, 255));
+		safe_pixel(data->img->fg, pixel_row, start, make_color(100, 50 * ray->wall_face, 100, 255));
 		start++;
 		height--;
 	}
-	//mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
-	//mlx_set_instance_depth(data->images->fg->instances, 2);
+	//mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
+	//mlx_set_instance_depth(data->img->fg->instances, 2);
 }
-void	refresh_images(t_data *data, t_images *img)
+void	refresh_img(t_data *data, t_img *img)
 {
 
 	mlx_delete_image(data->mlx, img->ray_grid);
@@ -246,7 +246,7 @@ void	ray_main(void *param)
 	ray = data->ray;
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;
 	ray->ray_orient = data->player->p_orientation - ((data->fov / 2) * DEG_RAD);
-	refresh_images(data, data->images);
+	refresh_img(data, data->img);
 	while (pixel_row < data->s_width)
 	{
 		fix_orientation(&ray->ray_orient);
@@ -259,7 +259,7 @@ void	ray_main(void *param)
 		ray->ray_orient += ray_offset;
 		pixel_row++;
 	}
-	mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
-	mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
-	mlx_set_instance_depth(data->images->fg->instances, 2);
+	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
+	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
+	mlx_set_instance_depth(data->img->fg->instances, 2);
 }

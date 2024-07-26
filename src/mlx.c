@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 13:29:17 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:21:20 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,44 @@ void	initial_render(t_data *data)
 
 	ceil = make_color(data->ceiling[0], data->ceiling[1], data->ceiling[2], 255);
 	floor = make_color(data->floor[0], data->floor[1], data->floor[2], 255);
-	safe_image(data, data->s_width, data->s_height / 2, &data->images->floor);
-	safe_image(data, data->s_width, data->s_height / 2, &data->images->ceiling);
-	color_image(data->images->ceiling, ceil);
-	color_image(data->images->floor, floor);
-	mlx_image_to_window(data->mlx, data->images->ceiling, 0, 0);
-	mlx_image_to_window(data->mlx, data->images->floor, 0, data->s_height / 2);
+	safe_image(data, data->s_width, data->s_height / 2, &data->img->floor);
+	safe_image(data, data->s_width, data->s_height / 2, &data->img->ceiling);
+	color_image(data->img->ceiling, ceil);
+	color_image(data->img->floor, floor);
+	mlx_image_to_window(data->mlx, data->img->ceiling, 0, 0);
+	mlx_image_to_window(data->mlx, data->img->floor, 0, data->s_height / 2);
 
-	safe_image(data, data->s_width, data->s_height, &data->images->fg);
-	mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
-	minimap(data, data->images);
+	safe_image(data, data->s_width, data->s_height, &data->img->fg);
+	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
+	minimap(data, data->img);
+}
+
+void	init_img_text(t_img *img)
+{
+	img->mm = NULL;
+	img->mm_wall = NULL;
+	img->mm_floor = NULL;
+	img->floor = NULL;
+	img->ceiling = NULL;
+	img->pl = NULL;
+	img->ray_grid = NULL;
+	img->fg = NULL;
+	img->n_wall = NULL;
+	img->s_wall = NULL;
+	img->e_wall = NULL;
+	img->w_wall = NULL;
 }
 
 void	mlx_main(t_data *data)
 {
-	t_images	img;
+	t_img	img;
 
 	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
-	data->images = &img;
+	data->img = &img;
 	img.mlx = data->mlx;
 	if (!data->mlx)
 		exit (1);
+	init_img_text(data->img);	
 	initial_render(data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
