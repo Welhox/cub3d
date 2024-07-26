@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/25 17:51:11 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:49:21 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	free_images(t_images *img)
 		mlx_delete_image(img->mlx, img->wall);
 	if (img->mm_floor)
 		mlx_delete_image(img->mlx, img->mm_floor);
-	if (img->bg)
-		mlx_delete_image(img->mlx, img->bg);
+	if (img->floor)
+		mlx_delete_image(img->mlx, img->floor);
+	if (img->ceiling)
+		mlx_delete_image(img->mlx, img->ceiling);
 	if (img->pl)
 		mlx_delete_image(img->mlx, img->pl);
 }

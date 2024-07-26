@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/25 17:48:42 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:54:36 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ void	minimap(t_data *data, t_images *img)
 
 	p_pos_x = data->scale * data->player->pl_x - ((data->scale / 5) / 2);
 	p_pos_y = data->scale * data->player->pl_y - ((data->scale / 5) / 2);
-	safe_image(data, data->s_width / 3, data->s_height / 3, &img->mm);
-	safe_image(data, data->scale / 3, data->scale / 3, &img->pl);
+	safe_image(data, data->s_width / mms, data->s_height / mms, &img->mm);
+	safe_image(data, data->scale / mms, data->scale / mms, &img->pl);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->wall);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_floor);
-	safe_image(data, data->s_width / 3, data->s_height / 3, &img->ray_grid);
-	color_image(img->mm, make_color(100, 100, 100, 255));
+	safe_image(data, data->s_width / mms, data->s_height / mms, &img->ray_grid);
+	color_image(img->mm, make_color(100, 100, 100, 0));
 	color_image(img->pl, make_color(255, 0, 0, 255));
 	color_image(img->wall, make_color(0, 0, 0, 255));
 	color_image(img->mm_floor, make_color(200, 200, 200, 255));
 	mlx_image_to_window(data->mlx, img->mm, 0, 0);
 	mm_render(data, data->player, img);
-	mlx_image_to_window(data->mlx, img->pl, p_pos_x, p_pos_y); //wrong position?
+	mlx_image_to_window(data->mlx, img->pl, p_pos_x, p_pos_y);
 	mlx_image_to_window(data->mlx, img->ray_grid, 0, 0);
 }
 

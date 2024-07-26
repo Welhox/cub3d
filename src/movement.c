@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/25 13:06:16 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:39:12 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,11 @@ void	move_player(t_data *data, t_player *pl, t_key key)
 	if (key == LEFT)
 	{
 		pl->p_orientation -= 4 * DEG_RAD;
-		if (pl->p_orientation < 0)
-			pl->p_orientation += 4 * PI;
+		fix_orientation(&pl->p_orientation);
 	}
 	if (key == RIGHT)
 	{
 		pl->p_orientation += 4 * DEG_RAD;
-		if (pl->p_orientation > (2 * PI))
-			pl->p_orientation -= 4 * PI;
+		fix_orientation(&pl->p_orientation);
 	}
-	update_mm_player(data, pl);
 }

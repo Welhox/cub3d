@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 10:55:50 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:27:07 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	update_params(t_data *data, t_ray *ray)
 	data->render_dist = 8;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
+
 }
 
 void	keypress(void *param)
@@ -48,9 +49,19 @@ void	keypress(void *param)
 
 void	initial_render(t_data *data)
 {
-	data->images->fg = mlx_new_image(data->mlx, data->s_width, data->s_height);
-	if (!data->images->fg)
-		armageddon(data, "image mallocing failed");
+	int	ceil;
+	int	floor;
+
+	ceil = make_color(data->ceiling[0], data->ceiling[1], data->ceiling[2], 255);
+	floor = make_color(data->floor[0], data->floor[1], data->floor[2], 255);
+	safe_image(data, data->s_width, data->s_height / 2, &data->images->floor);
+	safe_image(data, data->s_width, data->s_height / 2, &data->images->ceiling);
+	color_image(data->images->ceiling, ceil);
+	color_image(data->images->floor, floor);
+	mlx_image_to_window(data->mlx, data->images->ceiling, 0, 0);
+	mlx_image_to_window(data->mlx, data->images->floor, 0, data->s_height / 2);
+
+	safe_image(data, data->s_width, data->s_height, &data->images->fg);
 	mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
 	minimap(data, data->images);
 }

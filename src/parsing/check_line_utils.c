@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_line_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/25 17:05:18 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:45:23 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	ft_isspace(char c)
 {

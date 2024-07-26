@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 11:17:45 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:46:51 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 # include <limits.h>
 # include "../libft/includes/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+# include <unistd.h>
 
 # define DEG_RAD 0.0174532925
 # define PI 3.14159265359
 # define BUBBLE 0.2
-
+# define mms 3
 typedef struct s_data	t_data;
 
 typedef enum e_key
@@ -43,9 +44,10 @@ typedef enum e_key
 typedef struct s_images
 {
 	mlx_image_t	*mm; //minimap
-	mlx_image_t	*wall; //wall 	
-	mlx_image_t	*mm_floor; //floor
-	mlx_image_t	*bg; //background
+	mlx_image_t	*wall; 	
+	mlx_image_t	*mm_floor;
+	mlx_image_t	*floor;
+	mlx_image_t *ceiling; 
 	mlx_image_t	*pl; //player
 	mlx_image_t	*ray_grid; //layer for all the rays
 	mlx_image_t	*fg; //foreground
@@ -125,6 +127,7 @@ void	color_image(mlx_image_t *image, int color);
 void	update_params(t_data *data, t_ray *ray);
 int		ft_collision(t_data *data, float y, float x);
 void	ray_main(void *param);
+void	update_mm_player(t_data *data, t_player *pl);
 
 //MLX
 void	mlx_main(t_data *data);

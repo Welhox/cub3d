@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:04:25 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/25 17:30:53 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:50:19 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,13 @@ void	ft_mapfree(char **array)
 		free (array);
 		array = NULL;
 	}
+}
+
+void	fix_orientation(float *orientation)
+{
+
+	if (*orientation < 0)
+		*orientation += 2 * PI;
+	else if (*orientation > 2 * PI)
+		*orientation -= 2 * PI;	
 }

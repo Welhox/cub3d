@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   extract_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:09:12 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/25 17:07:34 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:45:32 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 static int	all_data_found(t_data *data, char *map_str)
 {

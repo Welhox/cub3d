@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:55 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/25 17:09:40 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:45:35 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 static int	set_map_border(char **temp_data, t_data *data)
 {

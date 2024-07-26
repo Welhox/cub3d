@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 11:36:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:56:47 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,18 +179,9 @@ void	mm_rayprint(t_data *data)
 	{
 		x = (data->player->pl_x * data->scale) - i * sin(data->ray->ray_orient - (90 * DEG_RAD));
 		y = (data->player->pl_y * data->scale) + i * cos(data->ray->ray_orient - (90 * DEG_RAD));
-		safe_pixel(data->images->ray_grid, x, y, make_color(255, 0, 0, 255));
+		safe_pixel(data->images->ray_grid, x, y, make_color(255, 0, 0, 200));
 		i++;
 	}
-}
-
-void	fix_orientation(float *orientation)
-{
-
-	if (*orientation < 0)
-		*orientation += 2 * PI;
-	else if (*orientation > 2 * PI)
-		*orientation -= 2 * PI;	
 }
 
 void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
@@ -206,11 +197,22 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 
 	while (height > 0)
 	{
-		safe_pixel(data->images->fg, pixel_row, start, make_color(100, 0, 100, 200));
+		safe_pixel(data->images->fg, pixel_row, start, make_color(100, 0, 100, 255));
 		start++;
 		height--;
 	}
 	
+}
+void	refresh_images(t_data *data, t_images *img)
+{
+
+	mlx_delete_image(data->mlx, img->ray_grid);
+	mlx_delete_image(data->mlx, img->fg);
+	safe_image(data, data->s_width / mms, data->s_height / mms, &img->ray_grid);
+	safe_image(data, data->s_width, data->s_height, &img->fg);
+	mlx_image_to_window(data->mlx, img->fg, 0, 0);
+	mlx_image_to_window(data->mlx, img->ray_grid, 0, 0);
+
 }
 
 void	ray_main(void *param)
@@ -224,24 +226,13 @@ void	ray_main(void *param)
 	data = param;
 	ray = data->ray;
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;
-
-	mlx_delete_image(data->mlx, data->images->fg);
-	data->images->fg = mlx_new_image(data->mlx, data->s_width, data->s_height);
-	if (!data->images->fg)
-		armageddon(data, "image mallocing failed");
-	mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
-
-	mlx_delete_image(data->mlx, data->images->ray_grid);
-	data->images->ray_grid = mlx_new_image(data->mlx, data->s_width / 3, data->s_height / 3); // scale according to mm
-	if (!data->images->ray_grid)
-		armageddon(data, "image mallocing failed");
-	mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
-
 	ray->ray_orient = data->player->p_orientation - ((data->fov / 2) * DEG_RAD);
+	refresh_images(data, data->images);
 	while (pixel_row < data->s_width)
 	{
 		fix_orientation(&ray->ray_orient);
 		get_dist(data, data->ray);
+		update_mm_player(data, data->player);
 		mm_rayprint(data);
 		paint_row(data, ray, pixel_row);
 		ray->ray_orient += ray_offset;
