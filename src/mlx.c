@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/24 17:14:30 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:55:50 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 void	update_params(t_data *data)
 
 {
-	data->s_height = 1600;
-	data->s_width = 1800;
+	data->s_height = 1080;
+	data->s_width = 1280;
 	data->fov = 60;
 	data->render_dist = 8;
 	data->scale = get_scale(data);

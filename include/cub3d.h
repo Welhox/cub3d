@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 17:14:59 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:17:45 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef	struct s_data
 	float		scale;
 }	t_data;
 
-
+void	fix_orientation(float *orientation);
 int		parsing(int argc, char **argv, t_data *data);
 void	ft_nullfree(char *str);
 int		ret_error(char *str);
