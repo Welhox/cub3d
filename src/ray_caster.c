@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/25 17:03:42 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:36:39 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,18 +162,6 @@ void	get_dist(t_data *data, t_ray *ray)
 				break ;
 		}
 	}	
-/*  	if (vert_end == false)
-	{
-		ray->vertical_dist += ray->v_step_dist;
-	}
-	if (hori_end == false)
-	{
-		ray->horizontal_dist += ray->h_step_dist;	
-	} */
-	//ray->horizontal_dist = sqrt(pow(data->player->pl_x - ray->hori_x, 2) + pow(data->player->pl_y - ray->hori_y, 2));
-	//ray->vertical_dist = sqrt(pow(data->player->pl_x - ray->vert_x, 2) + pow(data->player->pl_y - ray->vert_y, 2));
-	//ray->distance = sqrt(pow(data->player->pl_x - ray->hori_x, 2) + pow(data->player->pl_y - ray->hori_y, 2));
-
 	if (ray->horizontal_dist < ray->vertical_dist)
 		ray->distance = ray->horizontal_dist;
 	else
@@ -196,6 +184,15 @@ void	mm_rayprint(t_data *data)
 	}
 }
 
+void	fix_orientation(float *orientation)
+{
+
+	if (*orientation < 0)
+		*orientation += 2 * PI;
+	else if (*orientation > 2 * PI)
+		*orientation -= 2 * PI;	
+}
+
 void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 {
 	int	height;
@@ -203,11 +200,13 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 
 	ray->distance = ray->distance * cos(data->player->p_orientation - ray->ray_orient);
 	height = (64 / (ray->distance * 64)) * ray->proj_plane;
+	if (height > data->s_height)
+		height = data->s_height;
 	start = (data->s_height / 2) - (height / 2);
 
 	while (height > 0)
 	{
-		safe_pixel(data->images->fg, pixel_row, start, make_color(0, 200, 0, 200));
+		safe_pixel(data->images->fg, pixel_row, start, make_color(100, 0, 100, 200));
 		start++;
 		height--;
 	}
@@ -226,10 +225,6 @@ void	ray_main(void *param)
 	ray = data->ray;
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;
 
-
-
-
-	
 	mlx_delete_image(data->mlx, data->images->fg);
 	data->images->fg = mlx_new_image(data->mlx, data->s_width, data->s_height);
 	if (!data->images->fg)
@@ -245,10 +240,7 @@ void	ray_main(void *param)
 	ray->ray_orient = data->player->p_orientation - ((data->fov / 2) * DEG_RAD);
 	while (pixel_row < data->s_width)
 	{
-		if (data->ray->ray_orient < 0)
-			data->ray->ray_orient += 2 * PI;
-		else if (data->ray->ray_orient > 2 * PI)
-			data->ray->ray_orient -= 2 * PI;
+		fix_orientation(&ray->ray_orient);
 		get_dist(data, data->ray);
 		mm_rayprint(data);
 		paint_row(data, ray, pixel_row);

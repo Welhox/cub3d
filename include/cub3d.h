@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/25 17:50:47 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:17:45 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ typedef struct s_data
 	mlx_t		*mlx;
 	float		scale;
 }	t_data;
+
+
+void	fix_orientation(float *orientation);
 
 //INIT
 
