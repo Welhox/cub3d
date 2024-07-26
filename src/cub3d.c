@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 16:21:20 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:48:53 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_img(t_img *img)
 		mlx_delete_image(img->mlx, img->pl);
 }
 
-void	free_textures(t_images *img)
+void	free_textures(t_img *img)
 {
 	if (img->n_wall)
 		mlx_delete_texture(img->n_wall);
@@ -48,7 +48,7 @@ void	armageddon(t_data *data, char *error)
 	i = 0;
 	if (data->mlx)
 	{
-		free_textures(data->images);
+		free_textures(data->img);
 		free_img(data->img);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
