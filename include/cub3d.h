@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 16:22:11 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:21:05 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ typedef struct s_img
 	mlx_image_t		*pl; //player
 	mlx_image_t		*ray_grid; //layer for all the rays
 	mlx_image_t		*fg; //foreground
+	mlx_image_t		*wall_n;
+	mlx_image_t		*wall_s;
+	mlx_image_t		*wall_e;
+	mlx_image_t		*wall_w;
 	mlx_texture_t	*n_wall;
 	mlx_texture_t	*s_wall;
 	mlx_texture_t	*e_wall;
@@ -120,11 +124,11 @@ typedef struct s_data
 }	t_data;
 
 
-void	fix_orientation(float *orientation);
 
 //INIT
 
 void	init_all(t_data *data, t_ray *ray, t_player *player);
+void	init_img_text(t_img *img);
 
 //UTILS
 
@@ -141,6 +145,7 @@ void	update_params(t_data *data, t_ray *ray);
 int		ft_collision(t_data *data, float y, float x);
 void	ray_main(void *param);
 void	update_mm_player(t_data *data, t_player *pl);
+void	fix_orientation(float *orientation);
 
 //MLX
 void	mlx_main(t_data *data);
@@ -148,6 +153,8 @@ void	keypress(void *param);
 void	safe_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 void	safe_image(t_data *data, uint32_t w, uint32_t h, mlx_image_t **img);
 void	move_player(t_data *data, t_player *pl, t_key key);
+void	safe_texture(t_data *data, mlx_texture_t **img, char *path);
+void	safe_text_to_image(t_data *data, mlx_texture_t *text, mlx_image_t **img);
 
 //PARSING
 

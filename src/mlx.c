@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 16:47:31 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:20:39 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,16 @@ void	initial_render(t_data *data)
 	minimap(data, data->img);
 }
 
-void	init_img_text(t_img *img)
-{
-	img->mm = NULL;
-	img->mm_wall = NULL;
-	img->mm_floor = NULL;
-	img->floor = NULL;
-	img->ceiling = NULL;
-	img->pl = NULL;
-	img->ray_grid = NULL;
-	img->fg = NULL;
-	img->n_wall = NULL;
-	img->s_wall = NULL;
-	img->e_wall = NULL;
-	img->w_wall = NULL;
-}
-
-void	safe_texture(t_data *data, mlx_texture_t **img, char *path)
-{
-	*img = mlx_load_png(path);
-	if(!*img)
-		armageddon(data, "texture failed to load");
-}
-
 void	load_textures(t_data *data, t_img *img)
 {
 	safe_texture(data, &img->n_wall, data->wall_text[0]);
+	safe_text_to_image(data, img->n_wall, &img->wall_n);
 	safe_texture(data, &img->s_wall, data->wall_text[2]);
+	safe_text_to_image(data, img->s_wall, &img->wall_s);
 	safe_texture(data, &img->w_wall, data->wall_text[3]);
+	safe_text_to_image(data, img->w_wall, &img->wall_w);
 	safe_texture(data, &img->e_wall, data->wall_text[1]);
+	safe_text_to_image(data, img->e_wall, &img->wall_e);
 }
 
 void	mlx_main(t_data *data)
