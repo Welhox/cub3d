@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:55 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 11:45:35 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:42:05 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	 trim_spaces(char ***temp_data)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while((*temp_data)[y])
+	{
+		x = 0;
+		while ((*temp_data)[y][x])
+			x++;
+		if (x > 0)
+			x--;
+		while (x > 0 && ft_isspace((*temp_data)[y][x]))
+			x--;
+		(*temp_data)[y][x + 1] = '\0'; //could be very unsafe, may need more protection
+		y++;
+	}
+}
 
 static int	set_map_border(char **temp_data, t_data *data)
 {
@@ -44,6 +64,7 @@ static int	map_init(char **temp_data, t_data *data)
 	int	max;
 
 	x = 0;
+	trim_spaces(&temp_data);
 	max = set_map_border(temp_data, data);
 	if (max == -1)
 		return (1);
