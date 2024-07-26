@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 16:21:20 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:30:02 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,21 @@ void	init_img_text(t_img *img)
 	img->w_wall = NULL;
 }
 
+void	safe_texture(t_data *data, mlx_texture_t **img, char *path)
+{
+	*img = mlx_load_png(path);
+	if(!*img)
+		armageddon(data, "texture failed to load");
+}
+
+void	load_textures(t_data *data, t_img *img)
+{
+	safe_texture(data, &img->n_wall, data->wall_text[0]);
+	safe_texture(data, &img->s_wall, data->wall_text[2]);
+	safe_texture(data, &img->w_wall, data->wall_text[3]);
+	safe_texture(data, &img->e_wall, data->wall_text[1]);
+}
+
 void	mlx_main(t_data *data)
 {
 	t_img	img;
@@ -89,7 +104,8 @@ void	mlx_main(t_data *data)
 	data->img = &img;
 	img.mlx = data->mlx;
 	if (!data->mlx)
-		exit (1);
+		armageddon(data, "mlx failed to initialise");
+	load_textures(data, &img);
 	init_img_text(data->img);	
 	initial_render(data);
 	mlx_loop_hook(data->mlx, &keypress, data);
