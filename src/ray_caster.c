@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 18:00:55 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:03:42 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static void first_vertical(t_data *data, t_ray *ray, bool *end)
 		if (ray->ray_orient < 1.5 * PI  && ray->ray_orient > PI / 2) // going left
 		{
 			
-			ray->vert_x = floorf(data->player_x);
-			ray->vert_y = data->player_y + ((data->player_x - ray->vert_x) * -tan(ray->ray_orient));
+			ray->vert_x = floorf(data->player->pl_x);
+			ray->vert_y = data->player->pl_y + ((data->player->pl_x - ray->vert_x) * -tan(ray->ray_orient));
 		}
 		else
 		{
-			ray->vert_x = ceilf(data->player_x);
-			ray->vert_y = data->player_y + ((ray->vert_x - data->player_x) * tan(ray->ray_orient));
+			ray->vert_x = ceilf(data->player->pl_x);
+			ray->vert_y = data->player->pl_y + ((ray->vert_x - data->player->pl_x) * tan(ray->ray_orient));
 		}
-		ray->vertical_dist = sqrt(pow(data->player_x - ray->vert_x, 2) + pow(data->player_y - ray->vert_y, 2));
+		ray->vertical_dist = sqrt(pow(data->player->pl_x - ray->vert_x, 2) + pow(data->player->pl_y - ray->vert_y, 2));
 	}
 	else
 	{
@@ -43,15 +43,15 @@ static void	first_horizontal(t_data *data, t_ray *ray, bool *end)
 	{
 		if (ray->ray_orient > PI) // going up
 		{	
-			ray->hori_y = floorf(data->player_y);
-			ray->hori_x = data->player_x + ((data->player_y - ray->hori_y) / -tan(ray->ray_orient));
+			ray->hori_y = floorf(data->player->pl_y);
+			ray->hori_x = data->player->pl_x + ((data->player->pl_y - ray->hori_y) / -tan(ray->ray_orient));
 		}
 		else
 		{
-			ray->hori_y = ceilf(data->player_y);
-			ray->hori_x = data->player_x + ((ray->hori_y - data->player_y) / tan(ray->ray_orient));
+			ray->hori_y = ceilf(data->player->pl_y);
+			ray->hori_x = data->player->pl_x + ((ray->hori_y - data->player->pl_y) / tan(ray->ray_orient));
 		}
-		ray->horizontal_dist = sqrt(pow(data->player_x - ray->hori_x, 2) + pow(data->player_y - ray->hori_y, 2));
+		ray->horizontal_dist = sqrt(pow(data->player->pl_x - ray->hori_x, 2) + pow(data->player->pl_y - ray->hori_y, 2));
 	}
 	else
 	{
@@ -170,9 +170,9 @@ void	get_dist(t_data *data, t_ray *ray)
 	{
 		ray->horizontal_dist += ray->h_step_dist;	
 	} */
-	//ray->horizontal_dist = sqrt(pow(data->player_x - ray->hori_x, 2) + pow(data->player_y - ray->hori_y, 2));
-	//ray->vertical_dist = sqrt(pow(data->player_x - ray->vert_x, 2) + pow(data->player_y - ray->vert_y, 2));
-	//ray->distance = sqrt(pow(data->player_x - ray->hori_x, 2) + pow(data->player_y - ray->hori_y, 2));
+	//ray->horizontal_dist = sqrt(pow(data->player->pl_x - ray->hori_x, 2) + pow(data->player->pl_y - ray->hori_y, 2));
+	//ray->vertical_dist = sqrt(pow(data->player->pl_x - ray->vert_x, 2) + pow(data->player->pl_y - ray->vert_y, 2));
+	//ray->distance = sqrt(pow(data->player->pl_x - ray->hori_x, 2) + pow(data->player->pl_y - ray->hori_y, 2));
 
 	if (ray->horizontal_dist < ray->vertical_dist)
 		ray->distance = ray->horizontal_dist;
@@ -189,8 +189,8 @@ void	mm_rayprint(t_data *data)
 	i = 0;
 	while (i < data->ray->distance * data->scale && i < data->render_dist * data->scale)
 	{
-		x = (data->player_x * data->scale) - i * sin(data->ray->ray_orient - (90 * DEG_RAD));
-		y = (data->player_y * data->scale) + i * cos(data->ray->ray_orient - (90 * DEG_RAD));
+		x = (data->player->pl_x * data->scale) - i * sin(data->ray->ray_orient - (90 * DEG_RAD));
+		y = (data->player->pl_y * data->scale) + i * cos(data->ray->ray_orient - (90 * DEG_RAD));
 		safe_pixel(data->images->ray_grid, x, y, make_color(255, 0, 0, 255));
 		i++;
 	}
@@ -201,8 +201,7 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 	int	height;
 	int	start;
 
-	printf("proj plane = %f\n", ray->proj_plane);
-	ray->distance = ray->distance * cos(data->p_orientation - ray->ray_orient);
+	ray->distance = ray->distance * cos(data->player->p_orientation - ray->ray_orient);
 	height = (64 / (ray->distance * 64)) * ray->proj_plane;
 	start = (data->s_height / 2) - (height / 2);
 
@@ -243,7 +242,7 @@ void	ray_main(void *param)
 		armageddon(data, "image mallocing failed");
 	mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
 
-	ray->ray_orient = data->p_orientation - ((data->fov / 2) * DEG_RAD);
+	ray->ray_orient = data->player->p_orientation - ((data->fov / 2) * DEG_RAD);
 	while (pixel_row < data->s_width)
 	{
 		if (data->ray->ray_orient < 0)

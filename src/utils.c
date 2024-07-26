@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:04:25 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/24 11:36:07 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:30:53 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,53 +19,56 @@ int	ret_error(char *str)
 	return (1);
 }
 
-void	ft_nullfree(char *str)
+int	ft_nullfree(char *str, int err)
 {
 	if (str)
 	{
 		free (str);
 		str = NULL;
 	}
+	if (err)
+		return (1);
+	return (0);
 }
 
-static int	ft_overflow(int neg, const char *str, int len, int i)
-
+static int	ft_overflow(int num, const char *str, int *len)
 {
-	if (str[neg] == '-')
-		return (-1);
-	else
-		return (-1);
+	long long	buf;
+
+	buf = 0;
+	while (ft_isdigit(*str))
+	{
+		num = (num * 10) + (*str - 48);
+		if (buf > num)
+			return (-1);
+		buf = num;
+		str++;
+		(*len)++;
+	}
+	return (num);
 }
 
 int	ft_atoi_cubd(const char *str)
 {
 	long int	num;
-	int			i;
 	int			neg;
-	long int	buf;
 	int			len;
 
-	i = 0;
 	num = 0;
-	buf = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	neg = i;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	len = i;
-	while (ft_isdigit(str[i]))
+	len = 0;
+	while (ft_isspace(*str))
+		str++;
+	neg = 1;
+	if (*str == '-' || *str == '+')
 	{
-		num = (num * 10) + (str[i++] - 48);
-		if (buf > num)
-			return (ft_overflow(neg, str, len, i));
-		buf = num;
+		if (*str == '-')
+			neg = -1;
+		str++;
 	}
-	if (i - len > 3)
+	num = ft_overflow(num, str, &len);
+	if (len > 3)
 		return (-1);
-	if (str[neg] == '-')
-		num *= -1;
-	return (num);
+	return (num * neg);
 }
 
 void	ft_mapfree(char **array)
@@ -77,8 +80,6 @@ void	ft_mapfree(char **array)
 	{
 		while (array[i])
 			i++;
-		// if (i > 0)
-		// 	free(array[i + 1]);
 		while (i >= 0)
 		{
 			free (array[i]);
@@ -88,5 +89,3 @@ void	ft_mapfree(char **array)
 		array = NULL;
 	}
 }
-
-
