@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 13:07:18 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:22:11 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,22 @@ typedef enum e_wall
 	EAST
 }	t_wall;
 
-typedef struct s_images
+typedef struct s_img
 {
-	mlx_image_t	*mm; //minimap
-	mlx_image_t	*wall; 	
-	mlx_image_t	*mm_floor;
-	mlx_image_t	*floor;
-	mlx_image_t *ceiling; 
-	mlx_image_t	*pl; //player
-	mlx_image_t	*ray_grid; //layer for all the rays
-	mlx_image_t	*fg; //foreground
+	mlx_image_t		*mm; //minimap
+	mlx_image_t		*mm_wall; //minimap  walls
+	mlx_image_t		*mm_floor; //minmap floor
+	mlx_image_t		*floor; //game floor
+	mlx_image_t 	*ceiling; //game ceiling
+	mlx_image_t		*pl; //player
+	mlx_image_t		*ray_grid; //layer for all the rays
+	mlx_image_t		*fg; //foreground
+	mlx_texture_t	*n_wall;
+	mlx_texture_t	*s_wall;
+	mlx_texture_t	*e_wall;
+	mlx_texture_t	*w_wall;
 	mlx_t		*mlx;
-}	t_images;
+}	t_img;
 
 typedef struct s_ray
 {
@@ -110,7 +114,7 @@ typedef struct s_data
 	float		render_dist;
 	t_player	*player;
 	t_ray		*ray;
-	t_images	*images;
+	t_img	*img;
 	mlx_t		*mlx;
 	float		scale;
 }	t_data;
@@ -130,8 +134,8 @@ int		ft_atoi_cubd(const char *str);
 //RAYCASTING, COLOURS, RENDERING
 
 int		make_color(int r, int g, int b, int a);
-void	mm_render(t_data *data, t_player *player, t_images *img);
-void	minimap(t_data *data, t_images *img);
+void	mm_render(t_data *data, t_player *player, t_img *img);
+void	minimap(t_data *data, t_img *img);
 void	color_image(mlx_image_t *image, int color);
 void	update_params(t_data *data, t_ray *ray);
 int		ft_collision(t_data *data, float y, float x);
@@ -161,7 +165,7 @@ int		validate_map(t_data *data);
 
 int		ft_nullfree(char *str, int err);
 int		ret_error(char *str);
-void	free_images(t_images *img);
+void	free_img(t_img *img);
 void	ft_mapfree(char **array);
 void	armageddon(t_data *data, char *error);
 

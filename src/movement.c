@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 12:39:12 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:21:20 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	update_mm_player(t_data *data, t_player *pl)
 
 	scale_x = data->scale * pl->pl_x - ((data->scale / 5) / 2);
 	scale_y = data->scale * pl->pl_y - ((data->scale / 5) / 2);
-	data->images->pl->instances[0].x = scale_x;
-	data->images->pl->instances[0].y = scale_y;
+	data->img->pl->instances[0].x = scale_x;
+	data->img->pl->instances[0].y = scale_y;
 }
 
 //returns 1 if sq is wall or outside border
