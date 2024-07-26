@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 12:49:21 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:11:31 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ void	free_images(t_images *img)
 		mlx_delete_image(img->mlx, img->pl);
 }
 
+void	free_textures(t_images *img)
+{
+	if (img->n_wall)
+		mlx_delete_texture(img->n_wall);
+	if (img->s_wall)
+		mlx_delete_texture(img->s_wall);
+	if (img->w_wall)
+		mlx_delete_texture(img->w_wall);
+	if (img->e_wall)
+		mlx_delete_texture(img->e_wall);		
+}
+
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
 void	armageddon(t_data *data, char *error)
 {
@@ -37,9 +49,9 @@ void	armageddon(t_data *data, char *error)
 	if (data->mlx)
 	{
 		free_images(data->images);
+		free_textures(data->images);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
-		//free mlx textures
 	}
 	while (i < 4)
 	{

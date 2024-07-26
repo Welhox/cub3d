@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 13:29:17 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:30:02 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,21 @@ void	initial_render(t_data *data)
 	minimap(data, data->images);
 }
 
+void	safe_texture(t_data *data, mlx_texture_t **img, char *path)
+{
+	*img = mlx_load_png(path);
+	if(!*img)
+		armageddon(data, "texture failed to load");
+}
+
+void	load_textures(t_data *data, t_img *img)
+{
+	safe_texture(data, &img->n_wall, data->wall_text[0]);
+	safe_texture(data, &img->s_wall, data->wall_text[2]);
+	safe_texture(data, &img->w_wall, data->wall_text[3]);
+	safe_texture(data, &img->e_wall, data->wall_text[1]);
+}
+
 void	mlx_main(t_data *data)
 {
 	t_images	img;
@@ -73,7 +88,12 @@ void	mlx_main(t_data *data)
 	data->images = &img;
 	img.mlx = data->mlx;
 	if (!data->mlx)
-		exit (1);
+		armageddon(data, "mlx failed to initialise");
+	img.n_wall = NULL;
+	img.s_wall = NULL;
+	img.w_wall = NULL;
+	img.e_wall = NULL;
+	load_textures(data, &img);
 	initial_render(data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);

@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 13:07:18 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:57:50 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ typedef struct s_images
 	mlx_image_t	*ray_grid; //layer for all the rays
 	mlx_image_t	*fg; //foreground
 	mlx_t		*mlx;
+	mlx_texture_t *n_wall;
+	mlx_texture_t *s_wall;
+	mlx_texture_t *w_wall;
+	mlx_texture_t *e_wall;	
 }	t_images;
 
 typedef struct s_ray
