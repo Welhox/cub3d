@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 12:46:51 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:07:18 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ typedef enum e_key
 	S_RIGHT
 }	t_key;
 
+typedef enum e_wall
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST
+}	t_wall;
+
 typedef struct s_images
 {
 	mlx_image_t	*mm; //minimap
@@ -72,6 +80,7 @@ typedef struct s_ray
 	float	h_step_dist;
 	float	v_step_dist;
 	float	proj_plane;
+	int		wall_face;
 }	t_ray;
 
 typedef struct s_player

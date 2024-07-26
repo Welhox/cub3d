@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 12:56:47 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:07:24 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ void	mm_rayprint(t_data *data)
 		safe_pixel(data->images->ray_grid, x, y, make_color(255, 0, 0, 200));
 		i++;
 	}
+	//mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
 }
 
 void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
@@ -190,6 +191,8 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 	int	start;
 
 	ray->distance = ray->distance * cos(data->player->p_orientation - ray->ray_orient);
+	if (ray->distance > data->render_dist)
+		return ;
 	height = (64 / (ray->distance * 64)) * ray->proj_plane;
 	if (height > data->s_height)
 		height = data->s_height;
@@ -197,11 +200,12 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 
 	while (height > 0)
 	{
-		safe_pixel(data->images->fg, pixel_row, start, make_color(100, 0, 100, 255));
+		safe_pixel(data->images->fg, pixel_row, start, make_color(100, 50 * ray->wall_face, 100, 255));
 		start++;
 		height--;
 	}
-	
+	//mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
+	//mlx_set_instance_depth(data->images->fg->instances, 2);
 }
 void	refresh_images(t_data *data, t_images *img)
 {
@@ -210,9 +214,24 @@ void	refresh_images(t_data *data, t_images *img)
 	mlx_delete_image(data->mlx, img->fg);
 	safe_image(data, data->s_width / mms, data->s_height / mms, &img->ray_grid);
 	safe_image(data, data->s_width, data->s_height, &img->fg);
-	mlx_image_to_window(data->mlx, img->fg, 0, 0);
-	mlx_image_to_window(data->mlx, img->ray_grid, 0, 0);
+}
 
+void	wall_face(t_ray *ray)
+{
+	if(ray->horizontal_dist < ray->vertical_dist)
+	{
+		if (ray->ray_orient > PI)
+			ray->wall_face = NORTH;
+		else
+			ray->wall_face = SOUTH;
+	}
+	else
+	{
+		if (ray->ray_orient < 1.5 * PI  && ray->ray_orient > PI / 2) // going left
+			ray->wall_face = WEST;
+		else
+			ray->wall_face = EAST;
+	}
 }
 
 void	ray_main(void *param)
@@ -232,10 +251,15 @@ void	ray_main(void *param)
 	{
 		fix_orientation(&ray->ray_orient);
 		get_dist(data, data->ray);
+		wall_face(ray);
 		update_mm_player(data, data->player);
-		mm_rayprint(data);
+		if (pixel_row % 10 == 0)
+			mm_rayprint(data);
 		paint_row(data, ray, pixel_row);
 		ray->ray_orient += ray_offset;
 		pixel_row++;
 	}
+	mlx_image_to_window(data->mlx, data->images->ray_grid, 0, 0);
+	mlx_image_to_window(data->mlx, data->images->fg, 0, 0);
+	mlx_set_instance_depth(data->images->fg->instances, 2);
 }

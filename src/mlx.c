@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 12:27:07 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:29:17 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ void	update_params(t_data *data, t_ray *ray)
 	data->s_height = 1080;
 	data->s_width = 1280;
 	data->fov = 60;
-	data->render_dist = 8;
+	data->render_dist = 30;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
-
 }
 
 void	keypress(void *param)

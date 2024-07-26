@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 12:54:36 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:13:55 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ void	minimap(t_data *data, t_images *img)
 
 	p_pos_x = data->scale * data->player->pl_x - ((data->scale / 5) / 2);
 	p_pos_y = data->scale * data->player->pl_y - ((data->scale / 5) / 2);
-	safe_image(data, data->s_width / mms, data->s_height / mms, &img->mm);
+	//safe_image(data, data->s_width / mms, data->s_height / mms, &img->mm);
+	safe_image(data, data->map_x_border * data->scale, data->map_y_border * data->scale, &img->mm);
 	safe_image(data, data->scale / mms, data->scale / mms, &img->pl);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->wall);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_floor);
 	safe_image(data, data->s_width / mms, data->s_height / mms, &img->ray_grid);
-	color_image(img->mm, make_color(100, 100, 100, 0));
+	color_image(img->mm, make_color(100, 100, 100, 200));
 	color_image(img->pl, make_color(255, 0, 0, 255));
 	color_image(img->wall, make_color(0, 0, 0, 255));
 	color_image(img->mm_floor, make_color(200, 200, 200, 255));
