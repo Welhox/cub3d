@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 13:08:11 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:20:46 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,20 @@ void	init_all(t_data *data, t_ray *ray, t_player *player)
 	data->scale = 0;
 	init_player(data, player);
 	init_ray(data, ray);
+}
+
+void	init_img_text(t_img *img)
+{
+	img->mm = NULL;
+	img->mm_wall = NULL;
+	img->mm_floor = NULL;
+	img->floor = NULL;
+	img->ceiling = NULL;
+	img->pl = NULL;
+	img->ray_grid = NULL;
+	img->fg = NULL;
+	img->n_wall = NULL;
+	img->s_wall = NULL;
+	img->e_wall = NULL;
+	img->w_wall = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 16:21:20 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:25:47 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	first_horizontal(t_data *data, t_ray *ray, bool *end)
 	}
 }
 
-void	horizontal_delta(t_data *data, t_ray *ray)
+void	horizontal_delta(t_ray *ray)
 {
 	if (ray->ray_orient > PI) // going up
 	{
@@ -76,7 +76,7 @@ void	horizontal_delta(t_data *data, t_ray *ray)
 		+ pow(ray->hori_y - (ray->hori_y + ray->h_delta_y), 2));	
 }
 
-void	vertical_delta(t_data *data, t_ray *ray)
+void	vertical_delta(t_ray *ray)
 {
 	if (ray->ray_orient < 1.5 * PI  && ray->ray_orient > PI / 2) // going left
 	{
@@ -133,9 +133,9 @@ void	get_dist(t_data *data, t_ray *ray)
 	first_horizontal(data, ray, &hori_end);
 	first_vertical(data, ray, &vert_end);
 	if (hori_end == false)
-		horizontal_delta(data, ray);
+		horizontal_delta(ray);
 	if (vert_end == false)
-		vertical_delta(data, ray);
+		vertical_delta(ray);
 	while (42)
 	{
 		check_wall(data, &hori_end, &vert_end);

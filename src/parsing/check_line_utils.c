@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 11:45:23 by clundber         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:26:27 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isspace(char c)
 {
-	if ((c == 32 || c >= 9 && c <= 13))
+	if (c == 32 || (c >= 9 && c <= 13))
 		return (1);
 	return (0);
 }

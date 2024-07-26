@@ -30,6 +30,7 @@ CFILES = 	$(SRCS_DIR)/cub3d.c $(SRCS_DIR)/utils.c $(SRCS_DIR)/init.c $(SRCS_DIR)
 			$(SRCS_DIR)/mlx.c $(SRCS_DIR)/image_utils.c $(SRCS_DIR)/minimap.c $(SRCS_DIR)/movement.c \
 			$(SRCS_DIR)/ray_caster.c $(SRCS_DIR)/parsing/validate_data_utils.c $(SRCS_DIR)/parsing/map_parse.c \
 			$(SRCS_DIR)/parsing/extract_data.c  $(SRCS_DIR)/parsing/check_line.c $(SRCS_DIR)/parsing/check_line_utils.c \
+			$(SRCS_DIR)/safe_mlx.c
 
 OFILES = $(CFILES:.c=.o)
 
@@ -42,7 +43,7 @@ MLX_LIBS = -L$(MLX_DIR)/build -lmlx42 -L"/User/$(USER)/.brew/opt/glfw/lib" -lglf
 
 #--------- FLAGS ----------#
 CC = @cc
-CFLAGS = #-Wall -Wextra -Werror -g -Wunreachable-code -Ofast
+CFLAGS = -Wall -Wextra -Werror -g -Wunreachable-code -Ofast
 HEADERS	:= -I ./include -I $(MLX_DIR)/include/MLX42/
 
 all: mlx42 libmlx $(NAME)
