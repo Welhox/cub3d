@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 18:08:38 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:37:04 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,10 +210,11 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 	y = start;
 	while (y < (start + height))
 	{
-		 data->txt->wall_y = (int)data->txt->pos % data->img->wall_txt[data->txt->wall_face]->height;
+		data->txt->wall_y = (int)data->txt->pos % data->img->wall_txt[data->txt->wall_face]->height;
 		data->txt->pos += data->txt->step;
-		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->wall_txt[data->txt->wall_face], floor(data->txt->wall_x * 64), data->txt->wall_y));
+		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->wall_txt[data->txt->wall_face], floor(data->txt->wall_x * data->img->wall_txt[data->txt->wall_face]->width), data->txt->wall_y));
 		y++;
+		//printf("text y = %f\n", data->txt->wall_y);
 	}
 }
 
