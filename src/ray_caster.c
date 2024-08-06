@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 17:47:07 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:08:38 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,12 +233,18 @@ void	wall_face(t_ray *ray, t_txt *txt)
 		if (ray->ray_orient > PI)
 			txt->wall_face = NORTH;
 		else
+		{
 			txt->wall_face = SOUTH;
+			txt->wall_x = 1 - txt->wall_x;
+		}
 	}
 	else
 	{
 		if (ray->ray_orient < 1.5 * PI  && ray->ray_orient > PI / 2) // going left
+		{	
 			txt->wall_face = WEST;
+			txt->wall_x = 1 - txt->wall_x;
+		}
 		else
 			txt->wall_face = EAST;
 	}
