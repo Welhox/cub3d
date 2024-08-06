@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 17:21:05 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:00:14 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ typedef enum e_key
 typedef enum e_wall
 {
 	NORTH,
+	EAST,
 	SOUTH,
-	WEST,
-	EAST
+	WEST
 }	t_wall;
+
+typedef struct s_txt
+{
+	float 	wall_txt_x;
+	int		wall_face;
+}	t_txt;
 
 typedef struct s_img
 {
@@ -59,14 +65,7 @@ typedef struct s_img
 	mlx_image_t		*pl; //player
 	mlx_image_t		*ray_grid; //layer for all the rays
 	mlx_image_t		*fg; //foreground
-	mlx_image_t		*wall_n;
-	mlx_image_t		*wall_s;
-	mlx_image_t		*wall_e;
-	mlx_image_t		*wall_w;
-	mlx_texture_t	*n_wall;
-	mlx_texture_t	*s_wall;
-	mlx_texture_t	*e_wall;
-	mlx_texture_t	*w_wall;
+	mlx_image_t		*wall_txt[5];
 	mlx_t		*mlx;
 }	t_img;
 
@@ -88,7 +87,7 @@ typedef struct s_ray
 	float	h_step_dist;
 	float	v_step_dist;
 	float	proj_plane;
-	int		wall_face;
+	//int		wall_face;
 }	t_ray;
 
 typedef struct s_player
@@ -111,14 +110,15 @@ typedef struct s_data
 	float		map_y_border;
 	int			floor[4];
 	int			ceiling[4];
-	char		*wall_text[5]; //0N, 1E, 2S, 3W
+	char		*wall_text[5]; //0N, 1E, 2S, 3W    //rename to wall_path
 	float		s_height;
 	float		s_width;
 	float		fov;
 	float		render_dist;
 	t_player	*player;
 	t_ray		*ray;
-	t_img	*img;
+	t_img		*img;
+	t_txt		*txt;
 	mlx_t		*mlx;
 	float		scale;
 }	t_data;
@@ -127,7 +127,7 @@ typedef struct s_data
 
 //INIT
 
-void	init_all(t_data *data, t_ray *ray, t_player *player);
+void	init_all(t_data *data, t_ray *ray, t_player *player, t_txt *txt);
 void	init_img_text(t_img *img);
 
 //UTILS
@@ -137,6 +137,7 @@ int		ft_atoi_cubd(const char *str);
 
 //RAYCASTING, COLOURS, RENDERING
 
+int		get_txt_color(mlx_image_t *img, int x, int y);
 int		make_color(int r, int g, int b, int a);
 void	mm_render(t_data *data, t_player *player, t_img *img);
 void	minimap(t_data *data, t_img *img);

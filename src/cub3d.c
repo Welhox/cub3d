@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 16:48:53 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:48:03 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,15 @@ void	free_img(t_img *img)
 		mlx_delete_image(img->mlx, img->ceiling);
 	if (img->pl)
 		mlx_delete_image(img->mlx, img->pl);
-}
-
-void	free_textures(t_img *img)
-{
-	if (img->n_wall)
-		mlx_delete_texture(img->n_wall);
-	if (img->s_wall)
-		mlx_delete_texture(img->s_wall);
-	if (img->w_wall)
-		mlx_delete_texture(img->w_wall);
-	if (img->e_wall)
-		mlx_delete_texture(img->e_wall);		
-}
+	if (img->wall_txt[0])
+		mlx_delete_image(img->mlx, img->wall_txt[0]); //or something else as not in the mlx?
+	if (img->wall_txt[1])
+		mlx_delete_image(img->mlx, img->wall_txt[1]);
+	if (img->wall_txt[2])
+		mlx_delete_image(img->mlx, img->wall_txt[2]);
+	if (img->wall_txt[3])
+		mlx_delete_image(img->mlx, img->wall_txt[3]);
+}	
 
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
 void	armageddon(t_data *data, char *error)
@@ -48,7 +44,6 @@ void	armageddon(t_data *data, char *error)
 	i = 0;
 	if (data->mlx)
 	{
-		free_textures(data->img);
 		free_img(data->img);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
@@ -75,8 +70,9 @@ int	main(int ac, char **av)
 	t_data		data;
 	t_ray		ray;
 	t_player	player;
+	t_txt		txt;
 
-	init_all(&data, &ray, &player);
+	init_all(&data, &ray, &player, &txt);
 	if (parsing(ac, av, &data) != 0)
 		armageddon(&data, NULL);
 	update_params(&data, &ray);

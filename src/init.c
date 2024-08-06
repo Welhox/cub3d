@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 17:20:46 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:47:54 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_ray(t_data *data, t_ray *ray)
 	ray->horizontal_dist = 0;
 	ray->vertical_dist = 0;
 	ray->data = data;
-	ray->wall_face = 0;
+	//ray->wall_face = 0;
 }
 
 void	init_player(t_data *data, t_player *player)
@@ -46,8 +46,15 @@ void	init_player(t_data *data, t_player *player)
 	data->player = player;
 	player->data = data;
 }
+void	init_texture(t_data *data, t_txt *txt)
+{
+	data->txt = txt;
+	txt->wall_face = 0;
+	txt->wall_txt_x = 0;
+	
+}
 
-void	init_all(t_data *data, t_ray *ray, t_player *player)
+void	init_all(t_data *data, t_ray *ray, t_player *player, t_txt *txt)
 {
 	int	i;
 
@@ -74,6 +81,7 @@ void	init_all(t_data *data, t_ray *ray, t_player *player)
 	data->scale = 0;
 	init_player(data, player);
 	init_ray(data, ray);
+	init_texture(data, txt);
 }
 
 void	init_img_text(t_img *img)
@@ -86,8 +94,9 @@ void	init_img_text(t_img *img)
 	img->pl = NULL;
 	img->ray_grid = NULL;
 	img->fg = NULL;
-	img->n_wall = NULL;
-	img->s_wall = NULL;
-	img->e_wall = NULL;
-	img->w_wall = NULL;
+/*  	img->wall_txt[0] = NULL;
+	img->wall_txt[1] = NULL;
+	img->wall_txt[2] = NULL;
+	img->wall_txt[3] = NULL;*/
+	img->wall_txt[4] = NULL;
 }
