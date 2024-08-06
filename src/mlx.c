@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <casimirri@student.42.fr>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 23:16:33 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/08/06 14:38:33 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,15 @@ void	initial_render(t_data *data)
 
 void	load_textures(t_data *data, t_img *img)
 {
-	safe_texture(data, &img->n_wall, data->wall_text[0]);
-	safe_text_to_image(data, img->n_wall, &img->wall_n);
-	safe_texture(data, &img->s_wall, data->wall_text[2]);
-	safe_text_to_image(data, img->s_wall, &img->wall_s);
-	safe_texture(data, &img->w_wall, data->wall_text[3]);
-	safe_text_to_image(data, img->w_wall, &img->wall_w);
-	safe_texture(data, &img->e_wall, data->wall_text[1]);
-	safe_text_to_image(data, img->e_wall, &img->wall_e);
+	mlx_texture_t	*temp;
+	safe_texture(data, &temp, data->wall_text[0]);
+	safe_text_to_image(data, temp, &img->wall_txt[0]);
+	safe_texture(data, &temp, data->wall_text[2]);
+	safe_text_to_image(data, temp, &img->wall_txt[2]);
+	safe_texture(data, &temp, data->wall_text[3]);
+	safe_text_to_image(data, temp, &img->wall_txt[3]);
+	safe_texture(data, &temp, data->wall_text[1]);
+	safe_text_to_image(data, temp, &img->wall_txt[1]);
 }
 
 void	mlx_main(t_data *data)
