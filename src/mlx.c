@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: casimirri <casimirri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 17:20:39 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/07/26 23:16:33 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	update_params(t_data *data, t_ray *ray)
 
 {
 	data->s_height = 1080;
-	data->s_width = 1280;
+	data->s_width = 1920;
 	data->fov = 60;
 	data->render_dist = 30;
 	data->scale = get_scale(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 17:25:47 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:00:26 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,11 @@ void	mm_rayprint(t_data *data)
 	//mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 }
 
+int	make_solid(uint8_t color)
+{
+	return(color | 0xFF);
+}
+
 void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 {
 	int	height;
@@ -198,14 +203,26 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 		height = data->s_height;
 	start = (data->s_height / 2) - (height / 2);
 
+	uint8_t	*pixel_map;
+
+	pixel_map = data->img->wall_s->pixels;
+	int color = make_solid(pixel_map[0]);
+	//float	txt_step_y;
+
+	//txt_step_y = 64 / (float)height;
 	while (height > 0)
+	{
+		safe_pixel(data->img->fg, pixel_row, start, color);
+		start++;
+		height--;
+	}
+// working with colour for walls
+/* 	while (height > 0)
 	{
 		safe_pixel(data->img->fg, pixel_row, start, make_color(100, 50 * ray->wall_face, 100, 255));
 		start++;
 		height--;
-	}
-	//mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	//mlx_set_instance_depth(data->img->fg->instances, 2);
+	} */
 }
 void	refresh_img(t_data *data, t_img *img)
 {
