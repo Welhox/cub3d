@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 16:12:46 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:47:07 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,12 @@ void	get_dist(t_data *data, t_ray *ray)
 	if (ray->horizontal_dist < ray->vertical_dist)
 	{
 		ray->distance = ray->horizontal_dist;
-		data->txt->wall_txt_x = ray->hori_x - floorf(ray->hori_x);
+		data->txt->wall_x = ray->hori_x - floorf(ray->hori_x);
 	}
 	else
 	{
 		ray->distance = ray->vertical_dist;
-		data->txt->wall_txt_x = ray->vert_y - floorf(ray->vert_y);
+		data->txt->wall_x = ray->vert_y - floorf(ray->vert_y);
 	}
 }
 
@@ -191,71 +191,32 @@ void	mm_rayprint(t_data *data)
 	//mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 }
 
-// mlx_image_t *choose_image(t_img *img, t_ray *ray, mlx_image_t *image)
-// {
-// 	if (ray->wall_face == NORTH)
-// 		image = img->wall_n;
-// 	else if (ray->wall_face == SOUTH)
-// 		image = img->wall_s;
-// 	else if (ray->wall_face == EAST)
-// 		image = img->wall_e;
-// 	else if (ray->wall_face == WEST)
-// 		image = img->wall_w;
-// 	return (image);
-// }
-
 void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 {
 	int			height;
 	int			start;
-	mlx_image_t	*image;
-	int			texture_x; //texture x position
-	int			texture_y;
-	float 		texture_pos;
-	float		texture_offset;
 	int			y;
 	
-	image = NULL;
 	ray->distance = ray->distance * cos(data->player->p_orientation - ray->ray_orient);
 	if (ray->distance > data->render_dist)
 		return ;
 	height = (64 / (ray->distance * 64)) * ray->proj_plane;
-
+	data->txt->step = 1.0 * (float)(data->img->wall_txt[data->txt->wall_face]->height / (float)height);
+	data->txt->height = height;
 	if (height > data->s_height)
 		height = data->s_height;
 	start = (data->s_height / 2) - (height / 2);
-	//image = choose_image(data->img, ray, image);
-	//scale_texture(image, height, start, ray);
-	// if (ray->horizontal_dist < ray->vertical_dist)
-	// 	texture_x = (uint32_t)(image->width * ray->hori_x) % image->width;
-	// else
-	// 	texture_x = (uint32_t)(image->height * ray->vert_y) % image->height;
-	texture_offset = 1 * image->height / height; // how far to move within the texture
-	texture_pos = (start - (data->s_height / 2) + (height / 2)) * texture_offset;
+	data->txt->pos = ((float)start - ((float)data->s_height / 2) + ((float)data->txt->height / 2)) * data->txt->step;
 	y = start;
 	while (y < (start + height))
 	{
-		texture_y = (uint32_t)texture_pos % image->height;
-		texture_pos += texture_offset;
-		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(image, texture_x, texture_y));
+		 data->txt->wall_y = (int)data->txt->pos % data->img->wall_txt[data->txt->wall_face]->height;
+		data->txt->pos += data->txt->step;
+		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->wall_txt[data->txt->wall_face], floor(data->txt->wall_x * 64), data->txt->wall_y));
 		y++;
 	}
-	
-	// while (height > 0)
-	// {
-	// 	safe_pixel(data->img->fg, pixel_row, start, get_txt_color(data->img->wall_n, 38, 63));
-	// 	//safe_pixel(data->img->wall_n, pixel_row, start, get_txt_color(image, 30, 60));
-	// 	start++;
-	// 	height--;
-	// }
-// working with colour for walls
-/* 	while (height > 0)
-	{
-		safe_pixel(data->img->fg, pixel_row, start, make_color(100, 50 * ray->wall_face, 100, 255));
-		start++;
-		height--;
-	} */
 }
+
 void	refresh_img(t_data *data, t_img *img)
 {
 

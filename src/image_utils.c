@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:00:00 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 14:02:33 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:11:10 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ int	get_txt_color(mlx_image_t *img, int x, int y)
 	int	i;
 	uint8_t	*txt;
 
+	//printf("x = %i\n", x);
 	color = 0;
 	x_offset = 4;
 	y_offset = 4 * img->width;
 	i = (x * x_offset) + (y * y_offset);
 	txt = img->pixels;
-	if (x > 0 && x <= y_offset && y > 0 && y < (int)img->height)
+	if (x >= 0 && x <= y_offset && y >= 0 && y < (int)img->height)
 		color = make_color(txt[i], txt[i +1], txt[i +2], txt[i +3]);
 	return (color);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 14:47:54 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:48:24 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	init_ray(t_data *data, t_ray *ray)
 	ray->horizontal_dist = 0;
 	ray->vertical_dist = 0;
 	ray->data = data;
-	//ray->wall_face = 0;
 }
 
 void	init_player(t_data *data, t_player *player)
@@ -50,8 +49,11 @@ void	init_texture(t_data *data, t_txt *txt)
 {
 	data->txt = txt;
 	txt->wall_face = 0;
-	txt->wall_txt_x = 0;
-	
+	txt->wall_x = 0;
+	txt->wall_y = 0;
+	txt->pos = 0;
+	txt->step = 0;
+	txt->height = 0;
 }
 
 void	init_all(t_data *data, t_ray *ray, t_player *player, t_txt *txt)

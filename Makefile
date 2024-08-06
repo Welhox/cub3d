@@ -39,8 +39,8 @@ OFILES = $(CFILES:.c=.o)
 
 LIBS	= $(MLX_DIR)/build/libmlx42.a
 
-MLX_LIBS = -L$(MLX_DIR)/build -lmlx42 -L"/User/$(USER)/.brew/opt/glfw/lib" -lglfw -ldl -pthread -lm 
-
+#MLX_LIBS = -L$(MLX_DIR)/build -lmlx42 -L"/User/$(USER)/.brew/opt/glfw/lib" -lglfw -ldl -pthread -lm 
+MLX_LIBS = -L$(MLX_DIR)/build -lmlx42 -lglfw -ldl -pthread -lm 
 #--------- FLAGS ----------#
 CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -Wunreachable-code -Ofast

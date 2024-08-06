@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 15:00:14 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:44:57 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,12 @@ typedef enum e_wall
 
 typedef struct s_txt
 {
-	float 	wall_txt_x;
+	float	wall_x;
+	float	wall_y;
 	int		wall_face;
+	float 	pos;
+	float	step;
+	int		height;
 }	t_txt;
 
 typedef struct s_img
