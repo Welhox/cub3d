@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 17:25:47 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:00:15 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,15 @@ void	get_dist(t_data *data, t_ray *ray)
 		}
 	}	
 	if (ray->horizontal_dist < ray->vertical_dist)
+	{
 		ray->distance = ray->horizontal_dist;
+		data->txt->wall_txt_x = ray->hori_x - floorf(ray->hori_x);
+	}
 	else
+	{
 		ray->distance = ray->vertical_dist;
+		data->txt->wall_txt_x = ray->vert_y - floorf(ray->vert_y);
+	}
 }
 
 void	mm_rayprint(t_data *data)
@@ -200,12 +206,17 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 
 	while (height > 0)
 	{
-		safe_pixel(data->img->fg, pixel_row, start, make_color(100, 50 * ray->wall_face, 100, 255));
+		safe_pixel(data->img->fg, pixel_row, start, get_txt_color(data->img->wall_txt[2], 12, 40));
 		start++;
 		height--;
 	}
-	//mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	//mlx_set_instance_depth(data->img->fg->instances, 2);
+// working with colour for walls
+/* 	while (height > 0)
+	{
+		safe_pixel(data->img->fg, pixel_row, start, make_color(100, 50 * ray->wall_face, 100, 255));
+		start++;
+		height--;
+	} */
 }
 void	refresh_img(t_data *data, t_img *img)
 {
@@ -216,21 +227,21 @@ void	refresh_img(t_data *data, t_img *img)
 	safe_image(data, data->s_width, data->s_height, &img->fg);
 }
 
-void	wall_face(t_ray *ray)
+void	wall_face(t_ray *ray, t_txt *txt)
 {
 	if(ray->horizontal_dist < ray->vertical_dist)
 	{
 		if (ray->ray_orient > PI)
-			ray->wall_face = NORTH;
+			txt->wall_face = NORTH;
 		else
-			ray->wall_face = SOUTH;
+			txt->wall_face = SOUTH;
 	}
 	else
 	{
 		if (ray->ray_orient < 1.5 * PI  && ray->ray_orient > PI / 2) // going left
-			ray->wall_face = WEST;
+			txt->wall_face = WEST;
 		else
-			ray->wall_face = EAST;
+			txt->wall_face = EAST;
 	}
 }
 
@@ -251,7 +262,7 @@ void	ray_main(void *param)
 	{
 		fix_orientation(&ray->ray_orient);
 		get_dist(data, data->ray);
-		wall_face(ray);
+		wall_face(ray, data->txt);
 		update_mm_player(data, data->player);
 		if (pixel_row % 10 == 0)
 			mm_rayprint(data);
