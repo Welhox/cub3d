@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/05 20:00:26 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/08/06 11:39:30 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,9 +185,20 @@ void	mm_rayprint(t_data *data)
 	//mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 }
 
-int	make_solid(uint8_t color)
+int	get_txt_color(mlx_image_t *img, int x, int y)
 {
-	return(color | 0xFF);
+	int	color;
+	int	x_offset;
+	int	y_offset;
+	int	byte;
+	uint8_t	*pixel_map;
+
+	x_offset = 4;
+	y_offset = 4 * 64;
+	byte = (x * x_offset) + (y * y_offset);
+	pixel_map = img->pixels;
+	color = make_color(pixel_map[byte], pixel_map[byte +1], pixel_map[byte +2], pixel_map[byte +3]);
+	return (color);
 }
 
 void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
@@ -203,16 +214,9 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 		height = data->s_height;
 	start = (data->s_height / 2) - (height / 2);
 
-	uint8_t	*pixel_map;
-
-	pixel_map = data->img->wall_s->pixels;
-	int color = make_solid(pixel_map[0]);
-	//float	txt_step_y;
-
-	//txt_step_y = 64 / (float)height;
 	while (height > 0)
 	{
-		safe_pixel(data->img->fg, pixel_row, start, color);
+		safe_pixel(data->img->fg, pixel_row, start, get_txt_color(data->img->wall_n, 38, 63));
 		start++;
 		height--;
 	}
