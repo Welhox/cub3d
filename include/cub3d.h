@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 17:44:57 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:15:16 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_txt
 	float 	pos;
 	float	step;
 	int		height;
+	bool	hori_door;
+	bool	vert_door;
+	bool 	door;
 }	t_txt;
 
 typedef struct s_img
@@ -70,6 +73,7 @@ typedef struct s_img
 	mlx_image_t		*ray_grid; //layer for all the rays
 	mlx_image_t		*fg; //foreground
 	mlx_image_t		*wall_txt[5];
+	mlx_image_t		*door;
 	mlx_t		*mlx;
 }	t_img;
 

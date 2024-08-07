@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 16:21:20 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:57:36 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	ft_collision(t_data *data, float y, float x)
 		return (1);
 	if (data->map[(int)y][(int)x] == '1')
 		return (1);
+	else if (data->map[(int)y][(int)x] == '2')
+		return (2);	
 	return (0);
 }
 

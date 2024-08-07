@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:41:18 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 11:45:25 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:33:04 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_ismap(char *line)
 {
 	while (*line && (*line == ' ' || *line == '1' \
 	|| *line == '0' || *line == 'N' || *line == 'S' \
-	|| *line == 'E' || *line == 'W'))
+	|| *line == 'E' || *line == 'W' || *line == '2'))
 		line++;
 	if (*line == '\0' || *line == '\n')
 		return (0);

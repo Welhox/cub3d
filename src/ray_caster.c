@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 22:37:04 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/08/07 15:05:49 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,15 @@ void	check_wall(t_data *data, bool *hori_end, bool *vert_end)
 		{
 			if (ft_collision(data, data->ray->hori_y - 1,  data->ray->hori_x))
 				*hori_end = true;
+			if (ft_collision(data, data->ray->hori_y - 1,  data->ray->hori_x) == 2)
+				data->txt->hori_door = true;
 		}
 		else
 		{
 			if (ft_collision(data, data->ray->hori_y,  data->ray->hori_x))
 				*hori_end = true;
+			if (ft_collision(data, data->ray->hori_y,  data->ray->hori_x) == 2)
+				data->txt->hori_door = true;			
 		}
 	}
 	if (*vert_end == false)
@@ -114,11 +118,15 @@ void	check_wall(t_data *data, bool *hori_end, bool *vert_end)
 		{
 			if (ft_collision(data, data->ray->vert_y,  data->ray->vert_x - 1))
 				*vert_end = true;
+			if (ft_collision(data, data->ray->vert_y,  data->ray->vert_x - 1) == 2)
+				data->txt->vert_door = true;
 		}
 		else
 		{
 			if (ft_collision(data, data->ray->vert_y,  data->ray->vert_x))
 				*vert_end = true;
+			if (ft_collision(data, data->ray->vert_y,  data->ray->vert_x) == 2)
+				data->txt->vert_door = true;
 		}
 	}
 }
@@ -191,7 +199,7 @@ void	mm_rayprint(t_data *data)
 	//mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 }
 
-void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
+void	paint_row(t_data *data, t_ray *ray, int	pixel_row, mlx_image_t *img)
 {
 	int			height;
 	int			start;
@@ -201,7 +209,7 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 	if (ray->distance > data->render_dist)
 		return ;
 	height = (64 / (ray->distance * 64)) * ray->proj_plane;
-	data->txt->step = 1.0 * (float)(data->img->wall_txt[data->txt->wall_face]->height / (float)height);
+	data->txt->step = 1.0 * (float)(img->height / (float)height);
 	data->txt->height = height;
 	if (height > data->s_height)
 		height = data->s_height;
@@ -210,9 +218,9 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row)
 	y = start;
 	while (y < (start + height))
 	{
-		data->txt->wall_y = (int)data->txt->pos % data->img->wall_txt[data->txt->wall_face]->height;
+		data->txt->wall_y = (int)data->txt->pos % img->height;
 		data->txt->pos += data->txt->step;
-		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->wall_txt[data->txt->wall_face], floor(data->txt->wall_x * data->img->wall_txt[data->txt->wall_face]->width), data->txt->wall_y));
+			safe_pixel(data->img->fg, pixel_row, y, get_txt_color(img, floor(data->txt->wall_x * img->width), data->txt->wall_y));
 		y++;
 		//printf("text y = %f\n", data->txt->wall_y);
 	}
@@ -238,6 +246,8 @@ void	wall_face(t_ray *ray, t_txt *txt)
 			txt->wall_face = SOUTH;
 			txt->wall_x = 1 - txt->wall_x;
 		}
+		if (txt->hori_door == true)
+			txt->door = true;
 	}
 	else
 	{
@@ -248,7 +258,17 @@ void	wall_face(t_ray *ray, t_txt *txt)
 		}
 		else
 			txt->wall_face = EAST;
+		if (txt->vert_door == true)
+			txt->door = true;
 	}
+}
+
+mlx_image_t *use_txt(t_data *data)
+{
+	if (data->txt->door == true)
+		return (data->img->door);
+	else
+		return (data->img->wall_txt[data->txt->wall_face]);
 }
 
 void	ray_main(void *param)
@@ -266,13 +286,16 @@ void	ray_main(void *param)
 	refresh_img(data, data->img);
 	while (pixel_row < data->s_width)
 	{
+	data->txt->hori_door = false;
+	data->txt->vert_door = false;	
+	data->txt->door = false;	
 		fix_orientation(&ray->ray_orient);
 		get_dist(data, data->ray);
 		wall_face(ray, data->txt);
 		update_mm_player(data, data->player);
 		if (pixel_row % 10 == 0)
 			mm_rayprint(data);
-		paint_row(data, ray, pixel_row);
+		paint_row(data, ray, pixel_row, use_txt(data));
 		ray->ray_orient += ray_offset;
 		pixel_row++;
 	}

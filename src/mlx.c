@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/06 14:38:33 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:40:29 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,30 @@ void	update_params(t_data *data, t_ray *ray)
 	data->render_dist = 30;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
+}
+
+void	toggle_door(t_data *data, t_player *player)
+{
+ 	player->step_y = 0.2 * cos(player->p_orientation - (90 * DEG_RAD));
+	player->step_x = 0.2 * sin(player->p_orientation - (90 * DEG_RAD));	
+	float door_x;
+	float door_y;
+	int	i;
+
+	i = 0;
+	door_x = player->pl_x;
+	door_y = player->pl_y;
+	while (i < 5)
+	{
+		door_x -= player->step_x;
+		door_y += player->step_y;
+		if (ft_collision(data, door_y, door_x) == 2)
+		{
+			data->map[(int)door_y][(int)door_x] = '0';
+			break;
+		}
+		i++;
+	}
 }
 
 void	keypress(void *param)
@@ -44,6 +68,8 @@ void	keypress(void *param)
 		move_player(data, data->player, LEFT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		move_player(data, data->player, RIGHT);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
+		toggle_door(data, data->player);
 }
 
 void	initial_render(t_data *data)
@@ -76,6 +102,8 @@ void	load_textures(t_data *data, t_img *img)
 	safe_text_to_image(data, temp, &img->wall_txt[3]);
 	safe_texture(data, &temp, data->wall_text[1]);
 	safe_text_to_image(data, temp, &img->wall_txt[1]);
+	safe_texture(data, &temp, "assets/512x512/Wood/Wood_15-512x512.png");
+	safe_text_to_image(data, temp, &data->img->door);
 }
 
 void	mlx_main(t_data *data)
