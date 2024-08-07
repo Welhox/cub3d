@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/07 15:05:49 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:34:55 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,11 +204,11 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row, mlx_image_t *img)
 	int			height;
 	int			start;
 	int			y;
-	
-	ray->distance = ray->distance * cos(data->player->p_orientation - ray->ray_orient);
-	if (ray->distance > data->render_dist)
+
+	ray->corr_dist = ray->distance * cos(data->player->p_orientation - ray->ray_orient);
+	if (ray->corr_dist > data->render_dist)
 		return ;
-	height = (64 / (ray->distance * 64)) * ray->proj_plane;
+	height = (64 / (ray->corr_dist * 64)) * ray->proj_plane;
 	data->txt->step = 1.0 * (float)(img->height / (float)height);
 	data->txt->height = height;
 	if (height > data->s_height)
@@ -220,7 +220,7 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row, mlx_image_t *img)
 	{
 		data->txt->wall_y = (int)data->txt->pos % img->height;
 		data->txt->pos += data->txt->step;
-			safe_pixel(data->img->fg, pixel_row, y, get_txt_color(img, floor(data->txt->wall_x * img->width), data->txt->wall_y));
+			safe_pixel(data->img->fg, pixel_row, y, get_txt_color(img, floor(data->txt->wall_x * img->width), data->txt->wall_y, data->txt->shade));
 		y++;
 		//printf("text y = %f\n", data->txt->wall_y);
 	}
@@ -271,6 +271,13 @@ mlx_image_t *use_txt(t_data *data)
 		return (data->img->wall_txt[data->txt->wall_face]);
 }
 
+void	shade_factor(t_data *data)
+{
+	data->txt->shade = ((float)1 / data->ray->distance) * SHADE;
+	if (data->txt->shade >= 1)
+		data->txt->shade = 1;
+}
+
 void	ray_main(void *param)
 {
 	t_data	*data;
@@ -291,6 +298,7 @@ void	ray_main(void *param)
 	data->txt->door = false;	
 		fix_orientation(&ray->ray_orient);
 		get_dist(data, data->ray);
+		shade_factor(data);
 		wall_face(ray, data->txt);
 		update_mm_player(data, data->player);
 		if (pixel_row % 10 == 0)
