@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:00:00 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 17:11:10 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:15:49 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	make_color(int r, int g, int b, int a)
 }
 
 //gives back the color of the pixel
-int	get_txt_color(mlx_image_t *img, int x, int y)
+int	get_txt_color(mlx_image_t *img, int x, int y, float shade)
 {
 	int	color;
 	int	x_offset;
@@ -44,13 +44,12 @@ int	get_txt_color(mlx_image_t *img, int x, int y)
 	int	i;
 	uint8_t	*txt;
 
-	//printf("x = %i\n", x);
 	color = 0;
 	x_offset = 4;
 	y_offset = 4 * img->width;
 	i = (x * x_offset) + (y * y_offset);
 	txt = img->pixels;
 	if (x >= 0 && x <= y_offset && y >= 0 && y < (int)img->height)
-		color = make_color(txt[i], txt[i +1], txt[i +2], txt[i +3]);
+		color = make_color(txt[i] * shade, txt[i +1] * shade, txt[i +2] * shade, txt[i +3]);
 	return (color);
 }

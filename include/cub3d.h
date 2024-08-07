@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/07 15:15:16 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:30:23 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define PI 3.14159265359
 # define BUBBLE 0.2
 # define mms 3
+# define SHADE 4
 typedef struct s_data	t_data;
 
 typedef enum e_key
@@ -60,6 +61,7 @@ typedef struct s_txt
 	bool	hori_door;
 	bool	vert_door;
 	bool 	door;
+	float	shade;
 }	t_txt;
 
 typedef struct s_img
@@ -95,7 +97,7 @@ typedef struct s_ray
 	float	h_step_dist;
 	float	v_step_dist;
 	float	proj_plane;
-	//int		wall_face;
+	float	corr_dist;
 }	t_ray;
 
 typedef struct s_player
@@ -145,7 +147,7 @@ int		ft_atoi_cubd(const char *str);
 
 //RAYCASTING, COLOURS, RENDERING
 
-int		get_txt_color(mlx_image_t *img, int x, int y);
+int		get_txt_color(mlx_image_t *img, int x, int y, float shade);
 int		make_color(int r, int g, int b, int a);
 void	mm_render(t_data *data, t_player *player, t_img *img);
 void	minimap(t_data *data, t_img *img);

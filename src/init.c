@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/07 14:07:54 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:01:39 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_ray(t_data *data, t_ray *ray)
 	ray->horizontal_dist = 0;
 	ray->vertical_dist = 0;
 	ray->data = data;
+	ray->corr_dist = 0;
 }
 
 void	init_player(t_data *data, t_player *player)
