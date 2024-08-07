@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/06 14:48:03 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:37:33 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int ac, char **av)
 	init_all(&data, &ray, &player, &txt);
 	if (parsing(ac, av, &data) != 0)
 		armageddon(&data, NULL);
-	update_params(&data, &ray);
+ 	update_params(&data, &ray);
 	mlx_main(&data);
 	armageddon(&data, NULL);
 	return (0);
