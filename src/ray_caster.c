@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/07 16:34:55 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:30:11 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,36 @@ void	mm_rayprint(t_data *data)
 	//mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 }
 
+void	paint_surface_other_than_walls(t_data *data, t_ray *ray, int wall_height, int pixel_row)
+{
+	int 	y;
+	float	floor_x = 0;
+	float	floor_y = 0;
+	float	step_x = 0;
+	float	step_y = 0;
+	if (ray->vertical_dist < ray->horizontal_dist)
+	{
+		floor_x = ray->vert_x;
+		floor_y = ray->vert_y;
+	}
+	else
+	{
+		floor_x = ray->hori_x;
+		floor_y = ray->hori_y;
+	}
+	// float	floor_dist = ray->distance / ray->proj_plane; 
+	// float	eye_to_floor_dist = sqrt(pow(ray->distance, 2) + pow(0.5, 2));
+	int		start = (data->s_height / 2) + (wall_height / 2);
+	y = start;
+	while (y < data->s_height)
+	{
+		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->floor_txt, (floor_x - floorf(floor_x)) * data->img->floor_txt->width, (floor_y - floorf(floor_y))  * data->img->floor_txt->height, data->txt->shade));
+		floor_x += step_x;
+		floor_y += step_y;
+		y++;
+	}
+}
+
 void	paint_row(t_data *data, t_ray *ray, int	pixel_row, mlx_image_t *img)
 {
 	int			height;
@@ -206,14 +236,15 @@ void	paint_row(t_data *data, t_ray *ray, int	pixel_row, mlx_image_t *img)
 	int			y;
 
 	ray->corr_dist = ray->distance * cos(data->player->p_orientation - ray->ray_orient);
-	if (ray->corr_dist > data->render_dist)
-		return ;
 	height = (64 / (ray->corr_dist * 64)) * ray->proj_plane;
 	data->txt->step = 1.0 * (float)(img->height / (float)height);
 	data->txt->height = height;
 	if (height > data->s_height)
 		height = data->s_height;
+	paint_surface_other_than_walls(data, ray, height, pixel_row);
 	start = (data->s_height / 2) - (height / 2);
+	if (ray->corr_dist > data->render_dist)
+		return ;
 	data->txt->pos = ((float)start - ((float)data->s_height / 2) + ((float)data->txt->height / 2)) * data->txt->step;
 	y = start;
 	while (y < (start + height))

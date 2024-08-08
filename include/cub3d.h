@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/07 16:30:23 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:27:02 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ typedef struct s_img
 	mlx_image_t		*mm; //minimap
 	mlx_image_t		*mm_wall; //minimap  walls
 	mlx_image_t		*mm_floor; //minmap floor
-	mlx_image_t		*floor; //game floor
+	mlx_image_t		*floor; //backgorund game floor
+	mlx_image_t		*floor_txt;
 	mlx_image_t 	*ceiling; //game ceiling
 	mlx_image_t		*pl; //player
 	mlx_image_t		*ray_grid; //layer for all the rays
