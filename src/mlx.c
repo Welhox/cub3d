@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/08 14:26:57 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:27:46 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	load_textures(t_data *data, t_img *img)
 	safe_text_to_image(data, temp, &img->wall_txt[1]);
 	safe_texture(data, &temp, "assets/512x512/Wood/Wood_15-512x512.png");
 	safe_text_to_image(data, temp, &data->img->door);
-	safe_texture(data, &temp, "assets/512x512/Dirt/Dirt_01-512x512.png");
+	safe_texture(data, &temp, "assets/BRICK_3B.PNG");
 	safe_text_to_image(data, temp, &data->img->floor_txt);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/08 14:30:11 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:24:35 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,8 @@ void	paint_surface_other_than_walls(t_data *data, t_ray *ray, int wall_height, i
 	float	floor_y = 0;
 	float	step_x = 0;
 	float	step_y = 0;
+	//float	z_pos = 0;
+	float	row_distance = 0;
 	if (ray->vertical_dist < ray->horizontal_dist)
 	{
 		floor_x = ray->vert_x;
@@ -220,11 +222,15 @@ void	paint_surface_other_than_walls(t_data *data, t_ray *ray, int wall_height, i
 	// float	eye_to_floor_dist = sqrt(pow(ray->distance, 2) + pow(0.5, 2));
 	int		start = (data->s_height / 2) + (wall_height / 2);
 	y = start;
+	//z_pos = 0.5 * data->s_height;
 	while (y < data->s_height)
 	{
+		row_distance = (data->s_height / 2.0) / (y - data->s_height / 2.0);
+		step_x = cos(ray->ray_orient);
+		step_y = sin(ray->ray_orient);
+		floor_x = (data->player->pl_x - floorf(data->player->pl_x)) + row_distance * step_x;
+		floor_y = (data->player->pl_y - floorf(data->player->pl_y)) + row_distance * step_y;
 		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->floor_txt, (floor_x - floorf(floor_x)) * data->img->floor_txt->width, (floor_y - floorf(floor_y))  * data->img->floor_txt->height, data->txt->shade));
-		floor_x += step_x;
-		floor_y += step_y;
 		y++;
 	}
 }
