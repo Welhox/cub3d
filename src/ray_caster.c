@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/08 17:24:35 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:56:30 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,12 +225,15 @@ void	paint_surface_other_than_walls(t_data *data, t_ray *ray, int wall_height, i
 	//z_pos = 0.5 * data->s_height;
 	while (y < data->s_height)
 	{
-		row_distance = (data->s_height / 2.0) / (y - data->s_height / 2.0);
+		row_distance = (data->s_height / 2.0) / ((float)y - data->s_height / 2.0);
 		step_x = cos(ray->ray_orient);
 		step_y = sin(ray->ray_orient);
 		floor_x = (data->player->pl_x - floorf(data->player->pl_x)) + row_distance * step_x;
 		floor_y = (data->player->pl_y - floorf(data->player->pl_y)) + row_distance * step_y;
-		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->floor_txt, (floor_x - floorf(floor_x)) * data->img->floor_txt->width, (floor_y - floorf(floor_y))  * data->img->floor_txt->height, data->txt->shade));
+		// printf("x= %f y= %f\n", data->player->pl_x - floorf(data->player->pl_x), data->player->pl_y - floorf(data->player->pl_y));
+		float	fl_txt_x = (floor_x - floorf(floor_x)) * data->img->floor_txt->width;
+		float	fl_txt_y = (floor_y - floorf(floor_y)) * data->img->floor_txt->height;
+		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->floor_txt, fl_txt_x, fl_txt_y, data->txt->shade));
 		y++;
 	}
 }
