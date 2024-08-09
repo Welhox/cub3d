@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_data_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:08:01 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/07 13:35:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:21:01 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ static int	pos_check(t_data *data, int y, int x)
 	return (0);
 }
 
-static void	set_player_pos(char c, t_data *data, int y, int x)
+static void	set_pl_pos(char c, t_data *data, int y, int x)
 {
 	if (c == 'N')
-		data->player->p_orientation = 270 * DEG_RAD;
+		data->pl->p_orientation = 270 * DEG_RAD;
 	else if (c == 'E')
-		data->player->p_orientation = 0;
+		data->pl->p_orientation = 0;
 	else if (c == 'S')
-		data->player->p_orientation = 90 * DEG_RAD;
+		data->pl->p_orientation = 90 * DEG_RAD;
 	else if (c == 'W')
-		data->player->p_orientation = 180 * DEG_RAD;
-	data->player->pl_x = (float)x + 0.5;
-	data->player->pl_y = (float)y + 0.5;
+		data->pl->p_orientation = 180 * DEG_RAD;
+	data->pl->pl_x = (float)x + 0.5;
+	data->pl->pl_y = (float)y + 0.5;
 }
 
 static int	check_valid_chars(t_data *data, int y, int x)
@@ -55,7 +55,7 @@ static int	check_valid_chars(t_data *data, int y, int x)
 	return (0);
 }
 
-static int	check_map(t_data *data, int y, int x, bool *player)
+static int	check_map(t_data *data, int y, int x, bool *pl)
 {
 	if (data->map[y][x] != '1' && data->map[y][x] != ' ')
 	{
@@ -64,11 +64,11 @@ static int	check_map(t_data *data, int y, int x, bool *player)
 		if (data->map[y][x] == 'N' || data->map[y][x] == 'E' \
 			|| data->map[y][x] == 'S' || data->map[y][x] == 'W')
 		{	
-			set_player_pos(data->map[y][x], data, y, x);
-			if (*player == true)
+			set_pl_pos(data->map[y][x], data, y, x);
+			if (*pl == true)
 				return (1);
 			else
-				*player = true;
+				*pl = true;
 		}
 	}
 	return (0);
@@ -78,9 +78,9 @@ int	validate_map(t_data *data)
 {
 	int		x;
 	int		y;
-	bool	player;
+	bool	pl;
 
-	player = false;
+	pl = false;
 	y = 0;
 	while (data->map[y])
 	{
@@ -89,13 +89,13 @@ int	validate_map(t_data *data)
 		{
 			if (check_valid_chars(data, y, x))
 				return (1);
-			if (check_map(data, y, x, &player))
+			if (check_map(data, y, x, &pl))
 				return (1);
 			x++;
 		}
 		y++;
 	}
-	if (player == false)
+	if (pl == false)
 		return (1);
 	return (0);
 }

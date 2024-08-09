@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:09:12 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 11:45:32 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:05:10 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	all_data_found(t_data *data, char *map_str)
 	while (++i < 3)
 	{
 		if (!data->wall_text[i] || !data->wall_text[3] || data->floor[i] < 0 \
-			|| data->ceiling[i] < 0 || !map_str)
+			|| data->ceil[i] < 0 || !map_str)
 			return (1);
 	}
 	return (0);

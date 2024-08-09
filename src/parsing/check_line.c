@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:41:18 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/07 13:33:04 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:21:49 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ static int	check_color(char *line, t_data *data)
 	}
 	if (ft_strncmp(line, "C ", 2) == 0)
 	{
-		if (data->ceiling[3] == 0)
+		if (data->ceil[3] == 0)
 		{
-			if (get_color(data->ceiling, line) == 1)
+			if (get_color(data->ceil, line) == 1)
 				return (1);
 		}
 		else

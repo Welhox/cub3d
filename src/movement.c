@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/07 13:57:36 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:21:01 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	update_mm_player(t_data *data, t_player *pl)
+void	update_mm_pl(t_data *data, t_pl *pl)
 {
 	float	scale_x;
 	float	scale_y;
@@ -37,7 +37,7 @@ int	ft_collision(t_data *data, float y, float x)
 
 // void	move_f_or_b(t_data *data, t_key key, )
 
-void	fwd_or_back(t_data *data, t_player *pl, t_key key)
+void	fwd_or_back(t_data *data, t_pl *pl, t_key key)
 {
 	pl->step_y = 0.1 * cos(pl->p_orientation - (90 * DEG_RAD));
 	pl->step_x = 0.1 * sin(pl->p_orientation - (90 * DEG_RAD));
@@ -63,7 +63,7 @@ void	fwd_or_back(t_data *data, t_player *pl, t_key key)
 	}
 }
 
-void	left_or_right(t_data *data, t_player *pl, t_key key)
+void	left_or_right(t_data *data, t_pl *pl, t_key key)
 {
 	pl->step_y = 0.1 * cos(pl->p_orientation);
 	pl->step_x = 0.1 * sin(pl->p_orientation);
@@ -89,7 +89,7 @@ void	left_or_right(t_data *data, t_player *pl, t_key key)
 	}
 }
 
-void	move_player(t_data *data, t_player *pl, t_key key)
+void	move_pl(t_data *data, t_pl *pl, t_key key)
 {
 	if (key == FORWARD || key == BACK)
 		fwd_or_back(data, pl, key);
@@ -104,5 +104,5 @@ void	move_player(t_data *data, t_player *pl, t_key key)
 	{
 		pl->p_orientation += 4 * DEG_RAD;
 		fix_orientation(&pl->p_orientation);
-	}
+	}	
 }

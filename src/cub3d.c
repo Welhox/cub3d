@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/07 13:37:33 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:21:49 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	free_img(t_img *img)
 		mlx_delete_image(img->mlx, img->mm_floor);
 	if (img->floor)
 		mlx_delete_image(img->mlx, img->floor);
-	if (img->ceiling)
-		mlx_delete_image(img->mlx, img->ceiling);
+	if (img->ceil)
+		mlx_delete_image(img->mlx, img->ceil);
 	if (img->pl)
 		mlx_delete_image(img->mlx, img->pl);
 	if (img->wall_txt[0])
@@ -69,10 +69,10 @@ int	main(int ac, char **av)
 {
 	t_data		data;
 	t_ray		ray;
-	t_player	player;
+	t_pl	pl;
 	t_txt		txt;
 
-	init_all(&data, &ray, &player, &txt);
+	init_all(&data, &ray, &pl, &txt);
 	if (parsing(ac, av, &data) != 0)
 		armageddon(&data, NULL);
  	update_params(&data, &ray);

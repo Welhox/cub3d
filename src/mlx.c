@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/08 16:27:46 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:21:49 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 void	update_params(t_data *data, t_ray *ray)
 
 {
-	data->s_height = 1080;
-	data->s_width = 1920;
+	data->s_height = 600;
+	data->s_width = 800;
 	data->fov = 60;
 	data->render_dist = 30;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
 }
 
-void	toggle_door(t_data *data, t_player *player)
+void	toggle_door(t_data *data, t_pl *pl)
 {
- 	player->step_y = 0.2 * cos(player->p_orientation - (90 * DEG_RAD));
-	player->step_x = 0.2 * sin(player->p_orientation - (90 * DEG_RAD));	
-	float door_x;
-	float door_y;
-	int	i;
+	float	door_x;
+	float	door_y;
+	int		i;
 
+	pl->step_y = 0.2 * cos(pl->p_orientation - (90 * DEG_RAD));
+	pl->step_x = 0.2 * sin(pl->p_orientation - (90 * DEG_RAD));
 	i = 0;
-	door_x = player->pl_x;
-	door_y = player->pl_y;
+	door_x = pl->pl_x;
+	door_y = pl->pl_y;
 	while (i < 5)
 	{
-		door_x -= player->step_x;
-		door_y += player->step_y;
+		door_x -= pl->step_x;
+		door_y += pl->step_y;
 		if (ft_collision(data, door_y, door_x) == 2)
 		{
 			data->map[(int)door_y][(int)door_x] = '0';
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -56,20 +56,20 @@ void	keypress(void *param)
 		armageddon(data, NULL);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) \
 						|| mlx_is_key_down(data->mlx, MLX_KEY_UP))
-		move_player(data, data->player, FORWARD);
+		move_pl(data, data->pl, FORWARD);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) \
 						|| mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
-		move_player(data, data->player, BACK);
+		move_pl(data, data->pl, BACK);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		move_player(data, data->player, S_LEFT);
+		move_pl(data, data->pl, S_LEFT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		move_player(data, data->player, S_RIGHT);
+		move_pl(data, data->pl, S_RIGHT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		move_player(data, data->player, LEFT);
+		move_pl(data, data->pl, LEFT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		move_player(data, data->player, RIGHT);
+		move_pl(data, data->pl, RIGHT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
-		toggle_door(data, data->player);
+		toggle_door(data, data->pl);
 }
 
 void	initial_render(t_data *data)
@@ -77,15 +77,14 @@ void	initial_render(t_data *data)
 	int	ceil;
 	int	floor;
 
-	ceil = make_color(data->ceiling[0], data->ceiling[1], data->ceiling[2], 255);
+	ceil = make_color(data->ceil[0], data->ceil[1], data->ceil[2], 255);
 	floor = make_color(data->floor[0], data->floor[1], data->floor[2], 255);
 	safe_image(data, data->s_width, data->s_height / 2, &data->img->floor);
-	safe_image(data, data->s_width, data->s_height / 2, &data->img->ceiling);
-	color_image(data->img->ceiling, ceil);
+	safe_image(data, data->s_width, data->s_height / 2, &data->img->ceil);
+	color_image(data->img->ceil, ceil);
 	color_image(data->img->floor, floor);
-	mlx_image_to_window(data->mlx, data->img->ceiling, 0, 0);
+	mlx_image_to_window(data->mlx, data->img->ceil, 0, 0);
 	mlx_image_to_window(data->mlx, data->img->floor, 0, data->s_height / 2);
-
 	safe_image(data, data->s_width, data->s_height, &data->img->fg);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
 	minimap(data, data->img);
@@ -94,6 +93,7 @@ void	initial_render(t_data *data)
 void	load_textures(t_data *data, t_img *img)
 {
 	mlx_texture_t	*temp;
+
 	safe_texture(data, &temp, data->wall_text[0]);
 	safe_text_to_image(data, temp, &img->wall_txt[0]);
 	safe_texture(data, &temp, data->wall_text[2]);
@@ -118,7 +118,7 @@ void	mlx_main(t_data *data)
 	if (!data->mlx)
 		armageddon(data, "mlx failed to initialise");
 	load_textures(data, &img);
-	init_img_text(data->img);	
+	init_img_text(data->img);
 	initial_render(data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
