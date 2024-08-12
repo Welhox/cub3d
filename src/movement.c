@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:01 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:43:06 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_collision(t_data *data, float y, float x)
 	if (data->map[(int)y][(int)x] == '1')
 		return (1);
 	else if (data->map[(int)y][(int)x] == '2')
-		return (2);	
+		return (2);
 	return (0);
 }
 
@@ -104,5 +104,5 @@ void	move_pl(t_data *data, t_pl *pl, t_key key)
 	{
 		pl->p_orientation += 4 * DEG_RAD;
 		fix_orientation(&pl->p_orientation);
-	}	
+	}
 }
