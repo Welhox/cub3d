@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:41:18 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:49 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:03:56 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	check_assets(char *line, t_data *data)
 	while (elements[++i])
 	{
 		if (ft_strncmp(line, elements[i], 2) == 0)
-		{	
+		{
 			if (!data->wall_text[i])
 			{
 				data->wall_text[i] = get_path(line);

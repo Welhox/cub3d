@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:49 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:02:33 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_img(t_img *img)
 		mlx_delete_image(img->mlx, img->wall_txt[2]);
 	if (img->wall_txt[3])
 		mlx_delete_image(img->mlx, img->wall_txt[3]);
-}	
+}
 
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
 void	armageddon(t_data *data, char *error)
@@ -69,13 +69,13 @@ int	main(int ac, char **av)
 {
 	t_data		data;
 	t_ray		ray;
-	t_pl	pl;
+	t_pl		pl;
 	t_txt		txt;
 
 	init_all(&data, &ray, &pl, &txt);
 	if (parsing(ac, av, &data) != 0)
 		armageddon(&data, NULL);
- 	update_params(&data, &ray);
+	update_params(&data, &ray);
 	mlx_main(&data);
 	armageddon(&data, NULL);
 	return (0);

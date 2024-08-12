@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:01 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:00:26 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ void	minimap(t_data *data, t_img *img)
 
 	p_pos_x = data->scale * data->pl->pl_x - ((data->scale / 5) / 2);
 	p_pos_y = data->scale * data->pl->pl_y - ((data->scale / 5) / 2);
-	//safe_image(data, data->s_width / mms, data->s_height / mms, &img->mm);
-	safe_image(data, data->map_x_border * data->scale, data->map_y_border * data->scale, &img->mm);
-	safe_image(data, data->scale / mms, data->scale / mms, &img->pl);
+	//safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->mm);
+	safe_image(data, data->map_x_border * data->scale, \
+				data->map_y_border * data->scale, &img->mm);
+	safe_image(data, data->scale / MMS, data->scale / MMS, &img->pl);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_wall);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_floor);
-	safe_image(data, data->s_width / mms, data->s_height / mms, &img->ray_grid);
+	safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->ray_grid);
 	color_image(img->mm, make_color(100, 100, 100, 200));
 	color_image(img->pl, make_color(255, 0, 0, 255));
 	color_image(img->mm_wall, make_color(0, 0, 0, 255));

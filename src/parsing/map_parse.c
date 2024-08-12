@@ -6,19 +6,19 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:55 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 14:42:05 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:03:36 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	 trim_spaces(char ***temp_data)
+void	trim_spaces(char ***temp_data)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	while((*temp_data)[y])
+	while ((*temp_data)[y])
 	{
 		x = 0;
 		while ((*temp_data)[y][x])
