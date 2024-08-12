@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   safe_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <casimirri@student.42.fr>        +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:15:46 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/07/26 23:19:00 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/08/12 13:47:23 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	safe_text_to_image(t_data *data, mlx_texture_t *text, mlx_image_t **img)
+void	safe_txt_to_img(t_data *data, mlx_texture_t *text, mlx_image_t **img)
 {
 	*img = mlx_texture_to_image(data->mlx, text);
 	if (!*img)
@@ -23,7 +23,7 @@ void	safe_text_to_image(t_data *data, mlx_texture_t *text, mlx_image_t **img)
 void	safe_texture(t_data *data, mlx_texture_t **img, char *path)
 {
 	*img = mlx_load_png(path);
-	if(!*img)
+	if (!*img)
 		armageddon(data, "texture failed to load");
 }
 

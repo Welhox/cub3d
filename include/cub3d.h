@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/08 14:27:02 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:55:36 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@
 # define DEG_RAD 0.0174532925
 # define PI 3.14159265359
 # define BUBBLE 0.2
-# define mms 3
+# define MMS 3
 # define SHADE 4
+# define HORI 1
+# define VERT 2
+
 typedef struct s_data	t_data;
 
 typedef enum e_key
@@ -55,12 +58,12 @@ typedef struct s_txt
 	float	wall_x;
 	float	wall_y;
 	int		wall_face;
-	float 	pos;
+	float	pos;
 	float	step;
 	int		height;
 	bool	hori_door;
 	bool	vert_door;
-	bool 	door;
+	bool	door;
 	float	shade;
 }	t_txt;
 
@@ -71,13 +74,13 @@ typedef struct s_img
 	mlx_image_t		*mm_floor; //minmap floor
 	mlx_image_t		*floor; //backgorund game floor
 	mlx_image_t		*floor_txt;
-	mlx_image_t 	*ceiling; //game ceiling
-	mlx_image_t		*pl; //player
+	mlx_image_t		*ceil; //game ceil
+	mlx_image_t		*pl; //pl
 	mlx_image_t		*ray_grid; //layer for all the rays
 	mlx_image_t		*fg; //foreground
 	mlx_image_t		*wall_txt[5];
 	mlx_image_t		*door;
-	mlx_t		*mlx;
+	mlx_t			*mlx;
 }	t_img;
 
 typedef struct s_ray
@@ -93,15 +96,17 @@ typedef struct s_ray
 	float	v_delta_y;
 	float	horizontal_dist;
 	float	vertical_dist;
-	float	ray_orient;
+	float	orient;
 	float	distance;
 	float	h_step_dist;
 	float	v_step_dist;
 	float	proj_plane;
 	float	corr_dist;
+	bool	hori_end;
+	bool	vert_end;
 }	t_ray;
 
-typedef struct s_player
+typedef struct s_pl
 {
 	float		pl_x;
 	float		pl_y;
@@ -111,7 +116,7 @@ typedef struct s_player
 	float		bub_x;
 	float		bub_y;
 	t_data		*data;
-}	t_player;
+}	t_pl;
 
 typedef struct s_data
 {
@@ -120,13 +125,15 @@ typedef struct s_data
 	float		map_x_border;
 	float		map_y_border;
 	int			floor[4];
-	int			ceiling[4];
+	int			ceil[4];
 	char		*wall_text[5]; //0N, 1E, 2S, 3W    //rename to wall_path
 	float		s_height;
 	float		s_width;
 	float		fov;
 	float		render_dist;
-	t_player	*player;
+	float		mouse_x;
+	float		mouse_y;
+	t_pl		*pl;
 	t_ray		*ray;
 	t_img		*img;
 	t_txt		*txt;
@@ -134,11 +141,9 @@ typedef struct s_data
 	float		scale;
 }	t_data;
 
-
-
 //INIT
 
-void	init_all(t_data *data, t_ray *ray, t_player *player, t_txt *txt);
+void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt);
 void	init_img_text(t_img *img);
 
 //UTILS
@@ -146,27 +151,44 @@ void	init_img_text(t_img *img);
 float	get_scale(t_data *data);
 int		ft_atoi_cubd(const char *str);
 
+//DDA
+void	get_dist(t_data *data, t_ray *ray);
+int		update_ray_dist(t_ray *ray, int flag);
+void	vertical_delta(t_ray *ray);
+void	horizontal_delta(t_ray *ray);
+void	first_horizontal(t_data *data, t_ray *ray);
+void	first_vertical(t_data *data, t_ray *ray);
+
 //RAYCASTING, COLOURS, RENDERING
 
-int		get_txt_color(mlx_image_t *img, int x, int y, float shade);
-int		make_color(int r, int g, int b, int a);
-void	mm_render(t_data *data, t_player *player, t_img *img);
-void	minimap(t_data *data, t_img *img);
-void	color_image(mlx_image_t *image, int color);
-void	update_params(t_data *data, t_ray *ray);
-int		ft_collision(t_data *data, float y, float x);
-void	ray_main(void *param);
-void	update_mm_player(t_data *data, t_player *pl);
+int			get_txt_color(mlx_image_t *img, int x, int y, float shade);
+int			make_color(int r, int g, int b, int a);
+void		mm_render(t_data *data, t_pl *pl, t_img *img);
+void		minimap(t_data *data, t_img *img);
+void		color_image(mlx_image_t *image, int color);
+void		ray_main(void *param);
+void		update_mm_pl(t_data *data, t_pl *pl);
+mlx_image_t	*use_txt(t_data *data);
+void		shade_factor(t_data *data);
+
+//MOVEMENT
+
+void	keypress(void *param);
+void	move_pl(t_data *data, t_pl *pl, t_key key);
 void	fix_orientation(float *orientation);
+int		ft_collision(t_data *data, float y, float x);
+void	toggle_door(t_data *data, t_pl *pl);
+void	mouse_callback(double x, double y, void *param);
+void	update_mouse(void *param);
 
 //MLX
+
+void	update_params(t_data *data, t_ray *ray);
 void	mlx_main(t_data *data);
-void	keypress(void *param);
 void	safe_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 void	safe_image(t_data *data, uint32_t w, uint32_t h, mlx_image_t **img);
-void	move_player(t_data *data, t_player *pl, t_key key);
 void	safe_texture(t_data *data, mlx_texture_t **img, char *path);
-void	safe_text_to_image(t_data *data, mlx_texture_t *text, mlx_image_t **img);
+void	safe_txt_to_img(t_data *data, mlx_texture_t *text, mlx_image_t **img);
 
 //PARSING
 

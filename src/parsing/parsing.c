@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/07/26 11:45:40 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:21:49 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	validate_data(t_data *data)
 
 	fd = 0;
 	i = 0;
-	if (data->ceiling[0] < 0 || data->ceiling[1] < 0 || data->ceiling[2] < 0 \
+	if (data->ceil[0] < 0 || data->ceil[1] < 0 || data->ceil[2] < 0 \
 		|| data->floor[0] < 0 || data->floor[1] < 0 || data->floor[2] < 0)
-		return (ret_error("invalid floor/ceiling color"));
+		return (ret_error("invalid floor/ceil color"));
 	while (i < 3)
 	{
 		fd = open(data->wall_text[i], O_RDONLY);
