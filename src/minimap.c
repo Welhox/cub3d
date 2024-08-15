@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/12 14:00:26 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:42:11 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	mm_render(t_data *data, t_pl *pl, t_img *img)
 			else if (data->map[y][x] == '0')
 				mlx_image_to_window(data->mlx, img->mm_floor, \
 									data->scale * x, data->scale * y);
+			else if (data->map[y][x] == '2')
+				mlx_image_to_window(data->mlx, img->mm_door, \
+									data->scale * x, data->scale * y);
 			x++;
 		}
 		y++;
@@ -50,11 +53,13 @@ void	minimap(t_data *data, t_img *img)
 	safe_image(data, data->scale / MMS, data->scale / MMS, &img->pl);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_wall);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_floor);
+	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_door);
 	safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->ray_grid);
 	color_image(img->mm, make_color(100, 100, 100, 200));
 	color_image(img->pl, make_color(255, 0, 0, 255));
 	color_image(img->mm_wall, make_color(0, 0, 0, 255));
 	color_image(img->mm_floor, make_color(200, 200, 200, 255));
+	color_image(img->mm_door, make_color(0, 200, 0, 255));
 	mlx_image_to_window(data->mlx, img->mm, 0, 0);
 	mm_render(data, data->pl, img);
 	mlx_image_to_window(data->mlx, img->pl, p_pos_x, p_pos_y);

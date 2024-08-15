@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/15 11:56:11 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:09:08 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	update_params(t_data *data, t_ray *ray)
 	data->s_height = 1000;
 	data->s_width = 1600;
 	data->fov = 60;
-	data->render_dist = 30;
+	data->render_dist = 20;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
 }
@@ -60,6 +60,37 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
 
 }
+/* void	key_input(mlx_key_data_t keydata, void *param)
+
+{
+	t_data	*data;
+
+	data = param;
+	if (keydata.key == MLX_KEY_DOWN && (keydata.action == MLX_PRESS
+			|| keydata.action == MLX_REPEAT))
+		player_down(data);
+	if (keydata.key == MLX_KEY_UP && (keydata.action == MLX_PRESS
+			|| keydata.action == MLX_REPEAT))
+		player_up(data);
+	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS
+			|| keydata.action == MLX_REPEAT))
+		player_left(data);
+	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_PRESS
+			|| keydata.action == MLX_REPEAT))
+		player_right(data);
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
+		ft_arrfree(data->map);
+		mlx_close_window(data->mlx_ptr);
+		mlx_terminate(data->mlx_ptr);
+		exit(1);
+	}
+}
+
+	mlx_key_hook(data.mlx_ptr, &key_input, &data);
+
+ */
+
 
 void	mlx_main(t_data *data)
 {
@@ -73,6 +104,7 @@ void	mlx_main(t_data *data)
 	load_textures(data, &img);
 	init_img_text(data->img);
 	initial_render(data);
+//	mlx_key_hook(data->mlx, &toggle_door, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, &update_mouse, data);
