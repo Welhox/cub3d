@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:08:28 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/12 13:57:51 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/14 1 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,46 @@ void	mm_rayprint(t_data *data, t_ray *ray, t_pl *pl)
 // 	int 	y;
 // 	float	floor_x = 0;
 // 	float	floor_y = 0;
+// 	double	step_x = 0;
+// 	double	step_y = 0;
 // 	float	row_distance = 0;
-// 	float	fl_txt_x;
-// 	float	fl_txt_y;
 
-// 	int		start = (data->s_height / 2.0) + (wall_height / 2);
-// 	y = start;
+// 	y = (data->s_height / 2) + (wall_height / 2);
+// 	float angle = ray->orient - data->pl->p_orientation;
 // 	while (y < data->s_height)
 // 	{
-// 		row_distance = (data->s_height / 2.0) / ((float)y - (data->s_height / 2.0));
-// 		floor_x = data->pl->pl_x + (row_distance * cos(ray->orient));
-// 		floor_y = data->pl->pl_y + (row_distance * sin(ray->orient));	
-// 		fl_txt_x = (floor_x - floorf(floor_x)) * (float)data->img->floor_txt->width;
-// 		fl_txt_y = (floor_y - floorf(floor_y)) * (float)(data->img->floor_txt->height);
+// 		row_distance = ((data->s_height / 2.0f) / ((float)y - (data->s_height / 2.0f))) / cos(angle);
+// 		step_x = cos(ray->orient);
+// 		step_y = sin(ray->orient);
+// 		floor_x = data->pl->pl_x + (row_distance * step_x);
+// 		floor_y = data->pl->pl_y + (row_distance * step_y);
+// 		float	fl_txt_x = (floor_x - floorf(floor_x)) * data->img->floor_txt->width;
+// 		float	fl_txt_y = (floor_y - floorf(floor_y)) * data->img->floor_txt->height;
 // 		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->floor_txt, fl_txt_x, fl_txt_y, data->txt->shade));
 // 		y++;
 // 	}
 // }
+void	paint_surface_other_than_walls(t_data *data, t_ray *ray, int wall_height, int pixel_row)
+{
+	int 	y;
+	float	floor_x = 0;
+	float	floor_y = 0;
+	float	row_distance = 0;
+	float	fl_txt_x;
+	float	fl_txt_y;
+
+	y = (data->s_height / 2.0) + (wall_height / 2);
+	while (y < data->s_height)
+	{
+		row_distance = (ray->proj_plane / 2.0) / ((float)y - (data->s_height / 2.0)) / (cos(ray->orient - data->pl->p_orientation));
+		floor_x = data->pl->pl_x + (row_distance * cos(ray->orient));
+		floor_y = data->pl->pl_y + (row_distance * sin(ray->orient));	
+		fl_txt_x = (int)((floor_x + floorf(floor_x)) * data->img->floor_txt->width) % data->img->floor_txt->width;
+		fl_txt_y = (int)((floor_y + floorf(floor_y)) * data->img->floor_txt->height) % data->img->floor_txt->height;
+		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->floor_txt, fl_txt_x, fl_txt_y, data->txt->shade));
+		y++;
+	}
+}
 
 void	paint_row(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
 {
@@ -68,7 +91,7 @@ void	paint_row(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
 	if (height > data->s_height)
 		height = data->s_height;
 	start = (data->s_height / 2) - (height / 2);
-	// paint_surface_other_than_walls(data, ray, height, pixel_row);
+	paint_surface_other_than_walls(data, ray, height, pixel_row);
 	if (ray->corr_dist > data->render_dist)
 		return ;
 	data->txt->pos = ((float)start - ((float)data->s_height / 2) + ((float)data->txt->height / 2)) * data->txt->step;
