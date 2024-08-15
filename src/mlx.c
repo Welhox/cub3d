@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/12 13:35:17 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:56:11 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 600;
-	data->s_width = 800;
+	data->s_height = 1000;
+	data->s_width = 1600;
 	data->fov = 60;
 	data->render_dist = 30;
 	data->scale = get_scale(data);
@@ -54,8 +54,11 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &img->wall_txt[1]);
 	safe_texture(data, &temp, "assets/512x512/Wood/Wood_15-512x512.png");
 	safe_txt_to_img(data, temp, &data->img->door);
-	safe_texture(data, &temp, "assets/BRICK_3B.PNG");
+	safe_texture(data, &temp, "assets/borat.png");
 	safe_txt_to_img(data, temp, &data->img->floor_txt);
+	safe_texture(data, &temp, "assets/borat.png");
+	safe_txt_to_img(data, temp, &data->img->ceil_txt);
+
 }
 
 void	mlx_main(t_data *data)
