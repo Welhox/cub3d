@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/12 13:49:51 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:55:52 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,33 @@ void	mouse_callback(double x, double y, void *param)
 	t_data	*data;
 
 	data = param;
-	data->mouse_x = x;
-	data->mouse_y = y;
+	data->ms_x = x;
+	data->ms_y = y;
 }
 
 void	update_mouse(void *param)
 {
 	t_data	*data;
-	float	left;
-	float	right;
-	float	rotation_speed;
-	float	sector;
+	float	offset;
 
 	data = param;
-	left = (data->s_width / 2.0) - ((data->s_width / 2.0) * 0.1);
-	right = (data->s_width / 2.0) + ((data->s_width / 2.0) * 0.1);
-	sector = 0;
-	rotation_speed = 0;
-	if (data->mouse_x < left && data->mouse_x != 0.0)
+	offset = data->ms_x - data->prev_x;
+	data->prev_x = data->ms_x;
+	if ((data->ms_x != (data->s_width / 2) && \
+			data->ms_y != (data->s_height / 2))\
+			&& (data->ms_x > data->left && data->ms_x < data->right))
 	{
-		sector = (left - data->mouse_x) / left;
-		rotation_speed = sector * 5;
-		data->pl->p_orientation -= rotation_speed * DEG_RAD;
+		data->pl->p_orientation += (offset * 0.09) * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
-	if (data->mouse_x > right && data->mouse_x != 0.0)
+	if (data->ms_x <= data->left)
+	{	
+		data->pl->p_orientation -= 6 * DEG_RAD;
+		fix_orientation(&data->pl->p_orientation);
+	}
+	if (data->ms_x >= data->right)
 	{
-		sector = (data->mouse_x - right) / right;
-		rotation_speed = sector * 5;
-		data->pl->p_orientation += rotation_speed * DEG_RAD;
+		data->pl->p_orientation += 6 * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
 }
@@ -103,6 +101,6 @@ void	fix_orientation(float *orientation)
 {
 	if (*orientation < 0)
 		*orientation += 2 * PI;
-	else if (*orientation > 2 * PI)
+	else if (*orientation >= 2 * PI)
 		*orientation -= 2 * PI;
 }

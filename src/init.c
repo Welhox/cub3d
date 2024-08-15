@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/12 13:45:37 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:44:26 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	data->render_dist = 0;
 	data->mlx = NULL;
 	data->scale = 0;
-	data->mouse_x = 0;
-	data->mouse_y = 0;
+	data->ms_x = 0.0;
+	data->ms_y = 0.0;
+	data->prev_x = 0.0;
 	init_pl(data, pl);
 	init_ray(data, ray);
 	init_texture(data, txt);
