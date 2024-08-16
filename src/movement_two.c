@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/15 16:03:27 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:58:05 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	keypress(void *param)
 		move_pl(data, data->pl, LEFT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		move_pl(data, data->pl, RIGHT);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
-		toggle_door(data, data->pl);
+	//if (mlx_is_key_down(data->mlx, MLX_KEY_E))
+	//	toggle_door(data, data->pl);
 }
 
 void	mouse_callback(double x, double y, void *param)
