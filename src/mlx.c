@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/16 12:11:47 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:25:12 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &img->wall_txt[3]);
 	safe_texture(data, &temp, data->wall_text[1]);
 	safe_txt_to_img(data, temp, &img->wall_txt[1]);
-	safe_texture(data, &temp, "assets/512x512/Wood/Wood_15-512x512.png");
+	safe_texture(data, &temp, "assets/Door03.png");
 	safe_txt_to_img(data, temp, &data->img->door);
-	safe_texture(data, &temp, "assets/borat.png");
+	safe_texture(data, &temp, "assets/floor_lava.png");
 	safe_txt_to_img(data, temp, &data->img->floor_txt);
-	safe_texture(data, &temp, "assets/borat.png");
+	safe_texture(data, &temp, "assets/floor_02.png");
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
 }
 

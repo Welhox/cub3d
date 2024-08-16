@@ -1,7 +1,7 @@
-NO ./assets/512x512/Brick/Brick_02-512x512.png
-SO ./assets/512x512/Brick/Brick_04-512x512.png
-WE ./assets/512x512/Brick/Brick_06-512x512.png
-EA ./assets/512x512/Brick/Brick_08-512x512.png
+NO ./assets/handpainted_brick_2k/ruin_wall_03.png
+SO ./assets/handpainted_brick_2k/ruin_wall_03.png
+WE ./assets/handpainted_brick_2k/ruin_wall_03_height.png
+EA ./assets/handpainted_brick_2k/ruin_wall_03_height.png
 
 
 F 0,100,0
