@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/16 12:29:14 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:59:14 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ typedef enum e_wall
 	SOUTH,
 	WEST
 }	t_wall;
+
+typedef struct s_sprite
+{
+	float		x;
+	float		y;
+	mlx_image_t	*txt;
+}	t_sprite;
 
 typedef struct s_txt
 {
@@ -143,6 +150,7 @@ typedef struct s_data
 	t_ray		*ray;
 	t_img		*img;
 	t_txt		*txt;
+	t_sprite	*sprite;
 	mlx_t		*mlx;
 	float		scale;
 }	t_data;
@@ -176,7 +184,7 @@ void		ray_main(void *param);
 void		update_mm_pl(t_data *data, t_pl *pl);
 mlx_image_t	*use_txt(t_data *data);
 void		shade_factor(t_data *data);
-
+void		sprite(t_data *data, t_ray *ray);
 //MOVEMENT
 
 void	keypress(void *param);

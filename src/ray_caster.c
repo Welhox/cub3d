@@ -193,4 +193,5 @@ void	ray_main(void *param)
 	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
 	mlx_set_instance_depth(data->img->fg->instances, 2);
+	sprite(data, ray);
 }
