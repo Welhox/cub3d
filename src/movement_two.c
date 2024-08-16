@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   movement_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
 /*   Updated: 2024/08/15 16:55:52 by tcampbel         ###   ########.fr       */
@@ -11,6 +11,19 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	ft_door(t_data *data, float y, float x)
+{
+	if (y < 0 || x < 0 || y > data->map_y_border || x > data->map_x_border)
+		return (1);
+	if (data->map[(int)y][(int)x] == '1')
+		return (1);
+	else if (data->map[(int)y][(int)x] == '2')
+		return (2);
+	else if (data->map[(int)y][(int)x] == '3')
+		return (3);
+	return (0);
+}
 
 void	toggle_door(t_data *data, t_pl *pl)
 {
@@ -29,7 +42,12 @@ void	toggle_door(t_data *data, t_pl *pl)
 		door_y += pl->step_y;
 		if (ft_collision(data, door_y, door_x) == 2)
 		{
-			data->map[(int)door_y][(int)door_x] = '0';
+			data->map[(int)door_y][(int)door_x] = '3';
+			break ;
+		}
+		else if (ft_door(data, door_y, door_x) == 3 && ((int)door_y != (int)pl->pl_y || (int)door_x != (int)pl->pl_x))
+		{
+			data->map[(int)door_y][(int)door_x] = '2';
 			break ;
 		}
 		i++;
@@ -57,8 +75,6 @@ void	keypress(void *param)
 		move_pl(data, data->pl, LEFT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		move_pl(data, data->pl, RIGHT);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
-		toggle_door(data, data->pl);
 }
 
 void	mouse_callback(double x, double y, void *param)

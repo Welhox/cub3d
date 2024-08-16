@@ -28,7 +28,7 @@
 # define DEG_RAD 0.0174532925
 # define PI 3.14159265359
 # define BUBBLE 0.2
-# define MMS 3
+# define MMS 3 //minimap scale
 # define SHADE 4
 # define HORI 1
 # define VERT 2
@@ -65,6 +65,7 @@ typedef struct s_txt
 	bool	vert_door;
 	bool	door;
 	float	shade;
+	int		wall_height; //total wall height in pixels
 }	t_txt;
 
 typedef struct s_img
@@ -72,9 +73,10 @@ typedef struct s_img
 	mlx_image_t		*mm; //minimap
 	mlx_image_t		*mm_wall; //minimap  walls
 	mlx_image_t		*mm_floor; //minmap floor
+	mlx_image_t		*mm_door; //minimap door
 	mlx_image_t		*floor; //backgorund game floor
 	mlx_image_t		*floor_txt;
-	mlx_image_t		*ceil; //game ceil
+	mlx_image_t		*ceil; //background sky
 	mlx_image_t		*ceil_txt;	
 	mlx_image_t		*pl; //pl
 	mlx_image_t		*ray_grid; //layer for all the rays
