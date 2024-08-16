@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/15 11:56:11 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:02:51 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	update_params(t_data *data, t_ray *ray)
 	data->s_height = 1000;
 	data->s_width = 1600;
 	data->fov = 60;
-	data->render_dist = 30;
+	data->render_dist = 20;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
 }
@@ -61,6 +61,16 @@ void	load_textures(t_data *data, t_img *img)
 
 }
 
+ void	key_input(mlx_key_data_t keydata, void *param)
+
+{
+	t_data	*data;
+
+	data = param;
+	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
+		toggle_door(data, data->pl);
+}
+ 
 void	mlx_main(t_data *data)
 {
 	t_img	img;
@@ -73,6 +83,7 @@ void	mlx_main(t_data *data)
 	load_textures(data, &img);
 	init_img_text(data->img);
 	initial_render(data);
+	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, &update_mouse, data);
