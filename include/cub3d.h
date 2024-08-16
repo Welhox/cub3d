@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/16 12:08:13 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:17:21 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,11 @@ typedef struct s_data
 	float		s_width;
 	float		fov;
 	float		render_dist;
-	float		mouse_x;
-	float		mouse_y;
+	float		ms_x; //mouse x pos
+	float		ms_y; // mouse y pos
+	float		prev_x; //previous x position of cursor
+	float		left; // left edge of window
+	float		right; // right edge of window
 	t_pl		*pl;
 	t_ray		*ray;
 	t_img		*img;

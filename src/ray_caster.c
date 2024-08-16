@@ -166,7 +166,7 @@ void	render(t_data *data, t_ray *ray, int pixel_row)
 	shade_factor(data);
 	wall_face(ray, data->txt);
 	update_mm_pl(data, data->pl);
-	if (pixel_row % 20 == 0)
+	if (pixel_row % 30 == 0)
 		mm_rayprint(data, ray, data->pl);
 	paint_row(data, ray, pixel_row, use_txt(data));
 }
