@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/15 16:52:56 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:11:47 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	mlx_main(t_data *data)
 	if (!data->mlx)
 		armageddon(data, "mlx failed to initialise");
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
-	mlx_set_mouse_pos(data->mlx, data->s_width / 2.0, data->s_height / 2.0);
+	mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
 	load_textures(data, &img);
 	init_img_text(data->img);
 	initial_render(data);
