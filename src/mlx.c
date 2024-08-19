@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/16 15:25:12 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/19 10:56:31 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	load_textures(t_data *data, t_img *img)
 	data = param;
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 		toggle_door(data, data->pl);
+	data->input = true;
 }
  
 void	mlx_main(t_data *data)
@@ -88,6 +89,7 @@ void	mlx_main(t_data *data)
 	load_textures(data, &img);
 	init_img_text(data->img);
 	initial_render(data);
+	data->input = false;
 	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
 	mlx_loop_hook(data->mlx, &keypress, data);

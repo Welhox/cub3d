@@ -181,17 +181,23 @@ void	ray_main(void *param)
 	pixel_row = 0;
 	data = param;
 	ray = data->ray;
-	ray_offset = (data->fov / data->s_width) * DEG_RAD;
-	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
-	refresh_img(data, data->img);
-	while (pixel_row < data->s_width)
+	if (data->input == true)
 	{
-		render(data, ray, pixel_row);
-		ray->orient += ray_offset;
-		pixel_row++;
+		keypress(data);
+		update_mouse(data);
+		ray_offset = (data->fov / data->s_width) * DEG_RAD;
+		ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+		refresh_img(data, data->img);
+		while (pixel_row < data->s_width)
+		{
+			render(data, ray, pixel_row);
+			ray->orient += ray_offset;
+			pixel_row++;
+		}
+		mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
+		mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
+		mlx_set_instance_depth(data->img->fg->instances, 2);	
+		data->input = false;
 	}
-	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	mlx_set_instance_depth(data->img->fg->instances, 2);
 	sprite(data, ray);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/15 16:55:52 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:40:41 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	keypress(void *param)
 		move_pl(data, data->pl, LEFT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		move_pl(data, data->pl, RIGHT);
+	data->input = true;	
 }
 
 void	mouse_callback(double x, double y, void *param)
@@ -84,6 +85,7 @@ void	mouse_callback(double x, double y, void *param)
 	data = param;
 	data->ms_x = x;
 	data->ms_y = y;
+	data->input = true;
 }
 
 void	update_mouse(void *param)
@@ -111,6 +113,7 @@ void	update_mouse(void *param)
 		data->pl->p_orientation += 6 * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
+	data->input = true;
 }
 
 void	fix_orientation(float *orientation)

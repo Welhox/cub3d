@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/16 15:59:14 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:12:24 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ typedef struct s_sprite
 {
 	float		x;
 	float		y;
+	float		dist;
+	float		angle;
+	float		scale;
+	float		height;
+	float		width;
 	mlx_image_t	*txt;
 }	t_sprite;
 
@@ -146,6 +151,7 @@ typedef struct s_data
 	float		prev_x; //previous x position of cursor
 	float		left; // left edge of window
 	float		right; // right edge of window
+	bool		input;
 	t_pl		*pl;
 	t_ray		*ray;
 	t_img		*img;
