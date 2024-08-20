@@ -32,7 +32,7 @@ void	mm_rayprint(t_data *data, t_ray *ray, t_pl *pl)
 	}
 }
 
-void	paint_ceiling(t_data *data, t_ray *ray, int pixel_row)
+void	*paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 {
 	int		y;
 	float	floor_x;
@@ -40,27 +40,41 @@ void	paint_ceiling(t_data *data, t_ray *ray, int pixel_row)
 	float	row_distance;
 	float	fl_txt_x;
 	float	fl_txt_y;
+	t_data	*data;
+	int		pixel_row;
+	float	shade;
 
-	if (ray->corr_dist > data->render_dist)
+	pixel_row = 0;
+	data = arg;
+	float ray_orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+	float ray_offset = (data->fov / data->s_width) * DEG_RAD;
+/* 	if (data->ray->corr_dist > data->render_dist)
 		y = (data->s_height / 2.0);
 	else
-		y = (data->s_height / 2.0) - (data->txt->wall_height / 2);
-	while (y >= 0)
-	{
-		row_distance = (ray->proj_plane / 2.0) / ((data->s_height / 2.0) - (float)y) / (cos(ray->orient - data->pl->p_orientation));
-		data->txt->shade = ((float)1 / row_distance) * SHADE;
-		if (data->txt->shade >= 1)
-			data->txt->shade = 1;
-		floor_x = data->pl->pl_x + (row_distance * cos(ray->orient));
-		floor_y = data->pl->pl_y + (row_distance * sin(ray->orient));	
-		fl_txt_x = (int)((floor_x + floorf(floor_x)) * data->img->ceil_txt->width) % data->img->ceil_txt->width;
-		fl_txt_y = (int)((ceil(floor_y) - floor_y) * data->img->ceil_txt->height) % data->img->ceil_txt->height;
-		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->ceil_txt, fl_txt_x, fl_txt_y, data->txt->shade));
-		y--;
+		y = (data->s_height / 2.0) - (data->txt->wall_height / 2); */
+	while (pixel_row < data->s_width)	
+	{	
+		y = data->s_height / 2.0;
+		while (y >= 0)
+		{
+			row_distance = (data->ray->proj_plane / 2.0) / ((data->s_height / 2.0) - (float)y) / (cos(ray_orient - data->pl->p_orientation));
+			shade = ((float)1 / row_distance) * SHADE;
+			if (shade > 1)
+				shade = 1;
+			floor_x = data->pl->pl_x + (row_distance * cos(ray_orient));
+			floor_y = data->pl->pl_y + (row_distance * sin(ray_orient));	
+			fl_txt_x = (int)((floor_x + floorf(floor_x)) * data->img->ceil_txt->width) % data->img->ceil_txt->width;
+			fl_txt_y = (int)((ceil(floor_y) - floor_y) * data->img->ceil_txt->height) % data->img->ceil_txt->height;
+			safe_pixel(data->img->fg_ceiling, pixel_row, y, get_txt_color(data->img->ceil_txt, fl_txt_x, fl_txt_y, shade));
+			y--;
+		}
+		ray_orient += ray_offset;
+		pixel_row++;
 	}
+	return (0);
 }
 
-void	paint_floor(t_data *data, t_ray *ray, int pixel_row)
+void	*paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 {
 	int 	y;
 	float	floor_x;
@@ -68,24 +82,38 @@ void	paint_floor(t_data *data, t_ray *ray, int pixel_row)
 	float	row_distance;
 	float	fl_txt_x;
 	float	fl_txt_y;
+	t_data	*data;
+	int		pixel_row;
+	float	shade;
 
-	if (ray->corr_dist > data->render_dist)
+	pixel_row = 0;
+	data = arg;
+	float ray_orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+	float ray_offset = (data->fov / data->s_width) * DEG_RAD;
+/* 	if (data->ray->corr_dist > data->render_dist)
 		y = (data->s_height / 2.0);
 	else
-		y = (data->s_height / 2.0) + (data->txt->wall_height / 2);
-	while (y < data->s_height)
-	{		
-		row_distance = (ray->proj_plane / 2.0) / ((float)y - (data->s_height / 2.0)) / (cos(ray->orient - data->pl->p_orientation));
-		data->txt->shade = ((float)1 / row_distance) * SHADE;
-		if (data->txt->shade >= 1)
-			data->txt->shade = 1;
-		floor_x = data->pl->pl_x + (row_distance * cos(ray->orient));
-		floor_y = data->pl->pl_y + (row_distance * sin(ray->orient));	
-		fl_txt_x = (int)((floor_x + floorf(floor_x)) * data->img->floor_txt->width) % data->img->floor_txt->width;
-		fl_txt_y = (int)((floor_y + floorf(floor_y)) * data->img->floor_txt->height) % data->img->floor_txt->height;
-		safe_pixel(data->img->fg, pixel_row, y, get_txt_color(data->img->floor_txt, fl_txt_x, fl_txt_y, data->txt->shade));
-		y++;
+		y = (data->s_height / 2.0) + (data->txt->wall_height / 2);*/
+	while (pixel_row < data->s_width)	
+	{	
+		y = data->s_height / 2.0; 
+		while (y < data->s_height)
+		{
+			row_distance = (data->ray->proj_plane / 2.0) / ((float)y - (data->s_height / 2.0)) / (cos(ray_orient - data->pl->p_orientation));
+			shade = ((float)1 / row_distance) * SHADE;
+			if (shade > 1)
+				shade = 1;
+			floor_x = data->pl->pl_x + (row_distance * cos(ray_orient));
+			floor_y = data->pl->pl_y + (row_distance * sin(ray_orient));	
+			fl_txt_x = (int)((floor_x + floorf(floor_x)) * data->img->floor_txt->width) % data->img->floor_txt->width;
+			fl_txt_y = (int)((floor_y + floorf(floor_y)) * data->img->floor_txt->height) % data->img->floor_txt->height;
+			safe_pixel(data->img->fg_floor, pixel_row, y, get_txt_color(data->img->floor_txt, fl_txt_x, fl_txt_y, shade));
+			y++;
+		}
+		ray_orient += ray_offset;
+		pixel_row++;
 	}
+	return (0);
 }
 
 void	paint_wall(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
@@ -115,17 +143,31 @@ void	paint_row(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
 	data->txt->height = data->txt->wall_height;
 	if (data->txt->wall_height > data->s_height)
 		data->txt->wall_height = data->s_height;
+
+	//if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
+	//	return ; //armageddon needed
+	//if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
+	//	return ; //armageddon needed
+
 	paint_wall(data, ray, pixel_row, img);
-	paint_ceiling(data, ray, pixel_row);
-	paint_floor(data, ray, pixel_row);
+	//paint_ceiling(data, ray, pixel_row);
+	//paint_floor(data, ray, pixel_row);
+	//pthread_join(ray->ceiling_thread, NULL);
+	//pthread_join(ray->floor_thread, NULL);
 }
 
 void	refresh_img(t_data *data, t_img *img)
 {
 	mlx_delete_image(data->mlx, img->ray_grid);
 	mlx_delete_image(data->mlx, img->fg);
+	mlx_delete_image(data->mlx, img->fg_ceiling); //ONLY BONUS
+	mlx_delete_image(data->mlx, img->fg_floor); //ONLY BONUS
+
+
 	safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->ray_grid);
 	safe_image(data, data->s_width, data->s_height, &img->fg);
+	safe_image(data, data->s_width, data->s_height, &img->fg_ceiling); //ONLY BONUS
+	safe_image(data, data->s_width, data->s_height, &img->fg_floor); //ONLY BONUS
 }
 
 void	wall_face(t_ray *ray, t_txt *txt)
@@ -168,6 +210,7 @@ void	render(t_data *data, t_ray *ray, int pixel_row)
 	update_mm_pl(data, data->pl);
 	if (pixel_row % 30 == 0)
 		mm_rayprint(data, ray, data->pl);
+	
 	paint_row(data, ray, pixel_row, use_txt(data));
 }
 
@@ -176,21 +219,34 @@ void	ray_main(void *param)
 	t_data	*data;
 	t_ray	*ray;
 	float	ray_offset;
-	int		pixel_row;
+	//int		pixel_row;
 
-	pixel_row = 0;
 	data = param;
 	ray = data->ray;
+	ray->pixel_row = 0;
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;
 	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+	
 	refresh_img(data, data->img);
-	while (pixel_row < data->s_width)
+
+	if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
+		return ; //armageddon needed
+	if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
+		return ; //armageddon needed
+	while (ray->pixel_row < data->s_width)
 	{
-		render(data, ray, pixel_row);
+		render(data, ray, ray->pixel_row);
 		ray->orient += ray_offset;
-		pixel_row++;
+		ray->pixel_row++; //need to put into paint row or something instead
 	}
+	pthread_join(ray->ceiling_thread, NULL);
+	pthread_join(ray->floor_thread, NULL);
 	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	mlx_set_instance_depth(data->img->fg->instances, 2);
+	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);	
+	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);	
+	mlx_set_instance_depth(data->img->fg->instances, 4);
+	mlx_set_instance_depth(data->img->fg_ceiling->instances, 3);
+	mlx_set_instance_depth(data->img->fg_floor->instances, 2);
+
 }

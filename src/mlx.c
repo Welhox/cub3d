@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/16 15:25:12 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:50:26 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ void	initial_render(t_data *data)
 	mlx_image_to_window(data->mlx, data->img->floor, 0, data->s_height / 2);
 	safe_image(data, data->s_width, data->s_height, &data->img->fg);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
+
+	safe_image(data, data->s_width, data->s_height, &data->img->fg_ceiling);//ONLY BONUS
+	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);//ONLY BONUS
+	safe_image(data, data->s_width, data->s_height, &data->img->fg_floor);//ONLY BONUS
+	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);//ONLY BONUS
+	
+	
+	
 	minimap(data, data->img);
 }
 
