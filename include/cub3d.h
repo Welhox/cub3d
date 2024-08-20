@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/20 11:15:20 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:49:58 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ typedef struct s_data
 	t_txt		*txt;
 	mlx_t		*mlx;
 	float		scale;
+	float		*depth;
+	int			*height;
 }	t_data;
 
 //INIT

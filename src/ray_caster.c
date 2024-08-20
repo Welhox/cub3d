@@ -54,7 +54,11 @@ void	*paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 		y = (data->s_height / 2.0) - (data->txt->wall_height / 2); */
 	while (pixel_row < data->s_width)	
 	{	
-		y = data->s_height / 2.0;
+		if (data->depth[pixel_row] > data->render_dist)
+			y = (data->s_height / 2.0);
+		else
+			y = (data->s_height / 2.0) - (data->height[pixel_row] / 2); 
+		//y = data->s_height / 2.0;
 		while (y >= 0)
 		{
 			row_distance = (data->ray->proj_plane / 2.0) / ((data->s_height / 2.0) - (float)y) / (cos(ray_orient - data->pl->p_orientation));
@@ -71,7 +75,6 @@ void	*paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 		ray_orient += ray_offset;
 		pixel_row++;
 	}
-	printf("ceiling\n");
 	return (0);
 }
 
@@ -91,13 +94,13 @@ void	*paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 	data = arg;
 	float ray_orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
 	float ray_offset = (data->fov / data->s_width) * DEG_RAD;
-/* 	if (data->ray->corr_dist > data->render_dist)
-		y = (data->s_height / 2.0);
-	else
-		y = (data->s_height / 2.0) + (data->txt->wall_height / 2);  */
 	while (pixel_row < data->s_width)	
 	{	
-		y = data->s_height / 2.0; 
+		if (data->depth[pixel_row] > data->render_dist)
+			y = (data->s_height / 2.0);
+		else
+			y = (data->s_height / 2.0) + (data->height[pixel_row] / 2); 
+		//y = data->s_height / 2.0; 
 		while (y < data->s_height)
 		{
 			row_distance = (data->ray->proj_plane / 2.0) / ((float)y - (data->s_height / 2.0)) / (cos(ray_orient - data->pl->p_orientation));
@@ -114,7 +117,6 @@ void	*paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 		ray_orient += ray_offset;
 		pixel_row++;
 	}
-	printf("floor\n");
 	return (0);
 }
 
@@ -143,6 +145,7 @@ void	paint_row(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
 	data->txt->wall_height = (64 / (ray->corr_dist * 64)) * ray->proj_plane;
 	data->txt->step = 1.0 * (float)(img->height / (float)data->txt->wall_height);
 	data->txt->height = data->txt->wall_height;
+	data->height[pixel_row] = data->txt->wall_height;
 	if (data->txt->wall_height > data->s_height)
 		data->txt->wall_height = data->s_height;
 
@@ -219,20 +222,25 @@ void	ray_main(void *param)
 	ray->pixel_row = 0;
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;
 	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
-	
+	data->depth = malloc(sizeof(float) * (int)data->s_width);
+	data->height = malloc(sizeof(int) * (int)data->s_width);
+	if (!data->depth)
+		armageddon(data, "malloc failure");
+	if (!data->height)
+		armageddon(data, "malloc failure");
 	refresh_img(data, data->img);
 
-	if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
-		armageddon(data, "thread creation failed");
-	if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
-		armageddon(data, "thread creation failed");
 	while (ray->pixel_row < data->s_width)
 	{
 		render(data, ray, ray->pixel_row);
 		ray->orient += ray_offset;
+		data->depth[ray->pixel_row] = ray->distance;
 		ray->pixel_row++;
 	}
-	printf("main\n");
+	if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
+		armageddon(data, "thread creation failed");
+	if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
+		armageddon(data, "thread creation failed");
 	pthread_join(ray->ceiling_thread, NULL);
 	pthread_join(ray->floor_thread, NULL);
 	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
@@ -244,3 +252,41 @@ void	ray_main(void *param)
 	mlx_set_instance_depth(data->img->fg_floor->instances, 2);
 
 }
+
+
+
+/* void	ray_main(void *param)
+{
+	t_data	*data;
+	t_ray	*ray;
+	float	ray_offset;
+	int		pixel_row;
+	
+	pixel_row = 0;
+	data = param;
+	ray = data->ray;
+	data->depth = malloc(sizeof(float) * (int)data->s_width);
+	if (!data->depth)
+		armageddon(data, "malloc failure");
+	if (data->input == true)
+	{
+		keypress(data);
+		update_mouse(data);
+		ray_offset = (data->fov / data->s_width) * DEG_RAD;
+		ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+		refresh_img(data, data->img);
+		while (pixel_row < data->s_width)
+		{
+			render(data, ray, pixel_row);
+			data->depth[pixel_row] = ray->distance;
+			ray->orient += ray_offset;
+			pixel_row++;
+		}
+		mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
+		mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
+		mlx_set_instance_depth(data->img->fg->instances, 2);	
+		data->input = false;
+	}
+	sprite(data, ray);
+	free(data->depth);
+} */
