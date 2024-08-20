@@ -71,6 +71,7 @@ void	*paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 		ray_orient += ray_offset;
 		pixel_row++;
 	}
+	printf("ceiling\n");
 	return (0);
 }
 
@@ -93,7 +94,7 @@ void	*paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 /* 	if (data->ray->corr_dist > data->render_dist)
 		y = (data->s_height / 2.0);
 	else
-		y = (data->s_height / 2.0) + (data->txt->wall_height / 2);*/
+		y = (data->s_height / 2.0) + (data->txt->wall_height / 2);  */
 	while (pixel_row < data->s_width)	
 	{	
 		y = data->s_height / 2.0; 
@@ -113,6 +114,7 @@ void	*paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 		ray_orient += ray_offset;
 		pixel_row++;
 	}
+	printf("floor\n");
 	return (0);
 }
 
@@ -144,16 +146,8 @@ void	paint_row(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
 	if (data->txt->wall_height > data->s_height)
 		data->txt->wall_height = data->s_height;
 
-	//if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
-	//	return ; //armageddon needed
-	//if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
-	//	return ; //armageddon needed
 
 	paint_wall(data, ray, pixel_row, img);
-	//paint_ceiling(data, ray, pixel_row);
-	//paint_floor(data, ray, pixel_row);
-	//pthread_join(ray->ceiling_thread, NULL);
-	//pthread_join(ray->floor_thread, NULL);
 }
 
 void	refresh_img(t_data *data, t_img *img)
@@ -219,7 +213,6 @@ void	ray_main(void *param)
 	t_data	*data;
 	t_ray	*ray;
 	float	ray_offset;
-	//int		pixel_row;
 
 	data = param;
 	ray = data->ray;
@@ -230,15 +223,16 @@ void	ray_main(void *param)
 	refresh_img(data, data->img);
 
 	if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
-		return ; //armageddon needed
+		armageddon(data, "thread creation failed");
 	if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
-		return ; //armageddon needed
+		armageddon(data, "thread creation failed");
 	while (ray->pixel_row < data->s_width)
 	{
 		render(data, ray, ray->pixel_row);
 		ray->orient += ray_offset;
-		ray->pixel_row++; //need to put into paint row or something instead
+		ray->pixel_row++;
 	}
+	printf("main\n");
 	pthread_join(ray->ceiling_thread, NULL);
 	pthread_join(ray->floor_thread, NULL);
 	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
