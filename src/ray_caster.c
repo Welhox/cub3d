@@ -178,15 +178,12 @@ void	ray_main(void *param)
 	t_ray	*ray;
 	float	ray_offset;
 	int		pixel_row;
-	
+
 	pixel_row = 0;
 	data = param;
 	ray = data->ray;
-	data->depth = malloc(sizeof(float) * (int)data->s_width);
-	if (!data->depth)
-		armageddon(data, "malloc failure");
 	if (data->input == true)
-	{
+	{	
 		keypress(data);
 		update_mouse(data);
 		ray_offset = (data->fov / data->s_width) * DEG_RAD;
@@ -204,6 +201,8 @@ void	ray_main(void *param)
 		mlx_set_instance_depth(data->img->fg->instances, 2);	
 		data->input = false;
 	}
-	sprite(data, ray);
-	free(data->depth);
+	sprite(data, ray, data->i);
+	if (data->i == 9)
+		data->i = 0;
+	data->i++;
 }

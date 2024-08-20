@@ -31,7 +31,7 @@ CFILES = 	$(SRCS_DIR)/cub3d.c $(SRCS_DIR)/utils.c $(SRCS_DIR)/init.c $(SRCS_DIR)
 			$(SRCS_DIR)/ray_caster.c $(SRCS_DIR)/parsing/validate_data_utils.c $(SRCS_DIR)/parsing/map_parse.c \
 			$(SRCS_DIR)/parsing/extract_data.c  $(SRCS_DIR)/parsing/check_line.c $(SRCS_DIR)/parsing/check_line_utils.c \
 			$(SRCS_DIR)/safe_mlx.c $(SRCS_DIR)/dda.c $(SRCS_DIR)/dda_two.c $(SRCS_DIR)/movement_two.c \
-			$(SRCS_DIR)/sprite.c
+			$(SRCS_DIR)/sprite.c $(SRCS_DIR)/utils_two.c
 
 OFILES = $(CFILES:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/20 13:22:54 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:20:08 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct s_data
 	float		right; // right edge of window
 	bool		input;
 	float		*depth;
+	int			i;
 	t_pl		*pl;
 	t_ray		*ray;
 	t_img		*img;
@@ -171,6 +172,8 @@ void	init_img_text(t_img *img);
 
 float	get_scale(t_data *data);
 int		ft_atoi_cubd(const char *str);
+float	fl_max(float a, float b);
+float	fl_min(float a, float b);
 
 //DDA
 void	get_dist(t_data *data, t_ray *ray);
@@ -191,7 +194,8 @@ void		ray_main(void *param);
 void		update_mm_pl(t_data *data, t_pl *pl);
 mlx_image_t	*use_txt(t_data *data);
 void		shade_factor(t_data *data);
-void		sprite(t_data *data, t_ray *ray);
+void		sprite(t_data *data, t_ray *ray, int i);
+
 //MOVEMENT
 
 void	keypress(void *param);

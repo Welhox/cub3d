@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/20 13:25:12 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:21:40 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	update_params(t_data *data, t_ray *ray)
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
 	data->depth = malloc(sizeof(float) * (int)data->s_width);
 	if (!data->depth)
-		armageddon(data, "malloc failure");	
+		armageddon(data, "malloc failure");
+	data->i= 0;
 }
 
 void	initial_render(t_data *data)
