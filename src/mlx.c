@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/19 10:56:31 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:25:12 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 1000;
-	data->s_width = 1600;
+	data->s_height = 1000.0;
+	data->s_width = 1600.0;
 	data->fov = 60;
 	data->ms_x = data->s_width / 2.0;
 	data->ms_y = data->s_height / 2.0;
@@ -24,6 +24,9 @@ void	update_params(t_data *data, t_ray *ray)
 	data->render_dist = 20;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
+	data->depth = malloc(sizeof(float) * (int)data->s_width);
+	if (!data->depth)
+		armageddon(data, "malloc failure");	
 }
 
 void	initial_render(t_data *data)
@@ -92,8 +95,6 @@ void	mlx_main(t_data *data)
 	data->input = false;
 	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
-	mlx_loop_hook(data->mlx, &keypress, data);
-	mlx_loop_hook(data->mlx, &update_mouse, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);
 }

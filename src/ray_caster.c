@@ -168,6 +168,7 @@ void	render(t_data *data, t_ray *ray, int pixel_row)
 	update_mm_pl(data, data->pl);
 	if (pixel_row % 30 == 0)
 		mm_rayprint(data, ray, data->pl);
+	data->depth[pixel_row] = ray->distance;
 	paint_row(data, ray, pixel_row, use_txt(data));
 }
 
@@ -177,10 +178,13 @@ void	ray_main(void *param)
 	t_ray	*ray;
 	float	ray_offset;
 	int		pixel_row;
-
+	
 	pixel_row = 0;
 	data = param;
 	ray = data->ray;
+	data->depth = malloc(sizeof(float) * (int)data->s_width);
+	if (!data->depth)
+		armageddon(data, "malloc failure");
 	if (data->input == true)
 	{
 		keypress(data);
@@ -191,6 +195,7 @@ void	ray_main(void *param)
 		while (pixel_row < data->s_width)
 		{
 			render(data, ray, pixel_row);
+			data->depth[pixel_row] = ray->distance;
 			ray->orient += ray_offset;
 			pixel_row++;
 		}
@@ -200,4 +205,5 @@ void	ray_main(void *param)
 		data->input = false;
 	}
 	sprite(data, ray);
+	free(data->depth);
 }

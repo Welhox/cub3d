@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/19 16:32:55 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:41:42 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	render_sprite(t_data *data, t_sprite *sprite, t_ray *ray)
 	x = start_x;
 	while (x < end_x)
 	{
-		if (x >= 0 && x < data->s_width)
+		if (x >= 0 && x < data->s_width && sprite->dist < data->depth[x])
 		{
 			y = start_y;
 			while (y < end_y)

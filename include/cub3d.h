@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/19 13:12:24 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:22:54 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct s_data
 	float		left; // left edge of window
 	float		right; // right edge of window
 	bool		input;
+	float		*depth;
 	t_pl		*pl;
 	t_ray		*ray;
 	t_img		*img;

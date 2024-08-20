@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/16 15:56:54 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:00:15 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,18 @@ void	armageddon(t_data *data, char *error)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (data->mlx)
 	{
 		free_img(data->img);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
 	}
-	while (i < 4)
-	{
+	while (++i < 4)
 		if (data->wall_text[i])
 			ft_nullfree(data->wall_text[i], 0);
-		i++;
-	}
+	if (data->depth)
+		free(data->depth);
 	ft_mapfree(data->map);
 	if (error)
 	{
