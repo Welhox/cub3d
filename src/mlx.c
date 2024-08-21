@@ -6,7 +6,7 @@
 /*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/21 11:40:18 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/08/21 11:42:13 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,3 +112,24 @@ void	mlx_main(t_data *data)
     double frameTime = (time - oldTime) / 1000.0; //frametime is the time this frame has taken, in seconds
     print(1.0 / frameTime); //FPS counter
     redraw(); */
+
+
+/* void get_fps(void *param)
+{
+	t_data		*data;
+	double		frame2;
+	
+	
+	data = param;
+	frame2 = 0;
+	frame2 = get_time(data);
+	data->fps = data->frames / (frame2 - data->frame1);
+	data->frames++;
+	if (data->frames > 999999999)
+	{
+		data->frames = 0;
+		data->frame1 = frame2;
+	}
+	//data->frame1 = frame2;
+	printf("FPS =  %ld\n", data->fps);
+} */
