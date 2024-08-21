@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/20 11:50:26 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:40:18 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,3 +103,12 @@ void	mlx_main(t_data *data)
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);
 }
+
+
+/* 
+    //timing for input and FPS counter
+    oldTime = time;
+    time = getTicks();
+    double frameTime = (time - oldTime) / 1000.0; //frametime is the time this frame has taken, in seconds
+    print(1.0 / frameTime); //FPS counter
+    redraw(); */
