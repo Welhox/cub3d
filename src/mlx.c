@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/20 16:21:40 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:06:31 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	initial_render(t_data *data)
 	safe_image(data, data->s_width, data->s_height, &data->img->fg);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
 	minimap(data, data->img);
+	// safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 }
 
 void	load_textures(t_data *data, t_img *img)
@@ -66,6 +67,31 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &data->img->floor_txt);
 	safe_texture(data, &temp, "assets/floor_02.png");
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
+}
+void	load_sprites(t_data *data)
+{
+	mlx_texture_t *temp;
+
+	safe_texture(data, &temp, "assets/tile006.png");
+	safe_txt_to_img(data, temp, &data->duck[0].txt);
+	safe_texture(data, &temp, "assets/tile007.png");
+	safe_txt_to_img(data, temp, &data->duck[1].txt);
+	safe_texture(data, &temp, "assets/tile008.png");
+	safe_txt_to_img(data, temp, &data->duck[2].txt);
+	safe_texture(data, &temp, "assets/tile009.png");
+	safe_txt_to_img(data, temp, &data->duck[3].txt);
+	safe_texture(data, &temp, "assets/tile010.png");
+	safe_txt_to_img(data, temp, &data->duck[4].txt);
+	safe_texture(data, &temp, "assets/tile011.png");
+	safe_txt_to_img(data, temp, &data->duck[5].txt);
+	safe_texture(data, &temp, "assets/tile012.png");
+	safe_txt_to_img(data, temp, &data->duck[6].txt);
+	safe_texture(data, &temp, "assets/tile013.png");
+	safe_txt_to_img(data, temp, &data->duck[7].txt);
+	safe_texture(data, &temp, "assets/tile014.png");
+	safe_txt_to_img(data, temp, &data->duck[8].txt);
+	safe_texture(data, &temp, "assets/tile015.png");
+	safe_txt_to_img(data, temp, &data->duck[9].txt);
 }
 
  void	key_input(mlx_key_data_t keydata, void *param)
@@ -92,7 +118,8 @@ void	mlx_main(t_data *data)
 	mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
 	load_textures(data, &img);
 	init_img_text(data->img);
-	initial_render(data);
+	load_sprites(data);
+	initial_render(data);	
 	data->input = false;
 	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);

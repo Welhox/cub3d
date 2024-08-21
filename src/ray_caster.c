@@ -168,7 +168,7 @@ void	render(t_data *data, t_ray *ray, int pixel_row)
 	update_mm_pl(data, data->pl);
 	if (pixel_row % 30 == 0)
 		mm_rayprint(data, ray, data->pl);
-	data->depth[pixel_row] = ray->distance;
+	data->depth[pixel_row] = ray->corr_dist;
 	paint_row(data, ray, pixel_row, use_txt(data));
 }
 
@@ -191,18 +191,14 @@ void	ray_main(void *param)
 		refresh_img(data, data->img);
 		while (pixel_row < data->s_width)
 		{
-			render(data, ray, pixel_row);
-			data->depth[pixel_row] = ray->distance;
+			render(data, ray, pixel_row);	
 			ray->orient += ray_offset;
 			pixel_row++;
-		}
+		}	
 		mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
 		mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
 		mlx_set_instance_depth(data->img->fg->instances, 2);	
 		data->input = false;
 	}
-	sprite(data, ray, data->i);
-	if (data->i == 9)
-		data->i = 0;
-	data->i++;
+	sprite(data, ray);
 }

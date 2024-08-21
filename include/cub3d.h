@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/20 16:20:08 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:15:03 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_img
 	mlx_image_t		*fg; //foreground
 	mlx_image_t		*wall_txt[5];
 	mlx_image_t		*door;
+	mlx_image_t		*sprite;
 	mlx_t			*mlx;
 }	t_img;
 
@@ -158,7 +159,7 @@ typedef struct s_data
 	t_ray		*ray;
 	t_img		*img;
 	t_txt		*txt;
-	t_sprite	*sprite;
+	t_sprite	duck[10];
 	mlx_t		*mlx;
 	float		scale;
 }	t_data;
@@ -194,7 +195,7 @@ void		ray_main(void *param);
 void		update_mm_pl(t_data *data, t_pl *pl);
 mlx_image_t	*use_txt(t_data *data);
 void		shade_factor(t_data *data);
-void		sprite(t_data *data, t_ray *ray, int i);
+void		sprite(t_data *data, t_ray *ray);
 
 //MOVEMENT
 
