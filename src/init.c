@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/15 16:44:26 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:49:03 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,3 +110,4 @@ void	init_img_text(t_img *img)
 	img->wall_txt[3] = NULL;*/
 	img->wall_txt[4] = NULL;
 }
+

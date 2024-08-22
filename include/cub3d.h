@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/21 16:15:03 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:26:07 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ typedef struct s_sprite
 	float		scale;
 	float		height;
 	float		width;
-	mlx_image_t	*txt;
+	int			c_frame; //current frame;
+	float		e_time; //elasped time
+	float		t_frame; //frame time
+	mlx_image_t	*frame[10];
 }	t_sprite;
 
 typedef struct s_txt
@@ -159,7 +162,7 @@ typedef struct s_data
 	t_ray		*ray;
 	t_img		*img;
 	t_txt		*txt;
-	t_sprite	duck[10];
+	t_sprite	*sprites[1];
 	mlx_t		*mlx;
 	float		scale;
 }	t_data;
@@ -195,7 +198,7 @@ void		ray_main(void *param);
 void		update_mm_pl(t_data *data, t_pl *pl);
 mlx_image_t	*use_txt(t_data *data);
 void		shade_factor(t_data *data);
-void		sprite(t_data *data, t_ray *ray);
+void		sprite(t_data *data, t_ray *ray, t_sprite *duck);
 
 //MOVEMENT
 

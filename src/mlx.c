@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/21 16:06:31 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:38:34 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,30 +68,31 @@ void	load_textures(t_data *data, t_img *img)
 	safe_texture(data, &temp, "assets/floor_02.png");
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
 }
-void	load_sprites(t_data *data)
+void	load_sprites(t_data *data, t_sprite *duck)
 {
-	mlx_texture_t *temp;
-
-	safe_texture(data, &temp, "assets/tile006.png");
-	safe_txt_to_img(data, temp, &data->duck[0].txt);
-	safe_texture(data, &temp, "assets/tile007.png");
-	safe_txt_to_img(data, temp, &data->duck[1].txt);
-	safe_texture(data, &temp, "assets/tile008.png");
-	safe_txt_to_img(data, temp, &data->duck[2].txt);
-	safe_texture(data, &temp, "assets/tile009.png");
-	safe_txt_to_img(data, temp, &data->duck[3].txt);
-	safe_texture(data, &temp, "assets/tile010.png");
-	safe_txt_to_img(data, temp, &data->duck[4].txt);
-	safe_texture(data, &temp, "assets/tile011.png");
-	safe_txt_to_img(data, temp, &data->duck[5].txt);
-	safe_texture(data, &temp, "assets/tile012.png");
-	safe_txt_to_img(data, temp, &data->duck[6].txt);
-	safe_texture(data, &temp, "assets/tile013.png");
-	safe_txt_to_img(data, temp, &data->duck[7].txt);
-	safe_texture(data, &temp, "assets/tile014.png");
-	safe_txt_to_img(data, temp, &data->duck[8].txt);
-	safe_texture(data, &temp, "assets/tile015.png");
-	safe_txt_to_img(data, temp, &data->duck[9].txt);
+	int				i;
+	mlx_texture_t	*temp;
+	char			*path[10] = 
+	{ 	"assets/tile006.png",
+		"assets/tile007.png",
+		"assets/tile008.png",
+		"assets/tile009.png",
+		"assets/tile010.png",
+		"assets/tile011.png",
+		"assets/tile012.png",
+		"assets/tile013.png",
+		"assets/tile014.png",
+		"assets/tile015.png"
+	};
+	i = -1;
+	while (++i < 10)
+	{
+		safe_texture(data, &temp, path[i]);
+		safe_txt_to_img(data, temp, &duck->frame[i]);
+	}
+	duck->c_frame = 0;
+	duck->e_time = 0;
+	duck->t_frame = 0.1f;
 }
 
  void	key_input(mlx_key_data_t keydata, void *param)
@@ -107,10 +108,12 @@ void	load_sprites(t_data *data)
  
 void	mlx_main(t_data *data)
 {
-	t_img	img;
+	t_img		img;
+	t_sprite	duck;
 
 	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
 	data->img = &img;
+	data->sprites[0] = &duck;
 	img.mlx = data->mlx;
 	if (!data->mlx)
 		armageddon(data, "mlx failed to initialise");
@@ -118,8 +121,8 @@ void	mlx_main(t_data *data)
 	mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
 	load_textures(data, &img);
 	init_img_text(data->img);
-	load_sprites(data);
-	initial_render(data);	
+	load_sprites(data, &duck);
+	initial_render(data);
 	data->input = false;
 	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);

@@ -6,11 +6,11 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/20 13:00:15 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:03:24 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h" 
+#include "../include/cub3d.h"
 
 void	free_img(t_img *img)
 {

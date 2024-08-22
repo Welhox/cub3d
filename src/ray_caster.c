@@ -168,20 +168,40 @@ void	render(t_data *data, t_ray *ray, int pixel_row)
 	update_mm_pl(data, data->pl);
 	if (pixel_row % 30 == 0)
 		mm_rayprint(data, ray, data->pl);
-	data->depth[pixel_row] = ray->corr_dist;
+	data->depth[pixel_row] = ray->distance;
 	paint_row(data, ray, pixel_row, use_txt(data));
+}
+
+void	sprite_framerate(t_sprite *sprite, float delta)
+{
+   sprite->e_time += delta;
+    if (sprite->e_time >= sprite->t_frame)
+    {
+        sprite->e_time -= sprite->t_frame;
+        sprite->c_frame = (sprite->c_frame + 1) % 10;
+    }
 }
 
 void	ray_main(void *param)
 {
-	t_data	*data;
-	t_ray	*ray;
+	t_data		*data;
+	t_ray		*ray;
+	t_sprite	*duck;
+	float		delta;
+	static int	last_time;
+	int			current_time;	
 	float	ray_offset;
 	int		pixel_row;
 
 	pixel_row = 0;
 	data = param;
 	ray = data->ray;
+	duck = data->sprites[0];
+	last_time = 0;
+	current_time = mlx_get_time();
+	delta = (current_time - last_time) / 1000.0f;
+	last_time = current_time;
+	sprite_framerate(duck, delta);
 	if (data->input == true)
 	{	
 		keypress(data);
@@ -200,5 +220,6 @@ void	ray_main(void *param)
 		mlx_set_instance_depth(data->img->fg->instances, 2);	
 		data->input = false;
 	}
-	sprite(data, ray);
+	sprite(data, ray, duck);
+	usleep(16000);
 }
