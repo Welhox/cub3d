@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/20 15:54:02 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:50:35 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ void	keypress(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		move_pl(data, data->pl, LEFT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		move_pl(data, data->pl, RIGHT);
-	data->input = true;	
+		move_pl(data, data->pl, RIGHT);	
 }
 
 void	mouse_callback(double x, double y, void *param)
@@ -85,7 +84,6 @@ void	mouse_callback(double x, double y, void *param)
 	data = param;
 	data->ms_x = x;
 	data->ms_y = y;
-	data->input = true;
 }
 
 void	update_mouse(void *param)
@@ -105,15 +103,16 @@ void	update_mouse(void *param)
 	}
 	if (data->ms_x <= data->left)
 	{	
+		data->input = true;
 		data->pl->p_orientation -= 6 * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
 	if (data->ms_x >= data->right)
 	{
+		data->input = true;
 		data->pl->p_orientation += 6 * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
-	data->input = true;
 }
 
 void	fix_orientation(float *orientation)

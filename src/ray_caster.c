@@ -174,12 +174,12 @@ void	render(t_data *data, t_ray *ray, int pixel_row)
 
 void	sprite_framerate(t_sprite *sprite, float delta)
 {
-   sprite->e_time += delta;
-    if (sprite->e_time >= sprite->t_frame)
-    {
-        sprite->e_time -= sprite->t_frame;
+//    sprite->e_time += delta;
+//     if (sprite->e_time >= sprite->t_frame)
+//     {
+//         sprite->e_time -= sprite->t_frame;
         sprite->c_frame = (sprite->c_frame + 1) % 10;
-    }
+    // }
 }
 
 void	ray_main(void *param)
@@ -202,10 +202,10 @@ void	ray_main(void *param)
 	delta = (current_time - last_time) / 1000.0f;
 	last_time = current_time;
 	sprite_framerate(duck, delta);
+	update_mouse(data);
+	keypress(data);
 	if (data->input == true)
-	{	
-		keypress(data);
-		update_mouse(data);
+	{
 		ray_offset = (data->fov / data->s_width) * DEG_RAD;
 		ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
 		refresh_img(data, data->img);
@@ -221,5 +221,4 @@ void	ray_main(void *param)
 		data->input = false;
 	}
 	sprite(data, ray, duck);
-	usleep(16000);
 }

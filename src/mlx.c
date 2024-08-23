@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/22 17:38:34 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:43:29 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	update_params(t_data *data, t_ray *ray)
 	data->depth = malloc(sizeof(float) * (int)data->s_width);
 	if (!data->depth)
 		armageddon(data, "malloc failure");
-	data->i= 0;
 }
 
 void	initial_render(t_data *data)
@@ -102,10 +101,12 @@ void	load_sprites(t_data *data, t_sprite *duck)
 
 	data = param;
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
+	{
+		data->input = true;
 		toggle_door(data, data->pl);
-	data->input = true;
+	}
 }
- 
+
 void	mlx_main(t_data *data)
 {
 	t_img		img;
@@ -127,5 +128,5 @@ void	mlx_main(t_data *data)
 	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
-	mlx_loop(data->mlx);
+	mlx_loop(data->mlx);	
 }

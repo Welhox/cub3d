@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/22 17:26:07 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:42:09 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "../libft/includes/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <unistd.h>
+# include <pthread.h>
 
 # define DEG_RAD 0.0174532925
 # define PI 3.14159265359
@@ -157,7 +158,6 @@ typedef struct s_data
 	float		right; // right edge of window
 	bool		input;
 	float		*depth;
-	int			i;
 	t_pl		*pl;
 	t_ray		*ray;
 	t_img		*img;
@@ -178,6 +178,11 @@ float	get_scale(t_data *data);
 int		ft_atoi_cubd(const char *str);
 float	fl_max(float a, float b);
 float	fl_min(float a, float b);
+
+//THREADS
+
+void	safe_thread(t_data *data, pthread_t thread, void *func, void *param);
+void	safe_join(t_data *data, pthread_t thread);
 
 //DDA
 void	get_dist(t_data *data, t_ray *ray);
