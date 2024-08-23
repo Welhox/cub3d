@@ -32,7 +32,7 @@ void	mm_rayprint(t_data *data, t_ray *ray, t_pl *pl)
 	}
 }
 
-void	*paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
+void	paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 {
 	int		y;
 	float	floor_x;
@@ -48,10 +48,10 @@ void	*paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 	data = arg;
 	float ray_orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
 	float ray_offset = (data->fov / data->s_width) * DEG_RAD;
-/* 	if (data->ray->corr_dist > data->render_dist)
-		y = (data->s_height / 2.0);
-	else
-		y = (data->s_height / 2.0) - (data->txt->wall_height / 2); */
+	// if (data->ray->corr_dist > data->render_dist)
+	// 	y = (data->s_height / 2.0);
+	// else
+	// 	y = (data->s_height / 2.0) - (data->txt->wall_height / 2);
 	while (pixel_row < data->s_width)	
 	{	
 		if (data->depth[pixel_row] > data->render_dist)
@@ -75,10 +75,9 @@ void	*paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 		ray_orient += ray_offset;
 		pixel_row++;
 	}
-	return (0);
 }
 
-void	*paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
+void	paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 {
 	int 	y;
 	float	floor_x;
@@ -117,7 +116,6 @@ void	*paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 		ray_orient += ray_offset;
 		pixel_row++;
 	}
-	return (0);
 }
 
 void	paint_wall(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
@@ -152,216 +150,3 @@ void	paint_row(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
 
 	paint_wall(data, ray, pixel_row, img);
 }
-
-void	refresh_img(t_data *data, t_img *img)
-{
-	mlx_delete_image(data->mlx, img->ray_grid);
-	mlx_delete_image(data->mlx, img->fg);
-	mlx_delete_image(data->mlx, img->fg_ceiling); //ONLY BONUS
-	mlx_delete_image(data->mlx, img->fg_floor); //ONLY BONUS
-
-
-	safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->ray_grid);
-	safe_image(data, data->s_width, data->s_height, &img->fg);
-	safe_image(data, data->s_width, data->s_height, &img->fg_ceiling); //ONLY BONUS
-	safe_image(data, data->s_width, data->s_height, &img->fg_floor); //ONLY BONUS
-}
-
-void	wall_face(t_ray *ray, t_txt *txt)
-{
-	if (ray->horizontal_dist < ray->vertical_dist)
-	{
-		if (ray->orient > PI)
-			txt->wall_face = NORTH;
-		else
-		{
-			txt->wall_face = SOUTH;
-			txt->wall_x = 1 - txt->wall_x;
-		}
-		if (txt->hori_door == true)
-			txt->door = true;
-	}
-	else
-	{
-		if (ray->orient < 1.5 * PI && ray->orient > PI / 2) // going left
-		{
-			txt->wall_face = WEST;
-			txt->wall_x = 1 - txt->wall_x;
-		}
-		else
-			txt->wall_face = EAST;
-		if (txt->vert_door == true)
-			txt->door = true;
-	}
-}
-
-void	render(t_data *data, t_ray *ray, int pixel_row)
-{
-	data->txt->hori_door = false;
-	data->txt->vert_door = false;
-	data->txt->door = false;
-	fix_orientation(&ray->orient);
-	get_dist(data, data->ray);
-	shade_factor(data);
-	wall_face(ray, data->txt);
-	update_mm_pl(data, data->pl);
-	if (pixel_row % 30 == 0)
-		mm_rayprint(data, ray, data->pl);
-	data->depth[pixel_row] = ray->distance;
-	paint_row(data, ray, pixel_row, use_txt(data));
-}
-
-void	sprite_framerate(t_sprite *sprite, float delta)
-{
-//    sprite->e_time += delta;
-//     if (sprite->e_time >= sprite->t_frame)
-//     {
-//         sprite->e_time -= sprite->t_frame;
-        sprite->c_frame = (sprite->c_frame + 1) % 10;
-    // }
-}
-
-void	ray_main(void *param)
-{
-	t_data	*data;
-	t_ray	*ray;
-	float	ray_offset;
-
-	data = param;
-	ray = data->ray;
-	ray->pixel_row = 0;
-	ray_offset = (data->fov / data->s_width) * DEG_RAD;
-	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
-	data->depth = malloc(sizeof(float) * (int)data->s_width);
-	data->height = malloc(sizeof(int) * (int)data->s_width);
-	if (!data->depth)
-		armageddon(data, "malloc failure");
-	if (!data->height)
-		armageddon(data, "malloc failure");
-	refresh_img(data, data->img);
-
-	while (ray->pixel_row < data->s_width)
-	{
-		render(data, ray, ray->pixel_row);
-		ray->orient += ray_offset;
-		data->depth[ray->pixel_row] = ray->distance;
-		ray->pixel_row++;
-	}
-	if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
-		armageddon(data, "thread creation failed");
-	if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
-		armageddon(data, "thread creation failed");
-	pthread_join(ray->ceiling_thread, NULL);
-	pthread_join(ray->floor_thread, NULL);
-	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);	
-	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);	
-	mlx_set_instance_depth(data->img->fg->instances, 4);
-	mlx_set_instance_depth(data->img->fg_ceiling->instances, 3);
-	mlx_set_instance_depth(data->img->fg_floor->instances, 2);
-
-}
-
-
-
-/* void	ray_main(void *param)
-{
-	t_data		*data;
-	t_ray		*ray;
-	t_sprite	*duck;
-	float		delta;
-	static int	last_time;
-	int			current_time;	
-	float	ray_offset;
-
-	data = param;
-	ray = data->ray;
-	ray->pixel_row = 0;
-	ray_offset = (data->fov / data->s_width) * DEG_RAD;
-	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
-	data->depth = malloc(sizeof(float) * (int)data->s_width);
-	data->height = malloc(sizeof(int) * (int)data->s_width);
-	if (!data->depth)
-		armageddon(data, "malloc failure");
-	if (!data->height)
-		armageddon(data, "malloc failure");
-	refresh_img(data, data->img);
-
-	while (ray->pixel_row < data->s_width)
-	{
-		render(data, ray, ray->pixel_row);
-		ray->orient += ray_offset;
-		data->depth[ray->pixel_row] = ray->distance;
-		ray->pixel_row++;
-	}
-	if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
-		armageddon(data, "thread creation failed");
-	if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
-		armageddon(data, "thread creation failed");
-	pthread_join(ray->ceiling_thread, NULL);
-	pthread_join(ray->floor_thread, NULL);
-	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);	
-	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);	
-	mlx_set_instance_depth(data->img->fg->instances, 4);
-	mlx_set_instance_depth(data->img->fg_ceiling->instances, 3);
-	mlx_set_instance_depth(data->img->fg_floor->instances, 2);
-
-}
-
-
-
-/* void	ray_main(void *param)
-{
-	t_data		*data;
-	t_ray		*ray;
-	t_sprite	*duck;
-	float		delta;
-	static int	last_time;
-	int			current_time;	
-	float	ray_offset;
-	int		pixel_row;
-	
-	pixel_row = 0;
-	data = param;
-	ray = data->ray;
-	duck = data->sprites[0];
-	last_time = 0;
-	current_time = mlx_get_time();
-	delta = (current_time - last_time) / 1000.0f;
-	last_time = current_time;
-	sprite_framerate(duck, delta);
-	update_mouse(data);
-	keypress(data);
-	if (data->input == true)
-	{
-		data->depth = malloc(sizeof(float) * (int)data->s_width);
-	if (!data->depth)
-		armageddon(data, "malloc failure");
-	if (data->input == true)
-	{
-		keypress(data);
-		update_mouse(data);
-		ray_offset = (data->fov / data->s_width) * DEG_RAD;
-			ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
-			refresh_img(data, data->img);
-			while (pixel_row < data->s_width)
-			{
-				render(data, ray, pixel_row);	
-				data->depth[pixel_row] = ray->distance;
-			ray->orient += ray_offset;
-				pixel_row++;
-			}	
-			mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
-			mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-			mlx_set_instance_depth(data->img->fg->instances, 2);		
-		data->input = false;
-	}
-	sprite(data, ray, duck);
-		data->input = false;
-	}
-	sprite(data, ray);
-	free(data->depth);
-} */

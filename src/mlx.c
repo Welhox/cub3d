@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 12:54:04 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:21:26 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void	update_params(t_data *data, t_ray *ray)
 	data->render_dist = 20;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
-	data->depth = malloc(sizeof(float) * (int)data->s_width);
+		data->depth = malloc(sizeof(float) * (int)data->s_width);
 	if (!data->depth)
+		armageddon(data, "malloc failure");
+	data->height = malloc(sizeof(int) * (int)data->s_width);
+	if (!data->height)
 		armageddon(data, "malloc failure");
 }
 
@@ -75,31 +78,33 @@ void	load_textures(t_data *data, t_img *img)
 	safe_texture(data, &temp, "assets/floor_02.png");
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
 }
-void	load_sprites(t_data *data, t_sprite *duck)
+void	load_sprites(t_data *data)
 {
 	int				i;
+	int				j;
 	mlx_texture_t	*temp;
-	char			*path[10] = 
-	{ 	"assets/tile006.png",
-		"assets/tile007.png",
-		"assets/tile008.png",
-		"assets/tile009.png",
-		"assets/tile010.png",
-		"assets/tile011.png",
-		"assets/tile012.png",
-		"assets/tile013.png",
-		"assets/tile014.png",
-		"assets/tile015.png"
-	};
+	char			*path[10];
+
+	path[0] = "assets/tile006.png",
+	path[1] = "assets/tile007.png",
+	path[2] = "assets/tile008.png",
+	path[3] = "assets/tile009.png",
+	path[4] = "assets/tile010.png",
+	path[5] = "assets/tile011.png",
+	path[6] = "assets/tile012.png",
+	path[7] = "assets/tile013.png",
+	path[8] = "assets/tile014.png",
+	path[9] = "assets/tile015.png",
 	i = -1;
-	while (++i < 10)
+	while (++i < data->s_count)
 	{
-		safe_texture(data, &temp, path[i]);
-		safe_txt_to_img(data, temp, &duck->frame[i]);
+		j = -1;
+		while (++j < 10)
+		{
+			safe_texture(data, &temp, path[j]);
+			safe_txt_to_img(data, temp, &data->sprites[i].frame[j]);
+		}
 	}
-	duck->c_frame = 0;
-	duck->e_time = 0;
-	duck->t_frame = 0.1f;
 }
 
  void	key_input(mlx_key_data_t keydata, void *param)
@@ -118,11 +123,9 @@ void	load_sprites(t_data *data, t_sprite *duck)
 void	mlx_main(t_data *data)
 {
 	t_img		img;
-	t_sprite	duck;
 
 	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
 	data->img = &img;
-	data->sprites[0] = &duck;
 	img.mlx = data->mlx;
 	if (!data->mlx)
 		armageddon(data, "mlx failed to initialise");
@@ -130,7 +133,7 @@ void	mlx_main(t_data *data)
 	mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
 	load_textures(data, &img);
 	init_img_text(data->img);
-	load_sprites(data, &duck);
+	load_sprites(data);
 	initial_render(data);
 	data->input = false;
 	mlx_key_hook(data->mlx, &key_input, data);

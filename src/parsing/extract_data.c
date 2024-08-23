@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:09:12 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/09 17:05:10 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:52:59 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	extract_data(char *arg, t_data *data)
 	if (fd < 0)
 		return (ret_error("open failed"));
 	map_str = gnl_wrapper(fd, data, buffer, map_str);
+	sprite_count(data, map_str);
 	if (all_data_found(data, map_str))
 		return (ft_nullfree(map_str, 1));
 	if (map_parse(map_str, data))

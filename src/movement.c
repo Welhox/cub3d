@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/22 14:53:13 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:58:18 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	ft_collision(t_data *data, float y, float x)
 		return (1);
 	else if (data->map[(int)y][(int)x] == '2')
 		return (2);
-	else if (data->map[(int)y][(int)x] == '3')
-		return (3);
 	return (0);
 }
 

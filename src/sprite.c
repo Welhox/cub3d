@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 12:45:28 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:56:21 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sprite_dist(t_data *data, t_sprite *sprite)
 
 void	sprite_scale(t_data *data, t_sprite *sprite, mlx_image_t *frame)
 {
-	sprite->scale = data->ray->proj_plane / (sprite->dist * 100);
+	sprite->scale = data->ray->proj_plane / (sprite->dist * 50);
 	sprite->width = sprite->scale * frame->width;
 	sprite->height = sprite->scale * frame->height;
 }
@@ -47,7 +47,7 @@ void	render_sprite(t_data *data, t_sprite *sprite, t_ray *ray)
 	float	sp_txt_y;
 
 	sprite_dist(data, sprite);
-	sprite_scale(data, sprite, sprite->frame[sprite->c_frame]);
+	sprite_scale(data, sprite, sprite->frame[data->c_frame]);
 	if (sprite->angle < (-PI / 2 + 0.1) || sprite->angle > (PI / 2 + 0.1))
         return;
 	sp_x = (data->s_width / 2) + (tan(sprite->angle) * ray->proj_plane);
@@ -69,9 +69,9 @@ void	render_sprite(t_data *data, t_sprite *sprite, t_ray *ray)
 				{
 					if (y >= 0 && y < data->s_height)
 					{
-						sp_txt_x = ((x - start_x) / sprite->width) * sprite->frame[sprite->c_frame]->width;
-						sp_txt_y = ((y - start_y) / sprite->height) * sprite->frame[sprite->c_frame]->height;
-						int	colour = get_txt_color(sprite->frame[sprite->c_frame], sp_txt_x, sp_txt_y, data->txt->shade);
+						sp_txt_x = ((x - start_x) / sprite->width) * sprite->frame[data->c_frame]->width;
+						sp_txt_y = ((y - start_y) / sprite->height) * sprite->frame[data->c_frame]->height;
+						int	colour = get_txt_color(sprite->frame[data->c_frame], sp_txt_x, sp_txt_y, data->txt->shade);
 						int	alpha = (colour >> 24) & 0xFF;
 						if (alpha != 0)
 							safe_pixel(data->img->sprite, x, y, colour);
@@ -84,13 +84,18 @@ void	render_sprite(t_data *data, t_sprite *sprite, t_ray *ray)
 	}
 }
 
-void	sprite(t_data *data, t_ray *ray, t_sprite *duck)
-{
-	duck->x = 5.5;
-	duck->y = 5;
+void	sprite(t_data *data, t_ray *ray, t_sprite *sprites)
+{	;
+	int			i;
+
+	i = -1;
 	if (data->img->sprite)
 		mlx_delete_image(data->mlx, data->img->sprite);
 	safe_image(data, data->s_width, data->s_height, &data->img->sprite);
-	render_sprite(data, duck, ray);
+	while (++i < data->s_count)
+		render_sprite(data, &sprites[i], ray);
 	mlx_image_to_window(data->mlx, data->img->sprite, 0, 0);
+	mlx_set_instance_depth(data->img->sprite->instances, 5);
+	data->c_frame = (data->c_frame + 1) % 10;
 }
+

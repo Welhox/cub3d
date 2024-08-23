@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/23 12:57:54 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:40:40 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,6 @@ typedef struct s_sprite
 	float		scale;
 	float		height;
 	float		width;
-	int			c_frame; //current frame;
-	float		e_time; //elasped time
-	float		t_frame; //frame time
 	mlx_image_t	*frame[10];
 }	t_sprite;
 
@@ -167,11 +164,12 @@ typedef struct s_data
 	t_ray		*ray;
 	t_img		*img;
 	t_txt		*txt;
-	t_sprite	*sprites[1];
+	t_sprite	*sprites;
 	mlx_t		*mlx;
 	float		scale;
-	float		*depth;
 	int			*height;
+	int			s_count;
+	int			c_frame; //current frame;
 }	t_data;
 
 //INIT
@@ -181,23 +179,23 @@ void	init_img_text(t_img *img);
 
 //UTILS
 
-float	get_scale(t_data *data);
-int		ft_atoi_cubd(const char *str);
-float	fl_max(float a, float b);
-float	fl_min(float a, float b);
+float		get_scale(t_data *data);
+int			ft_atoi_cubd(const char *str);
+float		fl_max(float a, float b);
+float		fl_min(float a, float b);
 
 //THREADS
 
-void	safe_thread(t_data *data, pthread_t thread, void *func, void *param);
-void	safe_join(t_data *data, pthread_t thread);
+void		safe_thread(t_data *data, pthread_t *thread, void *func, void *param);
+void		safe_join(t_data *data, pthread_t thread);
 
 //DDA
-void	get_dist(t_data *data, t_ray *ray);
-int		update_ray_dist(t_ray *ray, int flag);
-void	vertical_delta(t_ray *ray);
-void	horizontal_delta(t_ray *ray);
-void	first_horizontal(t_data *data, t_ray *ray);
-void	first_vertical(t_data *data, t_ray *ray);
+void		get_dist(t_data *data, t_ray *ray);
+int			update_ray_dist(t_ray *ray, int flag);
+void		vertical_delta(t_ray *ray);
+void		horizontal_delta(t_ray *ray);
+void		first_horizontal(t_data *data, t_ray *ray);
+void		first_vertical(t_data *data, t_ray *ray);
 
 //RAYCASTING, COLOURS, RENDERING
 
@@ -210,7 +208,17 @@ void		ray_main(void *param);
 void		update_mm_pl(t_data *data, t_pl *pl);
 mlx_image_t	*use_txt(t_data *data);
 void		shade_factor(t_data *data);
-void		sprite(t_data *data, t_ray *ray, t_sprite *duck);
+void		paint_row(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img);
+void		paint_wall(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img);
+void		paint_floor(void *arg);
+void		paint_ceiling(void *arg);
+void		mm_rayprint(t_data *data, t_ray *ray, t_pl *pl);
+
+//SPRITES
+
+void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
+void		sprite_count(t_data *data, char *map_str);
+void		set_sprite_pos(t_data *data, char c, int y, int x);
 
 //MOVEMENT
 
@@ -230,6 +238,7 @@ void	safe_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 void	safe_image(t_data *data, uint32_t w, uint32_t h, mlx_image_t **img);
 void	safe_texture(t_data *data, mlx_texture_t **img, char *path);
 void	safe_txt_to_img(t_data *data, mlx_texture_t *text, mlx_image_t **img);
+void	safe_delete_img(t_data *data, mlx_image_t *img);
 
 //PARSING
 
@@ -247,7 +256,7 @@ int		validate_map(t_data *data);
 
 int		ft_nullfree(char *str, int err);
 int		ret_error(char *str);
-void	free_img(t_img *img);
+void	free_img(t_data *data, t_img *img);
 void	ft_mapfree(char **array);
 void	armageddon(t_data *data, char *error);
 

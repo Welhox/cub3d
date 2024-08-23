@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:47:20 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 11:26:21 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:33:41 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ float	fl_max(float a, float b)
 	return (b);
 }
 
-void	safe_thread(t_data *data, pthread_t thread, void *func, void *param)
+void	safe_thread(t_data *data, pthread_t *thread, void *func, void *param)
 {
 	if (param == NULL)
 		param = data;
-	if (pthread_create(&thread, NULL, func, param))
+	if (pthread_create(thread, NULL, func, param))
 		armageddon(data, "thread creation failed");
 }
 
