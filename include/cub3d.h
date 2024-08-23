@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/23 12:42:09 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:57:54 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "../libft/includes/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <unistd.h>
-# include <pthread.h>
+# include <pthread.h> //REMOVE FOR NON BONUS!!
 
 # define DEG_RAD 0.0174532925
 # define PI 3.14159265359
@@ -97,6 +97,8 @@ typedef struct s_img
 	mlx_image_t		*pl; //pl
 	mlx_image_t		*ray_grid; //layer for all the rays
 	mlx_image_t		*fg; //foreground
+	mlx_image_t		*fg_ceiling; //ONLY BONUS
+	mlx_image_t		*fg_floor; //ONLY BONUS
 	mlx_image_t		*wall_txt[5];
 	mlx_image_t		*door;
 	mlx_image_t		*sprite;
@@ -122,8 +124,11 @@ typedef struct s_ray
 	float	v_step_dist;
 	float	proj_plane;
 	float	corr_dist;
+	int		pixel_row;
 	bool	hori_end;
 	bool	vert_end;
+	pthread_t	floor_thread; //BONUS ONLY (prolly should make init)
+	pthread_t	ceiling_thread; //BONUS ONLY
 }	t_ray;
 
 typedef struct s_pl
@@ -165,6 +170,8 @@ typedef struct s_data
 	t_sprite	*sprites[1];
 	mlx_t		*mlx;
 	float		scale;
+	float		*depth;
+	int			*height;
 }	t_data;
 
 //INIT

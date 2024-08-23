@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 12:43:29 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:54:04 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ void	initial_render(t_data *data)
 	mlx_image_to_window(data->mlx, data->img->floor, 0, data->s_height / 2);
 	safe_image(data, data->s_width, data->s_height, &data->img->fg);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
+
+	safe_image(data, data->s_width, data->s_height, &data->img->fg_ceiling);//ONLY BONUS
+	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);//ONLY BONUS
+	safe_image(data, data->s_width, data->s_height, &data->img->fg_floor);//ONLY BONUS
+	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);//ONLY BONUS
+	
+	
+	
 	minimap(data, data->img);
 	// safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 }
@@ -130,3 +138,33 @@ void	mlx_main(t_data *data)
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);	
 }
+
+
+/* 
+    //timing for input and FPS counter
+    oldTime = time;
+    time = getTicks();
+    double frameTime = (time - oldTime) / 1000.0; //frametime is the time this frame has taken, in seconds
+    print(1.0 / frameTime); //FPS counter
+    redraw(); */
+
+
+/* void get_fps(void *param)
+{
+	t_data		*data;
+	double		frame2;
+	
+	
+	data = param;
+	frame2 = 0;
+	frame2 = get_time(data);
+	data->fps = data->frames / (frame2 - data->frame1);
+	data->frames++;
+	if (data->frames > 999999999)
+	{
+		data->frames = 0;
+		data->frame1 = frame2;
+	}
+	//data->frame1 = frame2;
+	printf("FPS =  %ld\n", data->fps);
+} */
