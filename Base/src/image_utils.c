@@ -6,13 +6,13 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:00:00 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/12 13:56:27 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:49:34 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	color_image(mlx_image_t *image, int color)
+void	color_image(t_mlx_img *image, int color)
 {
 	uint32_t	x;
 	uint32_t	y;
@@ -36,7 +36,7 @@ int	make_color(int r, int g, int b, int a)
 }
 
 //gives back the color of the pixel
-int	get_txt_color(mlx_image_t *img, int x, int y, float shade)
+int	get_txt_color(t_mlx_img *img, int x, int y, float shade)
 {
 	int		color;
 	int		x_offset;
@@ -55,17 +55,13 @@ int	get_txt_color(mlx_image_t *img, int x, int y, float shade)
 	return (color);
 }
 
-mlx_image_t	*use_txt(t_data *data)
+t_mlx_img	*use_txt(t_data *data)
 {
-	if (data->txt->door == true)
-		return (data->img->door);
-	else
-		return (data->img->wall_txt[data->txt->wall_face]);
+	return (data->img->wall_txt[data->txt->wall_face]);
 }
 
-void	shade_factor(t_data *data)
+void	refresh_img(t_data *data, t_img *img)
 {
-	data->txt->shade = ((float)1 / data->ray->distance) * SHADE;
-	if (data->txt->shade >= 1)
-		data->txt->shade = 1;
+	mlx_delete_image(data->mlx, img->fg);
+	safe_image(data, data->s_width, data->s_height, &img->fg);
 }

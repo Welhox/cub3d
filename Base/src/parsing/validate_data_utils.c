@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:08:01 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/12 14:04:12 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:24:24 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ static int	check_valid_chars(t_data *data, int y, int x)
 	&& data->map[y][x] != 'S' \
 	&& data->map[y][x] != 'W' \
 	&& data->map[y][x] != ' ' \
-	&& data->map[y][x] != '1' \
-	&& data->map[y][x] != '2')
+	&& data->map[y][x] != '1')
 		return (1);
 	return (0);
 }

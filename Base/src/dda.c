@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:08:26 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/15 15:51:52 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:44:14 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,11 @@ void	check_horizontal_wall(t_data *data, t_ray *ray)
 	{
 		if (ft_collision(data, ray->hori_y - 1, ray->hori_x))
 			ray->hori_end = true;
-		if (ft_collision(data, ray->hori_y - 1, ray->hori_x) == 2)
-			data->txt->hori_door = true;
 	}
 	else
 	{
 		if (ft_collision(data, ray->hori_y, ray->hori_x))
 			ray->hori_end = true;
-		if (ft_collision(data, ray->hori_y, ray->hori_x) == 2)
-			data->txt->hori_door = true;
 	}
 }
 
@@ -36,15 +32,11 @@ void	check_vertical_wall(t_data *data, t_ray *ray)
 	{
 		if (ft_collision(data, ray->vert_y, ray->vert_x - 1))
 			ray->vert_end = true;
-		if (ft_collision(data, ray->vert_y, ray->vert_x - 1) == 2)
-			data->txt->vert_door = true;
 	}
 	else
 	{
 		if (ft_collision(data, data->ray->vert_y, data->ray->vert_x))
 			ray->vert_end = true;
-		if (ft_collision(data, data->ray->vert_y, data->ray->vert_x) == 2)
-			data->txt->vert_door = true;
 	}
 }
 

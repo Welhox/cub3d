@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:55 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/12 14:03:36 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:51:02 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	trim_spaces(char ***temp_data)
 			x--;
 		while (x > 0 && ft_isspace((*temp_data)[y][x]))
 			x--;
-		(*temp_data)[y][x + 1] = '\0'; //could be very unsafe, may need more protection
+		(*temp_data)[y][x + 1] = '\0';
 		y++;
 	}
 }
@@ -52,7 +52,7 @@ static int	set_map_border(char **temp_data, t_data *data)
 	}
 	data->map_x_border = max;
 	data->map_y_border = y;
-	data->map = ft_calloc((y + 2), sizeof(char *)); //calloc checks
+	data->map = ft_calloc((y + 2), sizeof(char *));
 	if (!data->map)
 		return (-1);
 	return (max);
