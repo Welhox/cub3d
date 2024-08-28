@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/28 11:54:14 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:57:18 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	load_textures(t_data *data, t_img *img)
 	safe_texture(data, &temp, data->wall_text[1]);
 	safe_txt_to_img(data, temp, &img->wall_txt[1]);
 }
- 
+
 void	mlx_main(t_data *data)
 {
 	t_img	img;

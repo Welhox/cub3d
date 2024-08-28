@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:52:05 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:01 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:32:45 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	first_vertical(t_data *data, t_ray *ray)
 {
 	if (!(ray->orient == PI / 2 || ray->orient == 1.5 * PI))
 	{
-		if (ray->orient < 1.5 * PI && ray->orient > PI / 2) //left
+		if (ray->orient < 1.5 * PI && ray->orient > PI / 2)
 		{
 			ray->vert_x = floorf(data->pl->pl_x);
 			ray->vert_y = data->pl->pl_y + \
@@ -33,7 +33,7 @@ void	first_vertical(t_data *data, t_ray *ray)
 	}
 	else
 	{
-		ray->vertical_dist = data->render_dist + 42; //redundant
+		ray->vertical_dist = data->render_dist + 42;
 		ray->vert_end = true;
 	}
 }
@@ -43,7 +43,7 @@ void	first_horizontal(t_data *data, t_ray *ray)
 	if (!(ray->orient == 0 || ray->orient == PI \
 		|| ray->orient == (2 * PI)))
 	{
-		if (ray->orient > PI) // going up
+		if (ray->orient > PI)
 		{
 			ray->hori_y = floorf(data->pl->pl_y);
 			ray->hori_x = data->pl->pl_x + \
@@ -60,14 +60,14 @@ void	first_horizontal(t_data *data, t_ray *ray)
 	}
 	else
 	{
-		ray->horizontal_dist = data->render_dist + 42; //redundant
+		ray->horizontal_dist = data->render_dist + 42;
 		ray->hori_end = true;
 	}
 }
 
 void	horizontal_delta(t_ray *ray)
 {
-	if (ray->orient > PI) // going up
+	if (ray->orient > PI)
 	{
 		ray->h_delta_y = -1;
 		ray->h_delta_x = 1 / -tan(ray->orient);
@@ -84,7 +84,7 @@ void	horizontal_delta(t_ray *ray)
 
 void	vertical_delta(t_ray *ray)
 {
-	if (ray->orient < 1.5 * PI && ray->orient > PI / 2) // going left
+	if (ray->orient < 1.5 * PI && ray->orient > PI / 2)
 	{
 		ray->v_delta_x = -1;
 		ray->v_delta_y = 1 * -tan(ray->orient);

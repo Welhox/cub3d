@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/28 11:39:44 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:51:18 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static int	check_colour_value(int *arr)
 	}
 	return (0);
 }
-
 
 int	get_color(int *arr, char *str)
 {

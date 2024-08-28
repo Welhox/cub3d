@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/28 14:44:21 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:33:13 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	armageddon(t_data *data, char *error)
 	i = 0;
 	if (data->mlx)
 	{
-		printf("Check\n");
 		free_img(data, data->img);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
