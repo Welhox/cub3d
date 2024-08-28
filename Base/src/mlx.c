@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/16 15:25:12 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:54:14 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,7 @@ void	update_params(t_data *data, t_ray *ray)
 	data->s_height = 1000;
 	data->s_width = 1600;
 	data->fov = 60;
-	data->ms_x = data->s_width / 2.0;
-	data->ms_y = data->s_height / 2.0;
-	data->left = data->ms_x - (data->ms_x * 0.95);
-	data->right = data->ms_y + (data->ms_y * 0.95);
 	data->render_dist = 20;
-	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
 }
 
@@ -41,7 +36,6 @@ void	initial_render(t_data *data)
 	mlx_image_to_window(data->mlx, data->img->floor, 0, data->s_height / 2);
 	safe_image(data, data->s_width, data->s_height, &data->img->fg);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	minimap(data, data->img);
 }
 
 void	load_textures(t_data *data, t_img *img)
@@ -56,22 +50,6 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &img->wall_txt[3]);
 	safe_texture(data, &temp, data->wall_text[1]);
 	safe_txt_to_img(data, temp, &img->wall_txt[1]);
-	safe_texture(data, &temp, "assets/Door03.png");
-	safe_txt_to_img(data, temp, &data->img->door);
-	safe_texture(data, &temp, "assets/floor_lava.png");
-	safe_txt_to_img(data, temp, &data->img->floor_txt);
-	safe_texture(data, &temp, "assets/floor_02.png");
-	safe_txt_to_img(data, temp, &data->img->ceil_txt);
-}
-
- void	key_input(mlx_key_data_t keydata, void *param)
-
-{
-	t_data	*data;
-
-	data = param;
-	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-		toggle_door(data, data->pl);
 }
  
 void	mlx_main(t_data *data)
@@ -83,15 +61,10 @@ void	mlx_main(t_data *data)
 	img.mlx = data->mlx;
 	if (!data->mlx)
 		armageddon(data, "mlx failed to initialise");
-	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
-	mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
 	load_textures(data, &img);
 	init_img_text(data->img);
 	initial_render(data);
-	mlx_key_hook(data->mlx, &key_input, data);
-	mlx_cursor_hook(data->mlx, &mouse_callback, data);
 	mlx_loop_hook(data->mlx, &keypress, data);
-	mlx_loop_hook(data->mlx, &update_mouse, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);
 }

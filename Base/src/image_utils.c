@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:00:00 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/12 13:56:27 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:54:33 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,5 @@ int	get_txt_color(mlx_image_t *img, int x, int y, float shade)
 
 mlx_image_t	*use_txt(t_data *data)
 {
-	if (data->txt->door == true)
-		return (data->img->door);
-	else
-		return (data->img->wall_txt[data->txt->wall_face]);
-}
-
-void	shade_factor(t_data *data)
-{
-	data->txt->shade = ((float)1 / data->ray->distance) * SHADE;
-	if (data->txt->shade >= 1)
-		data->txt->shade = 1;
+	return (data->img->wall_txt[data->txt->wall_face]);
 }

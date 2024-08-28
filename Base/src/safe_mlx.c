@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:15:46 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/12 13:47:23 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:42:56 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ void	safe_image(t_data *data, uint32_t w, uint32_t h, mlx_image_t **img)
 	*img = mlx_new_image(data->mlx, w, h);
 	if (!*img)
 		armageddon(data, "image mallocing failed");
+}
+
+void	safe_delete_img(t_data *data, mlx_image_t *img)
+{
+	if (img)
+		mlx_delete_image(data->mlx, img);
 }

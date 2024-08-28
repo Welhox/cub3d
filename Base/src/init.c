@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/15 16:44:26 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:39:08 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	init_pl(t_data *data, t_pl *pl)
 	pl->p_orientation = 0;
 	pl->step_y = 0;
 	pl->step_x = 0;
-	pl->bub_y = 0;
-	pl->bub_x = 0;
+/* 	pl->bub_y = 0;
+	pl->bub_x = 0; */
 	data->pl = pl;
 	pl->data = data;
 }
@@ -56,9 +56,6 @@ void	init_texture(t_data *data, t_txt *txt)
 	txt->pos = 0;
 	txt->step = 0;
 	txt->height = 0;
-	txt->hori_door = false;
-	txt->vert_door = false;
-	txt->door = false;
 }
 
 void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
@@ -86,9 +83,6 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	data->render_dist = 0;
 	data->mlx = NULL;
 	data->scale = 0;
-	data->ms_x = 0.0;
-	data->ms_y = 0.0;
-	data->prev_x = 0.0;
 	init_pl(data, pl);
 	init_ray(data, ray);
 	init_texture(data, txt);
@@ -96,13 +90,8 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 
 void	init_img_text(t_img *img)
 {
-	img->mm = NULL;
-	img->mm_wall = NULL;
-	img->mm_floor = NULL;
 	img->floor = NULL;
 	img->ceil = NULL;
-	img->pl = NULL;
-	img->ray_grid = NULL;
 	img->fg = NULL;
 /*  	img->wall_txt[0] = NULL;
 	img->wall_txt[1] = NULL;
