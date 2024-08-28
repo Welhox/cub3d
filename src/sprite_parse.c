@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 16:01:02 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 17:06:53 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:14:59 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sprite_count(t_data *data, char *map_str)
 	}
 }
 
-void	set_sprite_pos(t_data *data, char c, int y, int x)
+void	set_sprite_pos(t_data *data, int y, int x)
 {
 	data->sprites[data->s_count].x = (float)x + 0.5;
 	data->sprites[data->s_count].y = (float)y + 0.5;

@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:08:01 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 16:52:45 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:17:36 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	check_map(t_data *data, int y, int x, bool *pl)
 		if (pos_check(data, y, x))
 			return (1);
 		if (data->map[y][x] == '3')
-			set_sprite_pos(data, data->map[y][x], y, x);
+			set_sprite_pos(data, y, x);
 		if (data->map[y][x] == 'N' || data->map[y][x] == 'E' \
 			|| data->map[y][x] == 'S' || data->map[y][x] == 'W')
 		{

@@ -44,7 +44,7 @@ LIBS	= $(MLX_DIR)/build/libmlx42.a
 MLX_LIBS = -L$(MLX_DIR)/build -lmlx42 -lglfw -ldl -pthread -lm 
 #--------- FLAGS ----------#
 CC = @cc
-CFLAGS = #-Wall -Wextra -Werror -g -Wunreachable-code -Ofast
+CFLAGS = -Wall -Wextra -Werror -g -Wunreachable-code -Ofast
 HEADERS	:= -I ./include -I $(MLX_DIR)/include/MLX42/
 
 all: mlx42 libmlx $(NAME)

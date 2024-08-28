@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/23 17:40:40 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:15:18 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void		mm_rayprint(t_data *data, t_ray *ray, t_pl *pl);
 
 void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
 void		sprite_count(t_data *data, char *map_str);
-void		set_sprite_pos(t_data *data, char c, int y, int x);
+void		set_sprite_pos(t_data *data, int y, int x);
 
 //MOVEMENT
 
