@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 17:44:07 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:34:52 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ void	ray_main(void *param)
 	while(++ray->pixel_row < data->s_width)
 		render(data, data->ray, ray->pixel_row, ray_offset);
 	threads_and_windows(data, data->img, ray);
-	sprite(data, ray, data->sprites);
+	if (data->sprites != NULL)
+		sprite(data, ray, data->sprites);
 	ft_memset(data->depth, 0, data->s_width);
 	ft_memset(data->height, 0, data->s_width);
 }

@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/23 17:43:18 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:36:49 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	data->depth = NULL;//BONUS
 	data->height = NULL;//BONUS
 	data->s_count = 0; //BONUS
-	data->c_frame =0; //BONUS
+	data->c_frame = 0; //BONUS
+	data->sprites = NULL; //BONUS
 	init_pl(data, pl);
 	init_ray(data, ray);
 	init_texture(data, txt);

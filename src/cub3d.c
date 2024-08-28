@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/23 16:54:01 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:38:17 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	armageddon(t_data *data, char *error)
 		ft_putendl_fd(error, 2);
 		exit(1);
 	}
-	if (error)
+	if (error == NULL)
 		printf("Great success!\n");
 	exit(0);
 }
