@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/16 12:29:14 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:46:22 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ void		ray_main(void *param);
 void		update_mm_pl(t_data *data, t_pl *pl);
 mlx_image_t	*use_txt(t_data *data);
 void		shade_factor(t_data *data);
+float	get_scale(t_data *data);
 
 //MOVEMENT
 
@@ -195,6 +196,7 @@ void	safe_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 void	safe_image(t_data *data, uint32_t w, uint32_t h, mlx_image_t **img);
 void	safe_texture(t_data *data, mlx_texture_t **img, char *path);
 void	safe_txt_to_img(t_data *data, mlx_texture_t *text, mlx_image_t **img);
+void	minimap(t_data *data, t_img *img);
 
 //PARSING
 
