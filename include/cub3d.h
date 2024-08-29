@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 10:46:22 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:14:40 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define SHADE 4
 # define HORI 1
 # define VERT 2
+# define X 0
+# define Y 1
 
 typedef struct s_data	t_data;
 
@@ -63,6 +65,8 @@ typedef struct s_sprite
 	float		scale;
 	float		height;
 	float		width;
+	float		start[2];
+	float		end[2];
 	mlx_image_t	*frame[10];
 }	t_sprite;
 
@@ -219,7 +223,9 @@ void		mm_rayprint(t_data *data, t_ray *ray, t_pl *pl);
 void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
 void		sprite_count(t_data *data, char *map_str);
 void		set_sprite_pos(t_data *data, int y, int x);
-float	get_scale(t_data *data);
+void		sprite_dist(t_data *data, t_sprite *sprite);
+void		sprite_scale(t_data *data, t_sprite *sprite, mlx_image_t *frame);
+void		bubble_sort(t_data *data, int *order, float *dist);
 
 //MOVEMENT
 
