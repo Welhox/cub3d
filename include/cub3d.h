@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 16:05:09 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:21:51 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,13 @@ typedef struct s_pl
 {
 	float		pl_x;
 	float		pl_y;
-	float		p_orientation;
+	float		orient;//player orientation
 	float		step_x;
+	float		min_step_x;
+	float		plus_step_x;
 	float		step_y;
+	float		min_step_y;
+	float		plus_step_y;
 	float		bub_x;
 	float		bub_y;
 	t_data		*data;
@@ -177,7 +181,7 @@ typedef struct s_data
 	int			s_count;
 	int			c_frame; //current frame;
 	double		frame;
-	double		framerate;
+	double		fm;//framerate in seconds
 }	t_data;
 
 //INIT

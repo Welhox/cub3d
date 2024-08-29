@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 16:05:53 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:23:22 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_pl(t_data *data, t_pl *pl)
 {
 	pl->pl_x = 0;
 	pl->pl_y = 0;
-	pl->p_orientation = 0;
+	pl->orient = 0;
 	pl->step_y = 0;
 	pl->step_x = 0;
 	pl->bub_y = 0;

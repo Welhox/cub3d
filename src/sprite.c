@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 15:10:08 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:23:22 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sprite_dist(t_data *data, t_sprite *sprite)
 	x = sprite->x - data->pl->pl_x;
 	y = sprite->y - data->pl->pl_y;
 	sprite->dist = sqrt(x * x + y * y);
-	sprite->angle = atan2(y, x) - data->pl->p_orientation;
+	sprite->angle = atan2(y, x) - data->pl->orient;
 	  if (sprite->angle < -PI)
         sprite->angle += 2 * PI;
     if (sprite->angle >= 2 * PI)

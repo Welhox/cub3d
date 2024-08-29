@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 16:31:10 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:23:22 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	ray_main(void *param)
 	ray = data->ray;
 	ray->pixel_row = -1;
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;
-	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+	ray->orient = data->pl->orient - ((data->fov / 2) * DEG_RAD);
 	get_fps(data);
 	update_mouse(data);
 	keypress(data);
