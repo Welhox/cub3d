@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 17:23:22 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:43:03 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,18 @@ int	*sort_sprites(t_data *data)
 void	sprite(void *arg)//, t_ray *ray, t_sprite *sprites)
 {
 	int			i;
-  int		  index;
-	int		  *order;
+	int			index;
+	int			*order;
 	t_data		*data;
 
 	data = arg;
+
 	i = -1;
 	order = sort_sprites(data);
 	while (++i < data->s_count)
 	{
 		index = order[i];
-		render_sprite(data, &sprites[index], ray);
+		render_sprite(data, &data->sprites[index], data->ray);
 	}
 /* 	if (data->img->sprite)
 		mlx_delete_image(data->mlx, data->img->sprite); */
