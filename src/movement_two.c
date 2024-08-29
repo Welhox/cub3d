@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 16:34:00 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:23:22 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	toggle_door(t_data *data, t_pl *pl)
 	float	door_y;
 	int		i;
 
-	pl->step_y = 0.2 * cos(pl->p_orientation - (90 * DEG_RAD));
-	pl->step_x = 0.2 * sin(pl->p_orientation - (90 * DEG_RAD));
+	pl->step_y = 0.2 * cos(pl->orient - (90 * DEG_RAD));
+	pl->step_x = 0.2 * sin(pl->orient - (90 * DEG_RAD));
 	i = 0;
 	door_x = pl->pl_x;
 	door_y = pl->pl_y;
@@ -102,20 +102,20 @@ void	update_mouse(void *param)
 			data->ms_y != (data->s_height / 2))\
 			&& (data->ms_x > data->left && data->ms_x < data->right))
 	{
-		data->pl->p_orientation += (offset * 0.09) * DEG_RAD;
-		fix_orientation(&data->pl->p_orientation);
+		data->pl->orient += (offset * 0.09) * DEG_RAD;
+		fix_orientation(&data->pl->orient);
 	}
 	if (data->ms_x <= data->left)
 	{	
 		data->input = true;
-		data->pl->p_orientation -= ((0.6 * PI) * data->framerate);//6 * DEG_RAD;
-		fix_orientation(&data->pl->p_orientation);
+		data->pl->orient -= ((0.6 * PI) * data->fm);
+		fix_orientation(&data->pl->orient);
 	}
 	if (data->ms_x >= data->right)
 	{
 		data->input = true;
-		data->pl->p_orientation += ((0.6 * PI) * data->framerate);//6 * DEG_RAD;
-		fix_orientation(&data->pl->p_orientation);
+		data->pl->orient += ((0.6 * PI) * data->fm);
+		fix_orientation(&data->pl->orient);
 	}
 }
 

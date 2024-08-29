@@ -46,7 +46,7 @@ void	paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 
 	pixel_row = 0;
 	data = arg;
-	float ray_orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+	float ray_orient = data->pl->orient - ((data->fov / 2) * DEG_RAD);
 	float ray_offset = (data->fov / data->s_width) * DEG_RAD;
 	// if (data->ray->corr_dist > data->render_dist)
 	// 	y = (data->s_height / 2.0);
@@ -61,7 +61,7 @@ void	paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 		//y = data->s_height / 2.0;
 		while (y >= 0)
 		{
-			row_distance = (data->ray->proj_plane / 2.0) / ((data->s_height / 2.0) - (float)y) / (cos(ray_orient - data->pl->p_orientation));
+			row_distance = (data->ray->proj_plane / 2.0) / ((data->s_height / 2.0) - (float)y) / (cos(ray_orient - data->pl->orient));
 			shade = ((float)1 / row_distance) * SHADE;
 			if (shade > 1)
 				shade = 1;
@@ -91,7 +91,7 @@ void	paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 
 	pixel_row = 0;
 	data = arg;
-	float ray_orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+	float ray_orient = data->pl->orient - ((data->fov / 2) * DEG_RAD);
 	float ray_offset = (data->fov / data->s_width) * DEG_RAD;
 	while (pixel_row < data->s_width)	
 	{	
@@ -102,7 +102,7 @@ void	paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 		//y = data->s_height / 2.0; 
 		while (y < data->s_height)
 		{
-			row_distance = (data->ray->proj_plane / 2.0) / ((float)y - (data->s_height / 2.0)) / (cos(ray_orient - data->pl->p_orientation));
+			row_distance = (data->ray->proj_plane / 2.0) / ((float)y - (data->s_height / 2.0)) / (cos(ray_orient - data->pl->orient));
 			shade = ((float)1 / row_distance) * SHADE;
 			if (shade > 1)
 				shade = 1;
@@ -139,7 +139,7 @@ void	paint_wall(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
 
 void	paint_row(t_data *data, t_ray *ray, int pixel_row, mlx_image_t *img)
 {
-	ray->corr_dist = ray->distance * cos(data->pl->p_orientation - ray->orient);
+	ray->corr_dist = ray->distance * cos(data->pl->orient - ray->orient);
 	data->txt->wall_height = (64 / (ray->corr_dist * 64)) * ray->proj_plane;
 	data->txt->step = 1.0 * (float)(img->height / (float)data->txt->wall_height);
 	data->txt->height = data->txt->wall_height;
