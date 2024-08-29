@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 17:56:21 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:45:35 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,24 @@ void	render_sprite(t_data *data, t_sprite *sprite, t_ray *ray)
 	}
 }
 
+// void	sort_sprites(t_data *data, t_ray *ray, t_sprite *sprites)
+// {
+// 	int		i;
+// 	int		*index;
+
+// 	i = 0;
+// 	temp = sprites;
+// 	while (i < data->s_count)
+// 	{
+// 		if (sprites[i].dist > sprites[i + 1].dist)
+// 		{
+
+// 		}
+// 		i++;
+// 	}
+
+// }
+
 void	sprite(t_data *data, t_ray *ray, t_sprite *sprites)
 {	;
 	int			i;
@@ -92,6 +110,7 @@ void	sprite(t_data *data, t_ray *ray, t_sprite *sprites)
 	if (data->img->sprite)
 		mlx_delete_image(data->mlx, data->img->sprite);
 	safe_image(data, data->s_width, data->s_height, &data->img->sprite);
+	// sort_sprites(data, ray, sprites);
 	while (++i < data->s_count)
 		render_sprite(data, &sprites[i], ray);
 	mlx_image_to_window(data->mlx, data->img->sprite, 0, 0);
