@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 12:50:35 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:34:00 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int	ft_door(t_data *data, float y, float x)
 		return (2);
 	else if (data->map[(int)y][(int)x] == '3')
 		return (3);
+	else if (data->map[(int)y][(int)x] == '4')
+		return (4);
+	else if (data->map[(int)y][(int)x] == '5')
+		return (5);
 	return (0);
 }
 
@@ -40,14 +44,14 @@ void	toggle_door(t_data *data, t_pl *pl)
 	{
 		door_x -= pl->step_x;
 		door_y += pl->step_y;
-		if (ft_collision(data, door_y, door_x) == 2)
+		if ((ft_collision(data, door_y, door_x) == 2 || ft_door(data, door_y, door_x) == 4) && ((int)door_y != (int)pl->pl_y || (int)door_x != (int)pl->pl_x))
 		{
-			data->map[(int)door_y][(int)door_x] = '3';
+			data->map[(int)door_y][(int)door_x] += 1;
 			break ;
 		}
-		else if (ft_door(data, door_y, door_x) == 3 && ((int)door_y != (int)pl->pl_y || (int)door_x != (int)pl->pl_x))
+		else if ((ft_door(data, door_y, door_x) == 3 || ft_door(data, door_y, door_x) == 5) && ((int)door_y != (int)pl->pl_y || (int)door_x != (int)pl->pl_x))
 		{
-			data->map[(int)door_y][(int)door_x] = '2';
+			data->map[(int)door_y][(int)door_x] -= 1;
 			break ;
 		}
 		i++;
@@ -104,13 +108,13 @@ void	update_mouse(void *param)
 	if (data->ms_x <= data->left)
 	{	
 		data->input = true;
-		data->pl->p_orientation -= 6 * DEG_RAD;
+		data->pl->p_orientation -= ((0.6 * PI) * data->framerate);//6 * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
 	if (data->ms_x >= data->right)
 	{
 		data->input = true;
-		data->pl->p_orientation += 6 * DEG_RAD;
+		data->pl->p_orientation += ((0.6 * PI) * data->framerate);//6 * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
 }

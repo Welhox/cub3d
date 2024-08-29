@@ -35,6 +35,7 @@
 # define VERT 2
 # define X 0
 # define Y 1
+# define SPD 3
 
 typedef struct s_data	t_data;
 
@@ -81,6 +82,9 @@ typedef struct s_txt
 	bool	hori_door;
 	bool	vert_door;
 	bool	door;
+	bool	hori_cage;
+	bool	vert_cage;
+	bool	cage;
 	float	shade;
 	int		wall_height; //total wall height in pixels
 }	t_txt;
@@ -102,6 +106,7 @@ typedef struct s_img
 	mlx_image_t		*fg_floor; //ONLY BONUS
 	mlx_image_t		*wall_txt[5];
 	mlx_image_t		*door;
+	mlx_image_t		*cage;
 	mlx_image_t		*sprite;
 	mlx_t			*mlx;
 }	t_img;
@@ -128,8 +133,9 @@ typedef struct s_ray
 	int		pixel_row;
 	bool	hori_end;
 	bool	vert_end;
-	pthread_t	floor_thread; //BONUS ONLY (prolly should make init)
+	pthread_t	floor_thread; //BONUS ONLY
 	pthread_t	ceiling_thread; //BONUS ONLY
+	pthread_t	sprite_thread; //BONUS ONLY
 }	t_ray;
 
 typedef struct s_pl
@@ -174,6 +180,8 @@ typedef struct s_data
 	int			*height;
 	int			s_count;
 	int			c_frame; //current frame;
+	double		frame;
+	double		framerate;
 }	t_data;
 
 //INIT
@@ -220,12 +228,14 @@ void		mm_rayprint(t_data *data, t_ray *ray, t_pl *pl);
 
 //SPRITES
 
-void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
+//void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
+void		sprite(void *arg);
 void		sprite_count(t_data *data, char *map_str);
 void		set_sprite_pos(t_data *data, int y, int x);
 void		sprite_dist(t_data *data, t_sprite *sprite);
 void		sprite_scale(t_data *data, t_sprite *sprite, mlx_image_t *frame);
 void		bubble_sort(t_data *data, int *order, float *dist);
+void 		get_fps(void *param);
 
 //MOVEMENT
 

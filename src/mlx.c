@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 17:21:26 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:40:52 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 1000.0;
-	data->s_width = 1600.0;
+	data->s_height = 1200.0;
+	data->s_width = 1800.0;
 	data->fov = 60;
 	data->ms_x = data->s_width / 2.0;
 	data->ms_y = data->s_height / 2.0;
@@ -73,6 +73,8 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &img->wall_txt[1]);
 	safe_texture(data, &temp, "assets/Door03.png");
 	safe_txt_to_img(data, temp, &data->img->door);
+	safe_texture(data, &temp, "assets/steel_cage2.png");
+	safe_txt_to_img(data, temp, &data->img->cage);
 	safe_texture(data, &temp, "assets/floor_lava.png");
 	safe_txt_to_img(data, temp, &data->img->floor_txt);
 	safe_texture(data, &temp, "assets/floor_02.png");
@@ -141,33 +143,3 @@ void	mlx_main(t_data *data)
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);	
 }
-
-
-/* 
-    //timing for input and FPS counter
-    oldTime = time;
-    time = getTicks();
-    double frameTime = (time - oldTime) / 1000.0; //frametime is the time this frame has taken, in seconds
-    print(1.0 / frameTime); //FPS counter
-    redraw(); */
-
-
-/* void get_fps(void *param)
-{
-	t_data		*data;
-	double		frame2;
-	
-	
-	data = param;
-	frame2 = 0;
-	frame2 = get_time(data);
-	data->fps = data->frames / (frame2 - data->frame1);
-	data->frames++;
-	if (data->frames > 999999999)
-	{
-		data->frames = 0;
-		data->frame1 = frame2;
-	}
-	//data->frame1 = frame2;
-	printf("FPS =  %ld\n", data->fps);
-} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_data_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:08:01 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/28 16:17:36 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:01:07 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static int	check_valid_chars(t_data *data, int y, int x)
 	&& data->map[y][x] != ' ' \
 	&& data->map[y][x] != '1' \
 	&& data->map[y][x] != '2' \
-	&& data->map[y][x] != '3')
+	&& data->map[y][x] != '3' \
+	&& data->map[y][x] != '4' )
 		return (1);
 	return (0);
 }
@@ -62,7 +63,7 @@ static int	check_map(t_data *data, int y, int x, bool *pl)
 	{
 		if (pos_check(data, y, x))
 			return (1);
-		if (data->map[y][x] == '3')
+		if (data->map[y][x] == '4')
 			set_sprite_pos(data, y, x);
 		if (data->map[y][x] == 'N' || data->map[y][x] == 'E' \
 			|| data->map[y][x] == 'S' || data->map[y][x] == 'W')

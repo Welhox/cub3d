@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/23 17:58:18 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:17:17 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	ft_collision(t_data *data, float y, float x)
 		return (1);
 	else if (data->map[(int)y][(int)x] == '2')
 		return (2);
+	else if (data->map[(int)y][(int)x] == '5')
+		return (5);
 	return (0);
 }
 
@@ -39,8 +41,8 @@ int	ft_collision(t_data *data, float y, float x)
 
 void	fwd_or_back(t_data *data, t_pl *pl, t_key key)
 {
-	pl->step_y = 0.1 * cos(pl->p_orientation - (90 * DEG_RAD));
-	pl->step_x = 0.1 * sin(pl->p_orientation - (90 * DEG_RAD));
+	pl->step_y = (SPD * data->framerate) * cos(pl->p_orientation - (90 * DEG_RAD));
+	pl->step_x = (SPD * data->framerate) * sin(pl->p_orientation - (90 * DEG_RAD));
 	pl->bub_y = BUBBLE * cos(pl->p_orientation - (90 * DEG_RAD));
 	pl->bub_x = BUBBLE * sin(pl->p_orientation - (90 * DEG_RAD));
 	if (key == FORWARD)
@@ -65,8 +67,8 @@ void	fwd_or_back(t_data *data, t_pl *pl, t_key key)
 
 void	left_or_right(t_data *data, t_pl *pl, t_key key)
 {
-	pl->step_y = 0.1 * cos(pl->p_orientation);
-	pl->step_x = 0.1 * sin(pl->p_orientation);
+	pl->step_y = (SPD * data->framerate) * cos(pl->p_orientation);
+	pl->step_x = (SPD * data->framerate) * sin(pl->p_orientation);
 	pl->bub_y = BUBBLE * cos(pl->p_orientation);
 	pl->bub_x = BUBBLE * sin(pl->p_orientation);
 	if (key == S_LEFT)
@@ -98,12 +100,12 @@ void	move_pl(t_data *data, t_pl *pl, t_key key)
 		left_or_right(data, pl, key);
 	if (key == LEFT)
 	{
-		pl->p_orientation -= 4 * DEG_RAD;
+		pl->p_orientation -= ((0.6 * PI) * data->framerate);// * DEG_RAD;
 		fix_orientation(&pl->p_orientation);
 	}
 	if (key == RIGHT)
 	{
-		pl->p_orientation += 4 * DEG_RAD;
+		pl->p_orientation += ((0.6 * PI) * data->framerate);// * DEG_RAD;
 		fix_orientation(&pl->p_orientation);
 	}
 }

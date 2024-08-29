@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
 /*   Updated: 2024/08/29 17:21:19 by tcampbel         ###   ########.fr       */
@@ -98,23 +98,27 @@ int	*sort_sprites(t_data *data)
 	return (sprite_order);
 }
 
-void	sprite(t_data *data, t_ray *ray, t_sprite *sprites)
-{	
-	int		i;
-	int		index;
-	int		*order;
 
+void	sprite(void *arg)//, t_ray *ray, t_sprite *sprites)
+{
+	int			i;
+  int		  index;
+	int		  *order;
+	t_data		*data;
+
+	data = arg;
 	i = -1;
-	if (data->img->sprite)
-		mlx_delete_image(data->mlx, data->img->sprite);
-	safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 	order = sort_sprites(data);
 	while (++i < data->s_count)
 	{
 		index = order[i];
 		render_sprite(data, &sprites[index], ray);
 	}
-	mlx_image_to_window(data->mlx, data->img->sprite, 0, 0);
+/* 	if (data->img->sprite)
+		mlx_delete_image(data->mlx, data->img->sprite); */
+	//safe_image(data, data->s_width, data->s_height, &data->img->sprite);
+	// sort_sprites(data, ray, sprites);
+ 	mlx_image_to_window(data->mlx, data->img->sprite, 0, 0);
 	mlx_set_instance_depth(data->img->sprite->instances, 5);
 	data->c_frame = (data->c_frame + 1) % 10;
 	free(order);

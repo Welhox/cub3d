@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 16:01:02 by tcampbel          #+#    #+#             */
 /*   Updated: 2024/08/29 16:29:24 by tcampbel         ###   ########.fr       */
@@ -39,7 +39,7 @@ void	sprite_count(t_data *data, char *map_str)
 	i = -1;
 	while (map_str[++i])
 	{
-		if (map_str[i] == '3')
+		if (map_str[i] == '4')
 			data->s_count++;
 	}
 	if (data->s_count > 0)
