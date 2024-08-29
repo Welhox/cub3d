@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/26 11:36:49 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:13:27 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	data->render_dist = 0;
 	data->mlx = NULL;
 	data->scale = 0;
+	data->frame = 0.0;
 	data->ms_x = 0.0; //BONUS
 	data->ms_y = 0.0;//BONUS
 	data->prev_x = 0.0;//BONUS

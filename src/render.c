@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/26 11:34:52 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:07:45 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,17 @@ void	refresh_img(t_data *data, t_img *img)
 {
 	mlx_delete_image(data->mlx, img->ray_grid);
 	mlx_delete_image(data->mlx, img->fg);
+
+	if (data->img->sprite)
+		mlx_delete_image(data->mlx, data->img->sprite);
+
 	if (img->fg_ceiling != NULL)
 		mlx_delete_image(data->mlx, img->fg_ceiling); //ONLY BONUS
 	if (img->fg_floor != NULL)
 		mlx_delete_image(data->mlx, img->fg_floor); //ONLY BONUS
 
+	if (data->sprites != NULL)
+	safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 
 	safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->ray_grid);
 	safe_image(data, data->s_width, data->s_height, &img->fg);
@@ -76,14 +82,19 @@ void	render(t_data *data, t_ray *ray, int pixel_row, float offset)
 
 void	threads_and_windows(t_data *data, t_img *img, t_ray *ray)
 {
+	if (data->sprites != NULL)
+		safe_thread(data, &ray->sprite_thread, &sprite, NULL);
 	safe_thread(data, &ray->ceiling_thread, &paint_ceiling, NULL);
-	safe_thread(data, &ray->floor_thread, &paint_floor, NULL);	
+	safe_thread(data, &ray->floor_thread, &paint_floor, NULL);
+	if (data->sprites != NULL)
+		safe_join(data, ray->sprite_thread);
 	safe_join(data, ray->ceiling_thread);
 	safe_join(data, ray->floor_thread);
 	mlx_image_to_window(data->mlx, img->ray_grid, 0, 0);
 	mlx_image_to_window(data->mlx, img->fg, 0, 0);
 	mlx_image_to_window(data->mlx, img->fg_ceiling, 0, 0);
-	mlx_image_to_window(data->mlx, img->fg_floor, 0, 0);	
+	mlx_image_to_window(data->mlx, img->fg_floor, 0, 0);
+
 	mlx_set_instance_depth(img->fg->instances, 4);
 	mlx_set_instance_depth(img->fg_ceiling->instances, 3);
 	mlx_set_instance_depth(img->fg_floor->instances, 2);
@@ -100,61 +111,14 @@ void	ray_main(void *param)
 	ray->pixel_row = -1;
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;
 	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+	get_fps(data);
 	update_mouse(data);
 	keypress(data);
 	refresh_img(data, data->img);
 	while(++ray->pixel_row < data->s_width)
 		render(data, data->ray, ray->pixel_row, ray_offset);
-	threads_and_windows(data, data->img, ray);
-	if (data->sprites != NULL)
-		sprite(data, ray, data->sprites);
+	threads_and_windows(data, data->img, ray);	
 	ft_memset(data->depth, 0, data->s_width);
 	ft_memset(data->height, 0, data->s_width);
 }
 
-
-/* void	ray_main(void *param)
-{
-	t_data		*data;
-	t_ray		*ray;
-	t_sprite	*duck;
-	float		delta;
-	static int	last_time;
-	int			current_time;	
-	float	ray_offset;
-
-	data = param;
-	ray = data->ray;
-	ray->pixel_row = 0;
-	ray_offset = (data->fov / data->s_width) * DEG_RAD;
-	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
-	data->depth = malloc(sizeof(float) * (int)data->s_width);
-	data->height = malloc(sizeof(int) * (int)data->s_width);
-	if (!data->depth)
-		armageddon(data, "malloc failure");
-	if (!data->height)
-		armageddon(data, "malloc failure");
-	refresh_img(data, data->img);
-
-	while (ray->pixel_row < data->s_width)
-	{
-		render(data, ray, ray->pixel_row);
-		ray->orient += ray_offset;
-		data->depth[ray->pixel_row] = ray->distance;
-		ray->pixel_row++;
-	}
-	if (pthread_create(&ray->ceiling_thread, NULL, paint_ceiling, data) != 0)
-		armageddon(data, "thread creation failed");
-	if (pthread_create(&ray->floor_thread, NULL, paint_floor, data) != 0)
-		armageddon(data, "thread creation failed");
-	pthread_join(ray->ceiling_thread, NULL);
-	pthread_join(ray->floor_thread, NULL);
-	mlx_image_to_window(data->mlx, data->img->ray_grid, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);	
-	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);	
-	mlx_set_instance_depth(data->img->fg->instances, 4);
-	mlx_set_instance_depth(data->img->fg_ceiling->instances, 3);
-	mlx_set_instance_depth(data->img->fg_floor->instances, 2);
-
-}*/

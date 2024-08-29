@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/23 12:50:35 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:08:44 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ void	update_mouse(void *param)
 	if (data->ms_x <= data->left)
 	{	
 		data->input = true;
-		data->pl->p_orientation -= 6 * DEG_RAD;
+		data->pl->p_orientation -= ((0.6 * PI) * data->framerate);//6 * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
 	if (data->ms_x >= data->right)
 	{
 		data->input = true;
-		data->pl->p_orientation += 6 * DEG_RAD;
+		data->pl->p_orientation += ((0.6 * PI) * data->framerate);//6 * DEG_RAD;
 		fix_orientation(&data->pl->p_orientation);
 	}
 }

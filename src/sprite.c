@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 11:45:35 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:10:08 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,18 +102,20 @@ void	render_sprite(t_data *data, t_sprite *sprite, t_ray *ray)
 
 // }
 
-void	sprite(t_data *data, t_ray *ray, t_sprite *sprites)
-{	;
+void	sprite(void *arg)//, t_ray *ray, t_sprite *sprites)
+{
 	int			i;
+	t_data		*data;
 
+	data = arg;
 	i = -1;
-	if (data->img->sprite)
-		mlx_delete_image(data->mlx, data->img->sprite);
-	safe_image(data, data->s_width, data->s_height, &data->img->sprite);
+/* 	if (data->img->sprite)
+		mlx_delete_image(data->mlx, data->img->sprite); */
+	//safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 	// sort_sprites(data, ray, sprites);
 	while (++i < data->s_count)
-		render_sprite(data, &sprites[i], ray);
-	mlx_image_to_window(data->mlx, data->img->sprite, 0, 0);
+		render_sprite(data, &data->sprites[i], data->ray);
+ 	mlx_image_to_window(data->mlx, data->img->sprite, 0, 0);
 	mlx_set_instance_depth(data->img->sprite->instances, 5);
 	data->c_frame = (data->c_frame + 1) % 10;
 }

@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 10:46:22 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:46:04 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define SHADE 4
 # define HORI 1
 # define VERT 2
+# define SPD 3
 
 typedef struct s_data	t_data;
 
@@ -124,8 +125,9 @@ typedef struct s_ray
 	int		pixel_row;
 	bool	hori_end;
 	bool	vert_end;
-	pthread_t	floor_thread; //BONUS ONLY (prolly should make init)
+	pthread_t	floor_thread; //BONUS ONLY
 	pthread_t	ceiling_thread; //BONUS ONLY
+	pthread_t	sprite_thread; //BONUS ONLY
 }	t_ray;
 
 typedef struct s_pl
@@ -170,6 +172,8 @@ typedef struct s_data
 	int			*height;
 	int			s_count;
 	int			c_frame; //current frame;
+	double		frame;
+	double		framerate;
 }	t_data;
 
 //INIT
@@ -216,10 +220,12 @@ void		mm_rayprint(t_data *data, t_ray *ray, t_pl *pl);
 
 //SPRITES
 
-void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
+//void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
+void		sprite(void *arg);
 void		sprite_count(t_data *data, char *map_str);
 void		set_sprite_pos(t_data *data, int y, int x);
-float	get_scale(t_data *data);
+float		get_scale(t_data *data);
+void 		get_fps(void *param);
 
 //MOVEMENT
 
