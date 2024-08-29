@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 15:07:45 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:31:10 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	wall_face(t_ray *ray, t_txt *txt)
 		}
 		if (txt->hori_door == true)
 			txt->door = true;
+		else if (txt->hori_cage == true)
+			txt->cage = true;
 	}
 	else
 	{
@@ -59,6 +61,8 @@ void	wall_face(t_ray *ray, t_txt *txt)
 			txt->wall_face = EAST;
 		if (txt->vert_door == true)
 			txt->door = true;
+		else if (txt->vert_cage == true)
+			txt->cage = true;
 	}
 }
 
@@ -67,6 +71,9 @@ void	render(t_data *data, t_ray *ray, int pixel_row, float offset)
 	data->txt->hori_door = false;
 	data->txt->vert_door = false;
 	data->txt->door = false;
+	data->txt->hori_cage = false;
+	data->txt->vert_cage = false;
+	data->txt->cage = false;	
 	fix_orientation(&ray->orient);
 	get_dist(data, data->ray);
 	shade_factor(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:00:00 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/12 13:56:27 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:09:40 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ mlx_image_t	*use_txt(t_data *data)
 {
 	if (data->txt->door == true)
 		return (data->img->door);
+	else if (data->txt->cage == true)
+		return (data->img->cage);
 	else
 		return (data->img->wall_txt[data->txt->wall_face]);
 }

@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:08:26 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/15 15:51:52 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:15:30 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	check_horizontal_wall(t_data *data, t_ray *ray)
 			ray->hori_end = true;
 		if (ft_collision(data, ray->hori_y - 1, ray->hori_x) == 2)
 			data->txt->hori_door = true;
+		if (ft_collision(data, ray->hori_y - 1, ray->hori_x) == 5)
+			data->txt->hori_cage = true;		
 	}
 	else
 	{
@@ -27,6 +29,8 @@ void	check_horizontal_wall(t_data *data, t_ray *ray)
 			ray->hori_end = true;
 		if (ft_collision(data, ray->hori_y, ray->hori_x) == 2)
 			data->txt->hori_door = true;
+		if (ft_collision(data, ray->hori_y, ray->hori_x) == 5)
+			data->txt->hori_cage = true;
 	}
 }
 
@@ -38,6 +42,8 @@ void	check_vertical_wall(t_data *data, t_ray *ray)
 			ray->vert_end = true;
 		if (ft_collision(data, ray->vert_y, ray->vert_x - 1) == 2)
 			data->txt->vert_door = true;
+		if (ft_collision(data, ray->vert_y, ray->vert_x - 1) == 5)
+			data->txt->vert_cage = true;
 	}
 	else
 	{
@@ -45,6 +51,8 @@ void	check_vertical_wall(t_data *data, t_ray *ray)
 			ray->vert_end = true;
 		if (ft_collision(data, data->ray->vert_y, data->ray->vert_x) == 2)
 			data->txt->vert_door = true;
+		if (ft_collision(data, data->ray->vert_y, data->ray->vert_x) == 5)
+			data->txt->vert_cage = true;
 	}
 }
 

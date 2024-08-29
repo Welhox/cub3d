@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 14:13:27 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:05:53 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	init_texture(t_data *data, t_txt *txt)
 	txt->hori_door = false;
 	txt->vert_door = false;
 	txt->door = false;
+	txt->hori_cage = false;
+	txt->vert_cage = false;
+	txt->cage = false;
 }
 
 void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
