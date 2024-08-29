@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/15 16:44:26 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:36:49 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,14 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	data->render_dist = 0;
 	data->mlx = NULL;
 	data->scale = 0;
-	data->ms_x = 0.0;
-	data->ms_y = 0.0;
-	data->prev_x = 0.0;
+	data->ms_x = 0.0; //BONUS
+	data->ms_y = 0.0;//BONUS
+	data->prev_x = 0.0;//BONUS
+	data->depth = NULL;//BONUS
+	data->height = NULL;//BONUS
+	data->s_count = 0; //BONUS
+	data->c_frame = 0; //BONUS
+	data->sprites = NULL; //BONUS
 	init_pl(data, pl);
 	init_ray(data, ray);
 	init_texture(data, txt);
@@ -104,9 +109,13 @@ void	init_img_text(t_img *img)
 	img->pl = NULL;
 	img->ray_grid = NULL;
 	img->fg = NULL;
-/*  	img->wall_txt[0] = NULL;
-	img->wall_txt[1] = NULL;
-	img->wall_txt[2] = NULL;
-	img->wall_txt[3] = NULL;*/
+ 	// img->wall_txt[0] = NULL;
+	// img->wall_txt[1] = NULL;
+	// img->wall_txt[2] = NULL;
+	// img->wall_txt[3] = NULL;
 	img->wall_txt[4] = NULL;
+	img->sprite = NULL;
+	img->fg_ceiling = NULL;
+	img->fg_floor = NULL;
 }
+

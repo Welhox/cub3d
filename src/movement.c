@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/15 15:57:44 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:58:18 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	left_or_right(t_data *data, t_pl *pl, t_key key)
 
 void	move_pl(t_data *data, t_pl *pl, t_key key)
 {
+	data->input = true;
 	if (key == FORWARD || key == BACK)
 		fwd_or_back(data, pl, key);
 	if (key == S_LEFT || key == S_RIGHT)

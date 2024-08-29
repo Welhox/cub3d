@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/15 15:42:11 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:15:24 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	mm_render(t_data *data, t_pl *pl, t_img *img)
 			else if (data->map[y][x] == '0')
 				mlx_image_to_window(data->mlx, img->mm_floor, \
 									data->scale * x, data->scale * y);
-			else if (data->map[y][x] == '2')
+			else if (data->map[y][x] == '2' || data->map[y][x] == '3')
 				mlx_image_to_window(data->mlx, img->mm_door, \
 									data->scale * x, data->scale * y);
 			x++;

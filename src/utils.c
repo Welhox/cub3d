@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:04:25 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/12 13:42:07 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:06:12 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,4 @@ void	ft_mapfree(char **array)
 		array = NULL;
 	}
 }
+

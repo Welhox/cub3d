@@ -6,34 +6,26 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/12 14:02:33 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:38:17 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h" 
+#include "../include/cub3d.h"
 
-void	free_img(t_img *img)
+void	free_img(t_data *data, t_img *img)
 {
-	if (img->mm)
-		mlx_delete_image(img->mlx, img->mm);
-	if (img->mm_wall)
-		mlx_delete_image(img->mlx, img->mm_wall);
-	if (img->mm_floor)
-		mlx_delete_image(img->mlx, img->mm_floor);
-	if (img->floor)
-		mlx_delete_image(img->mlx, img->floor);
-	if (img->ceil)
-		mlx_delete_image(img->mlx, img->ceil);
-	if (img->pl)
-		mlx_delete_image(img->mlx, img->pl);
-	if (img->wall_txt[0])
-		mlx_delete_image(img->mlx, img->wall_txt[0]); //or something else as not in the mlx?
-	if (img->wall_txt[1])
-		mlx_delete_image(img->mlx, img->wall_txt[1]);
-	if (img->wall_txt[2])
-		mlx_delete_image(img->mlx, img->wall_txt[2]);
-	if (img->wall_txt[3])
-		mlx_delete_image(img->mlx, img->wall_txt[3]);
+	safe_delete_img(data, img->mm);
+	safe_delete_img(data, img->mm_floor);
+	safe_delete_img(data, img->floor);
+	safe_delete_img(data, img->ceil);
+	safe_delete_img(data, img->pl);
+	safe_delete_img(data, img->wall_txt[0]);
+	safe_delete_img(data, img->wall_txt[1]);
+	safe_delete_img(data, img->wall_txt[2]);
+	safe_delete_img(data, img->wall_txt[4]);
+	safe_delete_img(data, img->fg_floor);
+	safe_delete_img(data, img->fg_ceiling);
+	safe_delete_img(data, img->sprite);
 }
 
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
@@ -41,19 +33,22 @@ void	armageddon(t_data *data, char *error)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (data->mlx)
 	{
-		free_img(data->img);
+		free_img(data, data->img);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
 	}
-	while (i < 4)
-	{
+	while (++i < 4)
 		if (data->wall_text[i])
 			ft_nullfree(data->wall_text[i], 0);
-		i++;
-	}
+	if (data->depth)
+		free(data->depth);
+	if (data->height)
+		free(data->height);
+	if (data->sprites)
+		free(data->sprites);
 	ft_mapfree(data->map);
 	if (error)
 	{
@@ -61,7 +56,8 @@ void	armageddon(t_data *data, char *error)
 		ft_putendl_fd(error, 2);
 		exit(1);
 	}
-	printf("Great success!\n");
+	if (error == NULL)
+		printf("Great success!\n");
 	exit(0);
 }
 

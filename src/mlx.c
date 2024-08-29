@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/16 15:25:12 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:21:26 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 1000;
-	data->s_width = 1600;
+	data->s_height = 1000.0;
+	data->s_width = 1600.0;
 	data->fov = 60;
 	data->ms_x = data->s_width / 2.0;
 	data->ms_y = data->s_height / 2.0;
@@ -24,6 +24,12 @@ void	update_params(t_data *data, t_ray *ray)
 	data->render_dist = 20;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
+		data->depth = malloc(sizeof(float) * (int)data->s_width);
+	if (!data->depth)
+		armageddon(data, "malloc failure");
+	data->height = malloc(sizeof(int) * (int)data->s_width);
+	if (!data->height)
+		armageddon(data, "malloc failure");
 }
 
 void	initial_render(t_data *data)
@@ -41,7 +47,16 @@ void	initial_render(t_data *data)
 	mlx_image_to_window(data->mlx, data->img->floor, 0, data->s_height / 2);
 	safe_image(data, data->s_width, data->s_height, &data->img->fg);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
+
+	safe_image(data, data->s_width, data->s_height, &data->img->fg_ceiling);//ONLY BONUS
+	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);//ONLY BONUS
+	safe_image(data, data->s_width, data->s_height, &data->img->fg_floor);//ONLY BONUS
+	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);//ONLY BONUS
+	
+	
+	
 	minimap(data, data->img);
+	// safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 }
 
 void	load_textures(t_data *data, t_img *img)
@@ -63,6 +78,34 @@ void	load_textures(t_data *data, t_img *img)
 	safe_texture(data, &temp, "assets/floor_02.png");
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
 }
+void	load_sprites(t_data *data)
+{
+	int				i;
+	int				j;
+	mlx_texture_t	*temp;
+	char			*path[10];
+
+	path[0] = "assets/tile006.png",
+	path[1] = "assets/tile007.png",
+	path[2] = "assets/tile008.png",
+	path[3] = "assets/tile009.png",
+	path[4] = "assets/tile010.png",
+	path[5] = "assets/tile011.png",
+	path[6] = "assets/tile012.png",
+	path[7] = "assets/tile013.png",
+	path[8] = "assets/tile014.png",
+	path[9] = "assets/tile015.png",
+	i = -1;
+	while (++i < data->s_count)
+	{
+		j = -1;
+		while (++j < 10)
+		{
+			safe_texture(data, &temp, path[j]);
+			safe_txt_to_img(data, temp, &data->sprites[i].frame[j]);
+		}
+	}
+}
 
  void	key_input(mlx_key_data_t keydata, void *param)
 
@@ -71,12 +114,15 @@ void	load_textures(t_data *data, t_img *img)
 
 	data = param;
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
+	{
+		data->input = true;
 		toggle_door(data, data->pl);
+	}
 }
- 
+
 void	mlx_main(t_data *data)
 {
-	t_img	img;
+	t_img		img;
 
 	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
 	data->img = &img;
@@ -87,11 +133,41 @@ void	mlx_main(t_data *data)
 	mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
 	load_textures(data, &img);
 	init_img_text(data->img);
+	load_sprites(data);
 	initial_render(data);
+	data->input = false;
 	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
-	mlx_loop_hook(data->mlx, &keypress, data);
-	mlx_loop_hook(data->mlx, &update_mouse, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
-	mlx_loop(data->mlx);
+	mlx_loop(data->mlx);	
 }
+
+
+/* 
+    //timing for input and FPS counter
+    oldTime = time;
+    time = getTicks();
+    double frameTime = (time - oldTime) / 1000.0; //frametime is the time this frame has taken, in seconds
+    print(1.0 / frameTime); //FPS counter
+    redraw(); */
+
+
+/* void get_fps(void *param)
+{
+	t_data		*data;
+	double		frame2;
+	
+	
+	data = param;
+	frame2 = 0;
+	frame2 = get_time(data);
+	data->fps = data->frames / (frame2 - data->frame1);
+	data->frames++;
+	if (data->frames > 999999999)
+	{
+		data->frames = 0;
+		data->frame1 = frame2;
+	}
+	//data->frame1 = frame2;
+	printf("FPS =  %ld\n", data->fps);
+} */
