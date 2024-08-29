@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/28 16:15:18 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:46:22 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ void		mm_rayprint(t_data *data, t_ray *ray, t_pl *pl);
 void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
 void		sprite_count(t_data *data, char *map_str);
 void		set_sprite_pos(t_data *data, int y, int x);
+float	get_scale(t_data *data);
 
 //MOVEMENT
 
@@ -239,6 +240,7 @@ void	safe_image(t_data *data, uint32_t w, uint32_t h, mlx_image_t **img);
 void	safe_texture(t_data *data, mlx_texture_t **img, char *path);
 void	safe_txt_to_img(t_data *data, mlx_texture_t *text, mlx_image_t **img);
 void	safe_delete_img(t_data *data, mlx_image_t *img);
+void	minimap(t_data *data, t_img *img);
 
 //PARSING
 

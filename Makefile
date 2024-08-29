@@ -35,7 +35,6 @@ CFILES = 	$(SRCS_DIR)/cub3d.c $(SRCS_DIR)/utils.c $(SRCS_DIR)/init.c $(SRCS_DIR)
 			$(SRCS_DIR)/sprite.c $(SRCS_DIR)/utils_two.c $(SRCS_DIR)/render.c $(SRCS_DIR)/sprite_parse.c \
 			$(SRCS_DIR)/minimap.c
 
-
 BONUS =		$(BONUS_DIR)/
 
 OFILES = $(CFILES:.c=.o)
