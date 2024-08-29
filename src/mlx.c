@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 14:16:29 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:40:52 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 500.0;
-	data->s_width = 800.0;
+	data->s_height = 1200.0;
+	data->s_width = 1800.0;
 	data->fov = 60;
 	data->ms_x = data->s_width / 2.0;
 	data->ms_y = data->s_height / 2.0;
@@ -73,6 +73,8 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &img->wall_txt[1]);
 	safe_texture(data, &temp, "assets/Door03.png");
 	safe_txt_to_img(data, temp, &data->img->door);
+	safe_texture(data, &temp, "assets/steel_cage2.png");
+	safe_txt_to_img(data, temp, &data->img->cage);
 	safe_texture(data, &temp, "assets/floor_lava.png");
 	safe_txt_to_img(data, temp, &data->img->floor_txt);
 	safe_texture(data, &temp, "assets/floor_02.png");

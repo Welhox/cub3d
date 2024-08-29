@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 14:46:04 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:05:09 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ typedef struct s_txt
 	bool	hori_door;
 	bool	vert_door;
 	bool	door;
+	bool	hori_cage;
+	bool	vert_cage;
+	bool	cage;
 	float	shade;
 	int		wall_height; //total wall height in pixels
 }	t_txt;
@@ -99,6 +102,7 @@ typedef struct s_img
 	mlx_image_t		*fg_floor; //ONLY BONUS
 	mlx_image_t		*wall_txt[5];
 	mlx_image_t		*door;
+	mlx_image_t		*cage;
 	mlx_image_t		*sprite;
 	mlx_t			*mlx;
 }	t_img;
