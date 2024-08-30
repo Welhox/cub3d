@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 15:32:01 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:55:04 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	ray_main(void *param)
 	float		ray_offset;
 
 	data = param;
+	if (data->end == true)
+		return ;
 	ray = data->ray;
 	ray->pixel_row = -1;
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;

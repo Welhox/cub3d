@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 15:32:53 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:53:35 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	init_pl(data, pl);
 	init_ray(data, ray);
 	init_texture(data, txt);
+	data->end = false;
 }
 
 void	init_img_text(t_img *img)

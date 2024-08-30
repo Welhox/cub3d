@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 15:32:43 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:53:19 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ typedef struct s_data
 	int			c_frame; //current frame;
 	double		frame;
 	double		fm;//framerate in seconds
+	bool		end;
 }	t_data;
 
 //INIT

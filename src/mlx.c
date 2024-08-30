@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 15:30:27 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:06:38 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 500.0;
-	data->s_width = 800.0;
+	data->s_height = 1600.0;
+	data->s_width = 2000.0;
 	data->fov = 60;
 	data->ms_x = data->s_width / 2.0;
 	data->ms_y = data->s_height / 2.0;
@@ -114,9 +114,16 @@ void	load_sprites(t_data *data)
 
 	data = param;
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-		data->input = true;
 		toggle_tile(data, data->pl);
- }
+}
+
+void	termination(void *param)
+{
+	t_data *data;
+
+	data = param;
+	armageddon(data, NULL);
+}
 
 void	mlx_main(t_data *data)
 {
@@ -137,5 +144,6 @@ void	mlx_main(t_data *data)
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
+	mlx_close_hook(data->mlx, &termination, data);
 	mlx_loop(data->mlx);	
 }

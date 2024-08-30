@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 15:32:50 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:58:29 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	victory(t_data *data)
 {
 	mlx_resize_image(data->img->end, data->s_width, data->s_height);
 	mlx_image_to_window(data->mlx, data->img->end, 0, 0);
-	mlx_set_instance_depth(data->img->end->instances, 400);
+	data->end = true;
+	free_img(data, data->img);
+	mlx_set_instance_depth(data->img->end->instances, 5);
 }
 
 int		check_toggle(t_data *data, t_pl *pl, float door_y, float door_x)
