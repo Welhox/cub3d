@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 15:35:23 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:52:59 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &img->wall_txt[1]);
 }
 
+void	termination(void *param)
+{
+	t_data *data;
+
+	data = param;
+	armageddon(data, NULL);
+}
+
 void	mlx_main(t_data *data)
 {
 	t_img	img;
@@ -66,5 +74,6 @@ void	mlx_main(t_data *data)
 	initial_render(data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
+	mlx_close_hook(data->mlx, &termination, data);
 	mlx_loop(data->mlx);
 }
