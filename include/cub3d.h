@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 17:14:40 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:43:04 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ typedef struct s_data
 	float		prev_x; //previous x position of cursor
 	float		left; // left edge of window
 	float		right; // right edge of window
-	bool		input;
 	float		*depth;
 	t_pl		*pl;
 	t_ray		*ray;
@@ -197,8 +196,6 @@ void	init_img_text(t_img *img);
 
 float		get_scale(t_data *data);
 int			ft_atoi_cubd(const char *str);
-float		fl_max(float a, float b);
-float		fl_min(float a, float b);
 
 //THREADS
 
