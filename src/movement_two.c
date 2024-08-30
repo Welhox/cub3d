@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 15:58:29 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:40:53 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	keypress(void *param)
 		move_pl(data, data->pl, LEFT);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		move_pl(data, data->pl, RIGHT);
-	update_mouse(data);	
+	update_mouse(data);
 }
 
 void	mouse_callback(double x, double y, void *param)
@@ -142,10 +142,10 @@ void	update_mouse(void *param)
 	offset = data->ms_x - data->prev_x;
 	data->prev_x = data->ms_x;
 	if ((data->ms_x != (data->s_width / 2) && \
-			data->ms_y != (data->s_height / 2))\
+			data->ms_y != (data->s_height / 2)) \
 			&& (data->ms_x > data->left && data->ms_x < data->right))
 	{
-		data->pl->orient += (offset * 0.15) * DEG_RAD;
+		data->pl->orient += (offset * 0.15) * DG_RD;
 		fix_orientation(&data->pl->orient);
 	}
 	if (data->ms_x <= data->left)
@@ -156,7 +156,7 @@ void	update_mouse(void *param)
 	if (data->ms_x >= data->right)
 	{
 		data->pl->orient += ((0.9 * PI) * data->fm);
-		fix_orientation(&data->pl->orient);	
+		fix_orientation(&data->pl->orient);
 	}
 }
 

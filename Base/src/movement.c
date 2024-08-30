@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/28 11:53:26 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:38:51 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,33 @@ int	ft_collision(t_data *data, float y, float x)
 
 void	fwd_or_back(t_data *data, t_pl *pl, t_key key)
 {
-	data->pl->step_y = 0.1 * cos(pl->p_orientation - (90 * DEG_RAD));
-	data->pl->step_x = 0.1 * sin(pl->p_orientation - (90 * DEG_RAD));
+	data->pl->stp_y = 0.1 * cos(pl->p_orientation - (90 * DG_RD));
+	data->pl->stp_x = 0.1 * sin(pl->p_orientation - (90 * DG_RD));
 	if (key == FORWARD)
 	{
-		pl->pl_y += pl->step_y;
-		pl->pl_x -= pl->step_x;
+		pl->pl_y += pl->stp_y;
+		pl->pl_x -= pl->stp_x;
 	}
 	if (key == BACK)
 	{
-		pl->pl_y -= pl->step_y;
-		pl->pl_x += pl->step_x;
+		pl->pl_y -= pl->stp_y;
+		pl->pl_x += pl->stp_x;
 	}
 }
 
 void	left_or_right(t_data *data, t_pl *pl, t_key key)
 {
-	data->pl->step_y = 0.1 * cos(pl->p_orientation);
-	data->pl->step_x = 0.1 * sin(pl->p_orientation);
+	data->pl->stp_y = 0.1 * cos(pl->p_orientation);
+	data->pl->stp_x = 0.1 * sin(pl->p_orientation);
 	if (key == S_LEFT)
 	{
-		pl->pl_y -= pl->step_y;
-		pl->pl_x += pl->step_x;
+		pl->pl_y -= pl->stp_y;
+		pl->pl_x += pl->stp_x;
 	}
 	if (key == S_RIGHT)
 	{
-		pl->pl_y += pl->step_y;
-		pl->pl_x -= pl->step_x;
+		pl->pl_y += pl->stp_y;
+		pl->pl_x -= pl->stp_x;
 	}
 }
 
@@ -61,12 +61,12 @@ void	move_pl(t_data *data, t_pl *pl, t_key key)
 		left_or_right(data, pl, key);
 	if (key == LEFT)
 	{
-		pl->p_orientation -= 4 * DEG_RAD;
+		pl->p_orientation -= 4 * DG_RD;
 		fix_orientation(&pl->p_orientation);
 	}
 	if (key == RIGHT)
 	{
-		pl->p_orientation += 4 * DEG_RAD;
+		pl->p_orientation += 4 * DG_RD;
 		fix_orientation(&pl->p_orientation);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:04:25 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 17:24:02 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:06:43 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,3 @@ void	ft_mapfree(char **array)
 		array = NULL;
 	}
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:08:26 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 16:15:30 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:07:16 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_horizontal_wall(t_data *data, t_ray *ray)
 		if (ft_collision(data, ray->hori_y - 1, ray->hori_x) == 2)
 			data->txt->hori_door = true;
 		if (ft_collision(data, ray->hori_y - 1, ray->hori_x) == 5)
-			data->txt->hori_cage = true;		
+			data->txt->hori_cage = true;
 	}
 	else
 	{

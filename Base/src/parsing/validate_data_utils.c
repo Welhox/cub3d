@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:08:01 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/28 11:24:24 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:35:23 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static int	pos_check(t_data *data, int y, int x)
 static void	set_pl_pos(char c, t_data *data, int y, int x)
 {
 	if (c == 'N')
-		data->pl->p_orientation = 270 * DEG_RAD;
+		data->pl->p_orientation = 270 * DG_RD;
 	else if (c == 'E')
 		data->pl->p_orientation = 0;
 	else if (c == 'S')
-		data->pl->p_orientation = 90 * DEG_RAD;
+		data->pl->p_orientation = 90 * DG_RD;
 	else if (c == 'W')
-		data->pl->p_orientation = 180 * DEG_RAD;
+		data->pl->p_orientation = 180 * DG_RD;
 	data->pl->pl_x = (float)x + 0.5;
 	data->pl->pl_y = (float)y + 0.5;
 }

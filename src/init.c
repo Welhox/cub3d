@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 15:53:35 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:38:51 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,30 @@ void	init_pl(t_data *data, t_pl *pl)
 	pl->pl_x = 0;
 	pl->pl_y = 0;
 	pl->orient = 0;
-	pl->step_y = 0;
-	pl->step_x = 0;
+	pl->stp_y = 0;
+	pl->stp_x = 0;
 	pl->bub_y = 0;
 	pl->bub_x = 0;
 	data->pl = pl;
+	data->ms_x = 0.0;
+	data->ms_y = 0.0;
+	data->prev_x = 0.0;
 	pl->data = data;
+	data->fov = 0;
+	data->render_dist = 0;
+	data->mlx = NULL;
+	data->scale = 0;
+	data->frame = 0.0;
 }
 
 void	init_texture(t_data *data, t_txt *txt)
 {
 	data->txt = txt;
+	data->depth = NULL;
+	data->height = NULL;
+	data->s_count = 0;
+	data->c_frame = 0;
+	data->sprites = NULL;
 	txt->wall_face = 0;
 	txt->wall_x = 0;
 	txt->wall_y = 0;
@@ -85,20 +98,6 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	data->ceil[3] = 0;
 	data->s_height = 0;
 	data->s_width = 0;
-	data->fov = 0;
-	data->render_dist = 0;
-	data->mlx = NULL;
-	data->scale = 0;
-	data->frame = 0.0;
-	data->cage = 0;
-	data->ms_x = 0.0; //BONUS
-	data->ms_y = 0.0;//BONUS
-	data->prev_x = 0.0;//BONUS
-	data->depth = NULL;//BONUS
-	data->height = NULL;//BONUS
-	data->s_count = 0; //BONUS
-	data->c_frame = 0; //BONUS
-	data->sprites = NULL; //BONUS
 	init_pl(data, pl);
 	init_ray(data, ray);
 	init_texture(data, txt);
@@ -120,4 +119,3 @@ void	init_img_text(t_img *img)
 	img->fg_ceiling = NULL;
 	img->fg_floor = NULL;
 }
-

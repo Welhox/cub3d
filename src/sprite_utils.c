@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:31:55 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 14:41:55 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:10:35 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	sprite_dist(t_data *data, t_sprite *sprite)
 	sprite->dist = sqrt(pow(x, 2) + pow(y, 2));
 	sprite->angle = atan2(y, x) - data->pl->orient;
 	if (sprite->angle < -PI)
-        sprite->angle += 2 * PI;
-    if (sprite->angle > PI)
-        sprite->angle -= 2 * PI;
+		sprite->angle += 2 * PI;
+	if (sprite->angle > PI)
+		sprite->angle -= 2 * PI;
 }
 
 void	sprite_scale(t_data *data, t_sprite *sprite, mlx_image_t *frame)
@@ -34,7 +34,7 @@ void	sprite_scale(t_data *data, t_sprite *sprite, mlx_image_t *frame)
 	sprite->height = sprite->scale * frame->height;
 }
 
-void ft_swap(int *arr, int a, int b)
+void	ft_swap(int *arr, int a, int b)
 {
 	int	temp;
 

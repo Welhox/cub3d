@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 15:53:19 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:03:02 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <unistd.h>
 # include <pthread.h> //REMOVE FOR NON BONUS!!
 
-# define DEG_RAD 0.0174532925
+# define DG_RD 0.0174532925
 # define PI 3.14159265359
 # define BUBBLE 0.2
 # define MMS 3 //minimap scale
@@ -144,12 +144,12 @@ typedef struct s_pl
 	float		pl_x;
 	float		pl_y;
 	float		orient;//player orientation
-	float		step_x;
-	float		min_step_x;
-	float		plus_step_x;
-	float		step_y;
-	float		min_step_y;
-	float		plus_step_y;
+	float		stp_x;
+	float		m_stp_x;
+	float		p_stp_x;
+	float		stp_y;
+	float		m_stp_y;
+	float		p_stp_y;
 	float		bub_x;
 	float		bub_y;
 	t_data		*data;
@@ -199,6 +199,7 @@ void	init_img_text(t_img *img);
 
 float		get_scale(t_data *data);
 int			ft_atoi_cubd(const char *str);
+void		check_door_or_cage(t_txt *txt, t_ray *ray);
 
 //THREADS
 
@@ -232,7 +233,6 @@ void		mm_rayprint(t_data *data, t_ray *ray, t_pl *pl);
 
 //SPRITES
 
-//void		sprite(/* void *arg */t_data *data, t_ray *ray, t_sprite *duck);
 void		sprite(void *arg);
 void		sprite_count(t_data *data, char *map_str);
 void		set_sprite_pos(t_data *data, int y, int x);
@@ -250,6 +250,7 @@ int		ft_collision(t_data *data, float y, float x);
 void	toggle_tile(t_data *data, t_pl *pl);
 void	mouse_callback(double x, double y, void *param);
 void	update_mouse(void *param);
+void	key_input(mlx_key_data_t keydata, void *param);
 
 //MLX
 

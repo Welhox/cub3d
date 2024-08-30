@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 16:06:38 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:35:23 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	update_params(t_data *data, t_ray *ray)
 	data->right = data->ms_y + (data->ms_y * 0.95);
 	data->render_dist = 20;
 	data->scale = get_scale(data);
-	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
+	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DG_RD);
 	data->depth = malloc(sizeof(float) * (int)data->s_width);
 	if (!data->depth)
 		armageddon(data, "malloc failure");
@@ -47,10 +47,10 @@ void	initial_render(t_data *data)
 	mlx_image_to_window(data->mlx, data->img->floor, 0, data->s_height / 2);
 	safe_image(data, data->s_width, data->s_height, &data->img->fg);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-	safe_image(data, data->s_width, data->s_height, &data->img->fg_ceiling);//ONLY BONUS
-	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);//ONLY BONUS
-	safe_image(data, data->s_width, data->s_height, &data->img->fg_floor);//ONLY BONUS
-	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);//ONLY BONUS
+	safe_image(data, data->s_width, data->s_height, &data->img->fg_ceiling);
+	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);
+	safe_image(data, data->s_width, data->s_height, &data->img->fg_floor);
+	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);
 	minimap(data, data->img);
 }
 
@@ -85,16 +85,16 @@ void	load_sprites(t_data *data)
 	mlx_texture_t	*temp;
 	char			*path[10];
 
-	path[0] = "assets/tile006.png",
-	path[1] = "assets/tile007.png",
-	path[2] = "assets/tile008.png",
-	path[3] = "assets/tile009.png",
-	path[4] = "assets/tile010.png",
-	path[5] = "assets/tile011.png",
-	path[6] = "assets/tile012.png",
-	path[7] = "assets/tile013.png",
-	path[8] = "assets/tile014.png",
-	path[9] = "assets/tile015.png",
+	path[0] = "assets/tile006.png";
+	path[1] = "assets/tile007.png";
+	path[2] = "assets/tile008.png";
+	path[3] = "assets/tile009.png";
+	path[4] = "assets/tile010.png";
+	path[5] = "assets/tile011.png";
+	path[6] = "assets/tile012.png";
+	path[7] = "assets/tile013.png";
+	path[8] = "assets/tile014.png";
+	path[9] = "assets/tile015.png";
 	i = -1;
 	while (++i < data->s_count)
 	{
