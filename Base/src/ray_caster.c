@@ -88,8 +88,8 @@ void	ray_main(void *param)
 	pixel_row = 0;
 	data = param;
 	ray = data->ray;
-	ray_offset = (data->fov / data->s_width) * DEG_RAD;
-	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DEG_RAD);
+	ray_offset = (data->fov / data->s_width) * DG_RD;
+	ray->orient = data->pl->p_orientation - ((data->fov / 2) * DG_RD);
 	refresh_img(data, data->img);
 	while (pixel_row < data->s_width)
 	{

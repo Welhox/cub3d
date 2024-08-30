@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/28 15:50:11 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:38:51 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <unistd.h>
 
-# define DEG_RAD 0.0174532925
+# define DG_RD 0.0174532925
 # define PI 3.14159265359
 # define HORI 1
 # define VERT 2
@@ -100,8 +100,8 @@ typedef struct s_pl
 	float		pl_x;
 	float		pl_y;
 	float		p_orientation;
-	float		step_x;
-	float		step_y;
+	float		stp_x;
+	float		stp_y;
 	t_data		*data;
 }	t_pl;
 

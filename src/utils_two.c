@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:47:20 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 14:42:53 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:12:15 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,22 @@ void	safe_join(t_data *data, pthread_t thread)
 {
 	if (pthread_join(thread, NULL))
 		armageddon(data, "thread failed to join");
+}
+
+void	check_door_or_cage(t_txt *txt, t_ray *ray)
+{
+	if (ray->horizontal_dist < ray->vertical_dist)
+	{
+		if (txt->hori_door == true)
+			txt->door = true;
+		else if (txt->hori_cage == true)
+			txt->cage = true;
+	}
+	else
+	{
+		if (txt->vert_door == true)
+			txt->door = true;
+		else if (txt->vert_cage == true)
+			txt->cage = true;
+	}
 }

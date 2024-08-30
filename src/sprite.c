@@ -6,12 +6,11 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 14:17:12 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:09:07 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
 
 void	sprite_pixel(t_data *data, t_sprite *sprite, int x, int y)
 {
@@ -32,7 +31,7 @@ void	sprite_pixel(t_data *data, t_sprite *sprite, int x, int y)
 
 void	paint_sprite(t_data *data, t_sprite *sprite)
 {
-	int x;
+	int	x;
 	int	y;
 
 	x = sprite->start[X];
@@ -61,17 +60,17 @@ void	render_sprite(t_data *data, t_sprite *sprite, t_ray *ray)
 	float	sp_orient;
 
 	sprite_dist(data, sprite);
-	sprite_scale(data, sprite, sprite->frame[data->c_frame]); 
+	sprite_scale(data, sprite, sprite->frame[data->c_frame]);
 	sp_orient = (tan(sprite->angle) * ray->proj_plane);
 	if (sprite->angle < (-PI / 2) || sprite->angle > (PI / 2))
-        return;
+		return ;
 	center_x = (data->s_width / 2) + sp_orient;
 	if (center_x < 0 || center_x > data->s_width)
 		return ;
 	sprite->start[X] = center_x - (sprite->width / 2);
 	sprite->end[X] = center_x + (sprite->width / 2);
 	sprite->start[Y] = (data->s_height / 2) - (sprite->height / 2);
-	sprite->end[Y] = (data->s_height / 2) + (sprite->height / 2);	
+	sprite->end[Y] = (data->s_height / 2) + (sprite->height / 2);
 	paint_sprite(data, sprite);
 }
 
@@ -116,4 +115,3 @@ void	sprite(void *arg)
 	data->c_frame = (data->c_frame + 1) % 10;
 	free(order);
 }
-

@@ -25,8 +25,8 @@ void	mm_rayprint(t_data *data, t_ray *ray, t_pl *pl)
 	scaled_rend_dist = data->render_dist * data->scale;
 	while (i < scaled_dist && i < scaled_rend_dist)
 	{
-		x = (pl->pl_x * data->scale) - i * sin(ray->orient - (90 * DEG_RAD));
-		y = (pl->pl_y * data->scale) + i * cos(ray->orient - (90 * DEG_RAD));
+		x = (pl->pl_x * data->scale) - i * sin(ray->orient - (90 * DG_RD));
+		y = (pl->pl_y * data->scale) + i * cos(ray->orient - (90 * DG_RD));
 		safe_pixel(data->img->ray_grid, x, y, make_color(255, 0, 0, 200));
 		i++;
 	}
@@ -46,8 +46,8 @@ void	paint_ceiling(void *arg)//, t_ray *ray, int pixel_row)
 
 	pixel_row = 0;
 	data = arg;
-	float ray_orient = data->pl->orient - ((data->fov / 2) * DEG_RAD);
-	float ray_offset = (data->fov / data->s_width) * DEG_RAD;
+	float ray_orient = data->pl->orient - ((data->fov / 2) * DG_RD);
+	float ray_offset = (data->fov / data->s_width) * DG_RD;
 	// if (data->ray->corr_dist > data->render_dist)
 	// 	y = (data->s_height / 2.0);
 	// else
@@ -91,8 +91,8 @@ void	paint_floor(void *arg)//t_data *data, t_ray *ray, int pixel_row)
 
 	pixel_row = 0;
 	data = arg;
-	float ray_orient = data->pl->orient - ((data->fov / 2) * DEG_RAD);
-	float ray_offset = (data->fov / data->s_width) * DEG_RAD;
+	float ray_orient = data->pl->orient - ((data->fov / 2) * DG_RD);
+	float ray_offset = (data->fov / data->s_width) * DG_RD;
 	while (pixel_row < data->s_width)	
 	{	
 		if (data->depth[pixel_row] > data->render_dist)

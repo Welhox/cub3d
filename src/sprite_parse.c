@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 16:01:02 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 16:29:24 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:58:09 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_sprites(t_sprite *sprites, int s_count)
 	int	i;
 	int	j;
 
-	i= -1;
+	i = -1;
 	while (++i < s_count)
 	{
 		sprites[i].x = 0.0f;

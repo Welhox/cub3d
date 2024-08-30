@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/26 11:38:17 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:04:49 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ void	free_img(t_data *data, t_img *img)
 }
 
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
+void	free_other(t_data *data)
+{
+	if (data->depth)
+		free(data->depth);
+	if (data->height)
+		free(data->height);
+	if (data->sprites)
+		free(data->sprites);
+	ft_mapfree(data->map);
+}
+
 void	armageddon(t_data *data, char *error)
 {
 	int	i;
@@ -43,19 +54,13 @@ void	armageddon(t_data *data, char *error)
 	while (++i < 4)
 		if (data->wall_text[i])
 			ft_nullfree(data->wall_text[i], 0);
-	if (data->depth)
-		free(data->depth);
-	if (data->height)
-		free(data->height);
-	if (data->sprites)
-		free(data->sprites);
-	ft_mapfree(data->map);
 	if (error)
 	{
 		ft_putendl_fd("Error", 2);
 		ft_putendl_fd(error, 2);
 		exit(1);
 	}
+	free_other(data);
 	if (error == NULL)
 		printf("Great success!\n");
 	exit(0);

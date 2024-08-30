@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 15:59:49 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:39:21 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	update_mm_pl(t_data *data, t_pl *pl)
+{
+	float	scale_x;
+	float	scale_y;
+
+	scale_x = data->scale * pl->pl_x - ((data->scale / 5) / 2);
+	scale_y = data->scale * pl->pl_y - ((data->scale / 5) / 2);
+	data->img->pl->instances[0].x = scale_x;
+	data->img->pl->instances[0].y = scale_y;
+}
 
 void	mm_render(t_data *data, t_pl *pl, t_img *img)
 {
@@ -47,7 +58,6 @@ void	minimap(t_data *data, t_img *img)
 
 	p_pos_x = data->scale * data->pl->pl_x - ((data->scale / 5) / 2);
 	p_pos_y = data->scale * data->pl->pl_y - ((data->scale / 5) / 2);
-	//safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->mm);
 	safe_image(data, data->map_x_border * data->scale, \
 				data->map_y_border * data->scale, &img->mm);
 	safe_image(data, data->scale / MMS, data->scale / MMS, &img->pl);

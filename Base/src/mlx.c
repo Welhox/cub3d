@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/28 15:57:18 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:35:23 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	update_params(t_data *data, t_ray *ray)
 	data->s_width = 1600;
 	data->fov = 60;
 	data->render_dist = 20;
-	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
+	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DG_RD);
 }
 
 void	initial_render(t_data *data)
