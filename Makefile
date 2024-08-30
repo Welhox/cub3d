@@ -22,20 +22,26 @@ LIBFTNAME = libft.a
 # ------------ DIRECTORIES ---#
 LIBFT_DIR = ./libft
 SRCS_DIR = ./src
-BONUS_DIR = ./bonus
+BONUS_DIR = ./bsrc
 OBJ_DIR = ./src/temp
 MLX_DIR = ./MLX42
 
 #------------- SOURCE FILES ------#
+
 CFILES = 	$(SRCS_DIR)/cub3d.c $(SRCS_DIR)/utils.c $(SRCS_DIR)/init.c $(SRCS_DIR)/parsing/parsing.c \
 			$(SRCS_DIR)/mlx.c $(SRCS_DIR)/image_utils.c  $(SRCS_DIR)/movement.c \
 			$(SRCS_DIR)/ray_caster.c $(SRCS_DIR)/parsing/validate_data_utils.c $(SRCS_DIR)/parsing/map_parse.c \
 			$(SRCS_DIR)/parsing/extract_data.c  $(SRCS_DIR)/parsing/check_line.c $(SRCS_DIR)/parsing/check_line_utils.c \
-			$(SRCS_DIR)/safe_mlx.c $(SRCS_DIR)/dda.c $(SRCS_DIR)/dda_two.c $(SRCS_DIR)/movement_two.c \
-			$(SRCS_DIR)/sprite.c $(SRCS_DIR)/utils_two.c $(SRCS_DIR)/render.c $(SRCS_DIR)/parsing/sprite_parse.c \
-			$(SRCS_DIR)/minimap.c $(SRCS_DIR)/sprite_utils.c $(SRCS_DIR)/fps.c $(SRCS_DIR)/toggle.c
+			$(SRCS_DIR)/safe_mlx.c $(SRCS_DIR)/dda.c $(SRCS_DIR)/dda_two.c $(SRCS_DIR)/movement_two.c
 
-BONUS =		$(BONUS_DIR)/
+
+BONUS =		$(BONUS_DIR)/cub3d_bonus.c $(BONUS_DIR)/utils_bonus.c $(BONUS_DIR)/init_bonus.c $(BONUS_DIR)/parsing/parsing_bonus.c \
+			$(BONUS_DIR)/mlx_bonus.c $(BONUS_DIR)/image_utils_bonus.c  $(BONUS_DIR)/movement_bonus.c \
+			$(BONUS_DIR)/ray_caster_bonus.c $(BONUS_DIR)/parsing/validate_data_utils_bonus.c $(BONUS_DIR)/parsing/map_parse_bonus.c \
+			$(BONUS_DIR)/parsing/extract_data_bonus.c  $(BONUS_DIR)/parsing/check_line_bonus.c $(BONUS_DIR)/parsing/check_line_utils_bonus.c \
+			$(BONUS_DIR)/safe_mlx_bonus.c $(BONUS_DIR)/dda_bonus.c $(BONUS_DIR)/dda_two_bonus.c $(BONUS_DIR)/movement_two_bonus.c \
+			$(BONUS_DIR)/sprite_bonus.c $(BONUS_DIR)/utils_two_bonus.c $(BONUS_DIR)/render_bonus.c $(BONUS_DIR)/parsing/sprite_parse_bonus.c \
+			$(BONUS_DIR)/minimap_bonus.c $(BONUS_DIR)/sprite_utils_bonus.c $(BONUS_DIR)/fps_bonus.c $(BONUS_DIR)/toggle_bonus.c
 
 OFILES = $(CFILES:.c=.o)
 
@@ -46,7 +52,6 @@ BOFILES = $(BONUS:.c=.o)
 
 LIBS	= $(MLX_DIR)/build/libmlx42.a
 
-#MLX_LIBS = -L$(MLX_DIR)/build -lmlx42 -L"/User/$(USER)/.brew/opt/glfw/lib" -lglfw -ldl -pthread -lm 
 MLX_LIBS = -L$(MLX_DIR)/build -lmlx42 -lglfw -ldl -pthread -lm 
 
 #--------- FLAGS ----------#
@@ -58,7 +63,7 @@ all: mlx42 libmlx $(NAME)
 
 mlx42:
 	@if [ ! -d $(MLX_DIR) ]; then \
-		git clone https://github.com/codam-coding-college/MLX42.git; \
+		git clone https://github_bonus.com/codam-coding-college/MLX42.git; \
 	fi
 libmlx:
 	@if [ ! -d $(MLX_DIR)/build ]; then \
@@ -71,14 +76,14 @@ $(NAME): $(OFILES)
 	@$(CC) $(CFLAGS) $(OFILES)  $(HEADERS) $(LIBS) $(MLX_LIBS) $(LIBFT_DIR)/$(LIBFTNAME) -o $(NAME) 
 	@echo "$(COLOUR_GREEN)$(NAME) compiled successfully$(COLOUR_END)"
 	
-bonus = .bonus
+bonus: mlx42 libmlx .bonus
 
-.bonus: $(BOFILES) $(OFILES)
+.bonus: $(BOFILES) 
 	@echo "$(COLOUR_BLUE)compiling bonus $(NAME)$(COLOUR_END)"
 	@make -C libft
-	@$(CC) $(CFLAGS) $(OFILES) $(BOFILES) $(HEADERS) $(LIBS) $(MLX_LIBS) $(LIBFT_DIR)/$(LIBFTNAME) -o $(NAME) 
+	@$(CC) $(CFLAGS) $(BOFILES) $(HEADERS) $(LIBS) $(MLX_LIBS) $(LIBFT_DIR)/$(LIBFTNAME) -o $(NAME) 
 	@echo "$(COLOUR_GREEN)$(NAME)bonus compiled successfully$(COLOUR_END)"
-	touch .bonus
+	@touch .bonus
 
 clean:
 	@echo "$(COLOUR_GREEN)cleaning $(NAME)$(COLOUR_END)"
