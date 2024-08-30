@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite_parse.c                                     :+:      :+:    :+:   */
+/*   sprite_parse_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 16:01:02 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 14:58:09 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:48:38 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 void	init_sprites(t_sprite *sprites, int s_count)
 {

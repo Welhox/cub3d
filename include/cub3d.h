@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 16:03:02 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:39:58 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,12 +275,13 @@ int		get_color(int *arr, char *str);
 int		extract_data(char *arg, t_data *data);
 int		validate_map(t_data *data);
 
-//FREE & ERROR
+//FREE & ERROR & GREAT SUCCESS
 
 int		ft_nullfree(char *str, int err);
 int		ret_error(char *str);
 void	free_img(t_data *data, t_img *img);
 void	ft_mapfree(char **array);
 void	armageddon(t_data *data, char *error);
+void	victory(t_data *data);
 
 #endif
