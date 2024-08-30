@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
 /*   Updated: 2024/08/30 15:32:53 by clundber         ###   ########.fr       */
@@ -114,10 +114,6 @@ void	init_img_text(t_img *img)
 	img->pl = NULL;
 	img->ray_grid = NULL;
 	img->fg = NULL;
- 	// img->wall_txt[0] = NULL;
-	// img->wall_txt[1] = NULL;
-	// img->wall_txt[2] = NULL;
-	// img->wall_txt[3] = NULL;
 	img->wall_txt[4] = NULL;
 	img->sprite = NULL;
 	img->fg_ceiling = NULL;

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
 /*   Updated: 2024/08/30 15:32:01 by clundber         ###   ########.fr       */
@@ -26,7 +26,7 @@ void	refresh_img(t_data *data, t_img *img)
 		mlx_delete_image(data->mlx, img->fg_floor); //ONLY BONUS
 
 	if (data->sprites != NULL)
-	safe_image(data, data->s_width, data->s_height, &data->img->sprite);
+		safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 
 	safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->ray_grid);
 	safe_image(data, data->s_width, data->s_height, &img->fg);
@@ -119,8 +119,6 @@ void	ray_main(void *param)
 	ray_offset = (data->fov / data->s_width) * DEG_RAD;
 	ray->orient = data->pl->orient - ((data->fov / 2) * DEG_RAD);
 	get_fps(data);
-	update_mouse(data);
-	keypress(data);
 	refresh_img(data, data->img);
 	while(++ray->pixel_row < data->s_width)
 		render(data, data->ray, ray->pixel_row, ray_offset);

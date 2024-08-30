@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 17:43:03 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:17:12 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,21 @@ void	paint_sprite(t_data *data, t_sprite *sprite)
 
 void	render_sprite(t_data *data, t_sprite *sprite, t_ray *ray)
 {
-	float	sp_x;
-	float	start_height;
-	float	end_height;
+	float	center_x;
+	float	sp_orient;
 
-	start_height = (data->s_height / 2) - (sprite->height / 2);
-	end_height = (data->s_height / 2) + (sprite->height / 2);
 	sprite_dist(data, sprite);
-	sprite_scale(data, sprite, sprite->frame[data->c_frame]);
-	if (sprite->angle < (-PI / 2 + 0.1) || sprite->angle > (PI / 2 + 0.1))
+	sprite_scale(data, sprite, sprite->frame[data->c_frame]); 
+	sp_orient = (tan(sprite->angle) * ray->proj_plane);
+	if (sprite->angle < (-PI / 2) || sprite->angle > (PI / 2))
         return;
-	sp_x = (data->s_width / 2) + (tan(sprite->angle) * ray->proj_plane);
-	if (sp_x < 0 || sp_x > data->s_width)
+	center_x = (data->s_width / 2) + sp_orient;
+	if (center_x < 0 || center_x > data->s_width)
 		return ;
-	sprite->start[X] = sp_x - (sprite->width / 2);
-	sprite->end[X] = sp_x + (sprite->width / 2);
-	sprite->start[Y] = fl_max(0.0f, start_height);
-	sprite->end[Y] = fl_min((data->s_height - 1.0f), end_height);
+	sprite->start[X] = center_x - (sprite->width / 2);
+	sprite->end[X] = center_x + (sprite->width / 2);
+	sprite->start[Y] = (data->s_height / 2) - (sprite->height / 2);
+	sprite->end[Y] = (data->s_height / 2) + (sprite->height / 2);	
 	paint_sprite(data, sprite);
 }
 
@@ -98,16 +96,14 @@ int	*sort_sprites(t_data *data)
 	return (sprite_order);
 }
 
-
-void	sprite(void *arg)//, t_ray *ray, t_sprite *sprites)
-{
-	int			i;
-	int			index;
-	int			*order;
-	t_data		*data;
+void	sprite(void *arg)
+{	
+	int		i;
+	int		index;
+	int		*order;
+	t_data	*data;
 
 	data = arg;
-
 	i = -1;
 	order = sort_sprites(data);
 	while (++i < data->s_count)
@@ -115,11 +111,7 @@ void	sprite(void *arg)//, t_ray *ray, t_sprite *sprites)
 		index = order[i];
 		render_sprite(data, &data->sprites[index], data->ray);
 	}
-/* 	if (data->img->sprite)
-		mlx_delete_image(data->mlx, data->img->sprite); */
-	//safe_image(data, data->s_width, data->s_height, &data->img->sprite);
-	// sort_sprites(data, ray, sprites);
- 	mlx_image_to_window(data->mlx, data->img->sprite, 0, 0);
+	mlx_image_to_window(data->mlx, data->img->sprite, 0, 0);
 	mlx_set_instance_depth(data->img->sprite->instances, 5);
 	data->c_frame = (data->c_frame + 1) % 10;
 	free(order);

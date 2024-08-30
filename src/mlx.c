@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
 /*   Updated: 2024/08/30 15:30:27 by clundber         ###   ########.fr       */
@@ -24,7 +24,7 @@ void	update_params(t_data *data, t_ray *ray)
 	data->render_dist = 20;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DEG_RAD);
-		data->depth = malloc(sizeof(float) * (int)data->s_width);
+	data->depth = malloc(sizeof(float) * (int)data->s_width);
 	if (!data->depth)
 		armageddon(data, "malloc failure");
 	data->height = malloc(sizeof(int) * (int)data->s_width);
@@ -47,16 +47,11 @@ void	initial_render(t_data *data)
 	mlx_image_to_window(data->mlx, data->img->floor, 0, data->s_height / 2);
 	safe_image(data, data->s_width, data->s_height, &data->img->fg);
 	mlx_image_to_window(data->mlx, data->img->fg, 0, 0);
-
 	safe_image(data, data->s_width, data->s_height, &data->img->fg_ceiling);//ONLY BONUS
 	mlx_image_to_window(data->mlx, data->img->fg_ceiling, 0, 0);//ONLY BONUS
 	safe_image(data, data->s_width, data->s_height, &data->img->fg_floor);//ONLY BONUS
 	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);//ONLY BONUS
-	
-	
-	
 	minimap(data, data->img);
-	// safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 }
 
 void	load_textures(t_data *data, t_img *img)
@@ -82,6 +77,7 @@ void	load_textures(t_data *data, t_img *img)
 	safe_texture(data, &temp, "assets/borat.png");
 	safe_txt_to_img(data, temp, &data->img->end);
 }
+
 void	load_sprites(t_data *data)
 {
 	int				i;
@@ -118,11 +114,9 @@ void	load_sprites(t_data *data)
 
 	data = param;
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-	{
 		data->input = true;
 		toggle_tile(data, data->pl);
-	}
-}
+ }
 
 void	mlx_main(t_data *data)
 {
@@ -139,9 +133,9 @@ void	mlx_main(t_data *data)
 	init_img_text(data->img);
 	load_sprites(data);
 	initial_render(data);
-	data->input = false;
 	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
+	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_loop(data->mlx);	
 }
