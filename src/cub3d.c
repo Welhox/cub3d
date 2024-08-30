@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
 /*   Updated: 2024/08/30 15:04:49 by tcampbel         ###   ########.fr       */
@@ -16,6 +16,7 @@ void	free_img(t_data *data, t_img *img)
 {
 	safe_delete_img(data, img->mm);
 	safe_delete_img(data, img->mm_floor);
+	safe_delete_img(data, img->mm_wall);
 	safe_delete_img(data, img->floor);
 	safe_delete_img(data, img->ceil);
 	safe_delete_img(data, img->pl);
@@ -23,9 +24,14 @@ void	free_img(t_data *data, t_img *img)
 	safe_delete_img(data, img->wall_txt[1]);
 	safe_delete_img(data, img->wall_txt[2]);
 	safe_delete_img(data, img->wall_txt[4]);
+	safe_delete_img(data, img->fg);
+	safe_delete_img(data, img->ray_grid);
 	safe_delete_img(data, img->fg_floor);
 	safe_delete_img(data, img->fg_ceiling);
 	safe_delete_img(data, img->sprite);
+	safe_delete_img(data, img->mm_door);
+	safe_delete_img(data, img->cage);
+	safe_delete_img(data, img->door);
 }
 
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
@@ -48,6 +54,7 @@ void	armageddon(t_data *data, char *error)
 	if (data->mlx)
 	{
 		free_img(data, data->img);
+		safe_delete_img(data, data->img->end);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
 	}

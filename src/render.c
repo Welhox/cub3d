@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
 /*   Updated: 2024/08/30 16:06:23 by tcampbel         ###   ########.fr       */
@@ -103,6 +103,8 @@ void	ray_main(void *param)
 	float		ray_offset;
 
 	data = param;
+	if (data->end == true)
+		return ;
 	ray = data->ray;
 	ray->pixel_row = -1;
 	ray_offset = (data->fov / data->s_width) * DG_RD;

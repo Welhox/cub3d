@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
 /*   Updated: 2024/08/30 16:03:02 by tcampbel         ###   ########.fr       */
@@ -107,6 +107,7 @@ typedef struct s_img
 	mlx_image_t		*wall_txt[5];
 	mlx_image_t		*door;
 	mlx_image_t		*cage;
+	mlx_image_t		*end;
 	mlx_image_t		*sprite;
 	mlx_t			*mlx;
 }	t_img;
@@ -181,10 +182,12 @@ typedef struct s_data
 	mlx_t		*mlx;
 	float		scale;
 	int			*height;
-	int			s_count;
+	int			s_count;//ammount of sprites
+	int			cage;
 	int			c_frame; //current frame;
 	double		frame;
 	double		fm;//framerate in seconds
+	bool		end;
 }	t_data;
 
 //INIT
@@ -244,7 +247,7 @@ void	keypress(void *param);
 void	move_pl(t_data *data, t_pl *pl, t_key key);
 void	fix_orientation(float *orientation);
 int		ft_collision(t_data *data, float y, float x);
-void	toggle_door(t_data *data, t_pl *pl);
+void	toggle_tile(t_data *data, t_pl *pl);
 void	mouse_callback(double x, double y, void *param);
 void	update_mouse(void *param);
 void	key_input(mlx_key_data_t keydata, void *param);
