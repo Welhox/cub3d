@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 14:37:16 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:32:53 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	data->mlx = NULL;
 	data->scale = 0;
 	data->frame = 0.0;
+	data->cage = 0;
 	data->ms_x = 0.0; //BONUS
 	data->ms_y = 0.0;//BONUS
 	data->prev_x = 0.0;//BONUS

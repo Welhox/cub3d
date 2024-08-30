@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 14:41:33 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:30:27 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 1200.0;
-	data->s_width = 1800.0;
+	data->s_height = 500.0;
+	data->s_width = 800.0;
 	data->fov = 60;
 	data->ms_x = data->s_width / 2.0;
 	data->ms_y = data->s_height / 2.0;
@@ -74,6 +74,8 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &data->img->floor_txt);
 	safe_texture(data, &temp, "assets/floor_02.png");
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
+	safe_texture(data, &temp, "assets/borat.png");
+	safe_txt_to_img(data, temp, &data->img->end);
 }
 
 void	load_sprites(t_data *data)
@@ -112,8 +114,9 @@ void	load_sprites(t_data *data)
 
 	data = param;
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-		toggle_door(data, data->pl);
-}
+		data->input = true;
+		toggle_tile(data, data->pl);
+ }
 
 void	mlx_main(t_data *data)
 {

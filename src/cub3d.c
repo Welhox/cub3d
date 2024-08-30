@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/26 11:38:17 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:37:43 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	free_img(t_data *data, t_img *img)
 	safe_delete_img(data, img->fg_floor);
 	safe_delete_img(data, img->fg_ceiling);
 	safe_delete_img(data, img->sprite);
+	safe_delete_img(data, img->end);
+	safe_delete_img(data, img->cage);
+	safe_delete_img(data, img->door);
 }
 
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
