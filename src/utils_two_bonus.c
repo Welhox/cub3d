@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:47:20 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 16:48:35 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:01:42 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,12 @@ void	check_door_or_cage(t_txt *txt, t_ray *ray)
 		else if (txt->vert_cage == true)
 			txt->cage = true;
 	}
+}
+
+void	termination(void *param)
+{
+	t_data	*data;
+
+	data = param;
+	armageddon(data, NULL);
 }

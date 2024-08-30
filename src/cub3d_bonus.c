@@ -6,19 +6,23 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 16:48:38 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:05:35 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	victory(t_data *data)
+int	victory(t_data *data)
 {
-	mlx_resize_image(data->img->end, data->s_width, data->s_height);
-	mlx_image_to_window(data->mlx, data->img->end, 0, 0);
-	data->end = true;
-	free_img(data, data->img);
-	mlx_set_instance_depth(data->img->end->instances, 5);
+	if (data->cage == data->s_count)
+	{
+		mlx_resize_image(data->img->end, data->s_width, data->s_height);
+		mlx_image_to_window(data->mlx, data->img->end, 0, 0);
+		data->end = true;
+		free_img(data, data->img);
+		mlx_set_instance_depth(data->img->end->instances, 5);
+	}
+	return (1);
 }
 
 void	free_img(t_data *data, t_img *img)

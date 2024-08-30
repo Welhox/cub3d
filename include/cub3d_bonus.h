@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 16:39:58 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:06:01 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,7 @@ int		ret_error(char *str);
 void	free_img(t_data *data, t_img *img);
 void	ft_mapfree(char **array);
 void	armageddon(t_data *data, char *error);
-void	victory(t_data *data);
+int		victory(t_data *data);
+void	termination(void *param);
 
 #endif

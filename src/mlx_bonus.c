@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 16:52:32 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:02:14 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,24 +107,6 @@ void	load_sprites(t_data *data)
 	}
 }
 
- void	key_input(mlx_key_data_t keydata, void *param)
-
-{
-	t_data	*data;
-
-	data = param;
-	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-		toggle_tile(data, data->pl);
-}
-
-void	termination(void *param)
-{
-	t_data *data;
-
-	data = param;
-	armageddon(data, NULL);
-}
-
 void	mlx_main(t_data *data)
 {
 	t_img		img;
@@ -145,5 +127,5 @@ void	mlx_main(t_data *data)
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_close_hook(data->mlx, &termination, data);
-	mlx_loop(data->mlx);	
+	mlx_loop(data->mlx);
 }
