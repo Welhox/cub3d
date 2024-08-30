@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/29 17:23:46 by clundber         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:39:51 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	ft_collision(t_data *data, float y, float x)
 		return (5);
 	return (0);
 }
-
-// void	move_f_or_b(t_data *data, t_key key, )
 
 void	mvt_step(t_data *data, t_pl *pl, bool strafe)
 {
@@ -121,19 +119,18 @@ void	left_or_right(t_data *data, t_pl *pl, t_key key)
 
 void	move_pl(t_data *data, t_pl *pl, t_key key)
 {
-	data->input = true;
 	if (key == FORWARD || key == BACK)
 		fwd_or_back(data, pl, key);
 	if (key == S_LEFT || key == S_RIGHT)
 		left_or_right(data, pl, key);
 	if (key == LEFT)
 	{
-		pl->orient -= ((0.6 * PI) * data->fm);// * DEG_RAD;
+		pl->orient -= ((0.6 * PI) * data->fm);
 		fix_orientation(&pl->orient);
 	}
 	if (key == RIGHT)
 	{
-		pl->orient += ((0.6 * PI) * data->fm);// * DEG_RAD;
+		pl->orient += ((0.6 * PI) * data->fm);
 		fix_orientation(&pl->orient);
 	}
 }

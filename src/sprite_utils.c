@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:31:55 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/29 17:43:34 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:41:55 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ void	sprite_dist(t_data *data, t_sprite *sprite)
 
 	x = sprite->x - data->pl->pl_x;
 	y = sprite->y - data->pl->pl_y;
-	sprite->dist = sqrt(x * x + y * y);
+	sprite->dist = sqrt(pow(x, 2) + pow(y, 2));
 	sprite->angle = atan2(y, x) - data->pl->orient;
-	  if (sprite->angle < -PI)
+	if (sprite->angle < -PI)
         sprite->angle += 2 * PI;
-    if (sprite->angle >= 2 * PI)
+    if (sprite->angle > PI)
         sprite->angle -= 2 * PI;
 }
 
 void	sprite_scale(t_data *data, t_sprite *sprite, mlx_image_t *frame)
 {
-	sprite->scale = data->ray->proj_plane / (sprite->dist * 50);
+	sprite->scale = data->ray->proj_plane / (sprite->dist * 40);
 	sprite->width = sprite->scale * frame->width;
 	sprite->height = sprite->scale * frame->height;
 }
