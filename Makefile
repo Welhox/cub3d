@@ -41,8 +41,8 @@ BONUS =		$(BONUS_DIR)/cub3d_bonus.c $(BONUS_DIR)/utils_bonus.c $(BONUS_DIR)/init
 			$(BONUS_DIR)/parsing/extract_data_bonus.c  $(BONUS_DIR)/parsing/check_line_bonus.c $(BONUS_DIR)/parsing/check_line_utils_bonus.c \
 			$(BONUS_DIR)/safe_mlx_bonus.c $(BONUS_DIR)/dda_bonus.c $(BONUS_DIR)/dda_two_bonus.c $(BONUS_DIR)/movement_two_bonus.c \
 			$(BONUS_DIR)/sprite_bonus.c $(BONUS_DIR)/utils_two_bonus.c $(BONUS_DIR)/render_bonus.c $(BONUS_DIR)/parsing/sprite_parse_bonus.c \
-			$(BONUS_DIR)/minimap_bonus.c $(BONUS_DIR)/sprite_utils_bonus.c $(BONUS_DIR)/fps_bonus.c $(BONUS_DIR)/toggle_bonus.c
-
+			$(BONUS_DIR)/minimap_bonus.c $(BONUS_DIR)/sprite_utils_bonus.c $(BONUS_DIR)/fps_bonus.c $(BONUS_DIR)/toggle_bonus.c \
+			$(BONUS_DIR)/ray_caster_two_bonus.c $(BONUS_DIR)/load_images_bonus.c
 OFILES = $(CFILES:.c=.o)
 
 BOFILES = $(BONUS:.c=.o)

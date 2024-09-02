@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:24:14 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 17:08:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:18:45 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_door(t_data *data, float y, float x)
 	return (0);
 }
 
-int		check_toggle(t_data *data, t_pl *pl, float door_y, float door_x)
+int	check_toggle(t_data *data, t_pl *pl, float door_y, float door_x)
 {
 	if ((int)door_y == (int)pl->pl_y && (int)door_x == (int)pl->pl_x)
 		return (0);
@@ -37,9 +37,7 @@ int		check_toggle(t_data *data, t_pl *pl, float door_y, float door_x)
 	{
 		data->map[(int)door_y][(int)door_x] += 1;
 		data->cage++;
-		if (data->cage == data->s_count)
-			victory(data);
-		return (1);
+		return (victory(data));
 	}
 	else if (ft_door(data, door_y, door_x) == 5)
 	{
@@ -79,4 +77,13 @@ void	toggle_tile(t_data *data, t_pl *pl)
 			break ;
 		i++;
 	}
+}
+
+void	key_input(mlx_key_data_t keydata, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
+		toggle_tile(data, data->pl);
 }
