@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber <clundber@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:47:43 by clundber          #+#    #+#             */
-/*   Updated: 2024/02/08 17:02:33 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:04:00 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ char	*get_next_line(int fd)
 	if (gnlinecheck(row) == 1 && (ft_len(row) < ft_len(temp[fd])))
 	{
 		ptr = temp[fd];
-		temp[fd] = ft_substr_gnl(ptr, ft_len(row), ft_len(temp[fd]) - ft_len(row));
+		temp[fd] = ft_substr_gnl(ptr, ft_len(row), \
+			ft_len(temp[fd]) - ft_len(row));
 		ft_gnlfree(&ptr);
 		return (row);
 	}

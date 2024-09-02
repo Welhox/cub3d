@@ -63,7 +63,7 @@ all: mlx42 libmlx $(NAME)
 
 mlx42:
 	@if [ ! -d $(MLX_DIR) ]; then \
-		git clone https://github_bonus.com/codam-coding-college/MLX42.git; \
+		git clone https://github.com/codam-coding-college/MLX42.git; \
 	fi
 libmlx:
 	@if [ ! -d $(MLX_DIR)/build ]; then \

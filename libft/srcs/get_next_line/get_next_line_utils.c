@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber <clundber@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:54:17 by clundber          #+#    #+#             */
-/*   Updated: 2024/02/08 17:02:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:03:50 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
