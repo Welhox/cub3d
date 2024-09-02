@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/28 15:33:13 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:29:39 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	armageddon(t_data *data, char *error)
 		ft_putendl_fd(error, 2);
 		exit(1);
 	}
-	else
-		printf("Great success!\n");
 	exit(0);
 }
 

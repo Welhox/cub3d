@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 15:38:51 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:06:05 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <stdio.h> 	// for printf, perror
-# include <unistd.h> 	// for write, close, read
-# include <fcntl.h>		// for open
-# include <stdlib.h> 	// for malloc, free, exit
-# include <string.h> 	// for strerror
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
 # include <math.h>
 # include <stdbool.h>
 # include <limits.h>

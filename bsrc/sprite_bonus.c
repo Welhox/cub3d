@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 17:08:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:53:40 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sprite_pixel(t_data *data, t_sprite *sprite, int x, int y)
 	i = data->c_frame;
 	t_x = ((x - sprite->start[X]) / sprite->width) * sprite->frame[i]->width;
 	t_y = ((y - sprite->start[Y]) / sprite->height) * sprite->frame[i]->height;
-	colour = get_txt_color(sprite->frame[i], t_x, t_y, data->txt->shade);
+	colour = get_txt_color(sprite->frame[i], t_x, t_y, sprite->shade);
 	alpha = (colour >> 24) & 0xFF;
 	if (alpha != 0)
 		safe_pixel(data->img->sprite, x, y, colour);
@@ -34,6 +34,9 @@ void	paint_sprite(t_data *data, t_sprite *sprite)
 	int	x;
 	int	y;
 
+	sprite->shade = ((float)1 / sprite->dist) * SHADE;
+	if (sprite->shade > 1)
+		sprite->shade = 1;
 	x = sprite->start[X];
 	while (x < sprite->end[X])
 	{

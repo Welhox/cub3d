@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 11:45:02 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:03:56 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-//# include <string.h>
 # include <math.h>
 # include <stdbool.h>
 # include <limits.h>
@@ -69,6 +68,7 @@ typedef struct s_sprite
 	float		width;
 	float		start[2];
 	float		end[2];
+	float		shade;
 	mlx_image_t	*frame[10];
 }	t_sprite;
 
@@ -191,6 +191,7 @@ typedef struct s_data
 	double		frame;
 	double		fm;
 	bool		end;
+	int			layers;
 }	t_data;
 
 //INIT

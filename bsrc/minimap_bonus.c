@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:01:31 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 11:55:23 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:55:16 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	mm_render(t_data *data, t_pl *pl, t_img *img)
 				mlx_image_to_window(data->mlx, img->mm_door, \
 									data->scale * x, data->scale * y);
 			x++;
+			data->layers++;
 		}
 		y++;
 	}
@@ -60,7 +61,7 @@ void	minimap(t_data *data, t_img *img)
 	p_pos_y = data->scale * data->pl->pl_y - ((data->scale / 5) / 2);
 	safe_image(data, data->map_x_border * data->scale, \
 				data->map_y_border * data->scale, &img->mm);
-	safe_image(data, data->scale / MMS, data->scale / MMS, &img->pl);
+	safe_image(data, data->scale / (MMS +1), data->scale / (MMS +1), &img->pl);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_wall);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_floor);
 	safe_image(data, data->scale - 1, data->scale - 1, &img->mm_door);

@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 17:08:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:55:58 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	init_texture(data, txt);
 	data->end = false;
 	data->cage = 0;
+	data->layers = 6;
 }
 
 void	init_img_text(t_img *img)

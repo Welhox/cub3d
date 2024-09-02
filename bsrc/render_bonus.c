@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/02 11:56:51 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:55:40 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void	threads_and_windows(t_data *data, t_img *img, t_ray *ray)
 	mlx_image_to_window(data->mlx, img->fg, 0, 0);
 	mlx_image_to_window(data->mlx, img->fg_ceiling, 0, 0);
 	mlx_image_to_window(data->mlx, img->fg_floor, 0, 0);
-	mlx_set_instance_depth(img->ray_grid->instances, 500);
+	mlx_set_instance_depth(img->ray_grid->instances, data->layers);
 	mlx_set_instance_depth(img->fg->instances, 4);
-	mlx_set_instance_depth(img->fg_ceiling->instances, 3);
-	mlx_set_instance_depth(img->fg_floor->instances, 2);
+	mlx_set_instance_depth(img->fg_ceiling->instances, 2);
+	mlx_set_instance_depth(img->fg_floor->instances, 3);
 }
 
 void	ray_main(void *param)

@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:41:18 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 17:05:24 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:48:17 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static int	check_assets(char *line, t_data *data)
 					return (1);
 				return (0);
 			}
+			else
+				return (1);
 		}
 	}
 	return (0);

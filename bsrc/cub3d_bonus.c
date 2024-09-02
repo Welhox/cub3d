@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 11:19:46 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:29:53 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ void	armageddon(t_data *data, char *error)
 		exit(1);
 	}
 	free_other(data);
-	if (error == NULL)
-		printf("Great success!\n");
 	exit(0);
 }
 
