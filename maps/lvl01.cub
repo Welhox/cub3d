@@ -4,7 +4,7 @@ NO ./assets/handpainted_brick_2k/ruin_wall_03.png
 WE ./assets/handpainted_brick_2k/ruin_wall_03_height.png
 
 F 0,100,0
-C 0,0,200
+C 0,0,255
 
 
            111111111111111111111111

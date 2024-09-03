@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster_two_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:19:33 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/02 14:47:02 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:14:53 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	paint_ceiling(void *arg)
 	ray_orient = data->pl->orient - ((data->fov / 2) * DG_RD);
 	ray_offset = (data->fov / data->s_width) * DG_RD;
 	while (++pixel_row < data->s_width)
-	{	
+	{
 		if (data->depth[pixel_row] > data->render_dist)
 			y = (data->s_height / 2.0);
 		else

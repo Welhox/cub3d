@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_two_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 17:08:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:14:38 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	update_mouse(void *param)
 		fix_orientation(&data->pl->orient);
 	}
 	if (data->ms_x <= data->left)
-	{	
+	{
 		data->pl->orient -= ((0.9 * PI) * data->fm);
 		fix_orientation(&data->pl->orient);
 	}
