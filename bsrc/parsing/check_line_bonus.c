@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:41:18 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/02 15:48:17 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:35:55 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,34 @@ static int	ft_empty(char *line)
 	return (1);
 }
 
-// Add doors and shit later
-static int	ft_ismap(char *line)
+static void	set_elements(char **elements)
 {
-	while (*line && (*line == ' ' || *line == '1' \
-	|| *line == '0' || *line == 'N' || *line == 'S' \
-	|| *line == 'E' || *line == 'W' || *line == '2' || *line == '3' \
-	|| *line == '4'))
-		line++;
-	if (*line == '\0' || *line == '\n')
-		return (0);
-	return (1);
-}
-
-static int	check_assets(char *line, t_data *data)
-{
-	char	*elements[5];
-	int		i;
-
 	elements[0] = "NO";
 	elements[1] = "EA";
 	elements[2] = "SO";
 	elements[3] = "WE";
-	elements[4] = NULL;
+	elements[4] = "FL";
+	elements[5] = "CL";
+	elements[6] = "DO";
+	elements[7] = "CG";
+	elements[8] = NULL;
+}
+
+static int	check_assets(char *line, t_data *data)
+{
+	char	*elements[9];
+	int		i;
+
+	set_elements(elements);
 	i = -1;
 	while (elements[++i])
 	{
 		if (ft_strncmp(line, elements[i], 2) == 0)
 		{
-			if (!data->wall_text[i])
+			if (!data->text[i])
 			{
-				data->wall_text[i] = get_path(line);
-				if (!data->wall_text[i])
+				data->text[i] = get_path(line);
+				if (!data->text[i])
 					return (1);
 				return (0);
 			}

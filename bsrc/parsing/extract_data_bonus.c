@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_data_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:09:12 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/03 11:54:00 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:14:24 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,13 @@ static int	all_data_found(t_data *data, char *map_str)
 	i = -1;
 	while (++i < 3)
 	{
-		if (!data->wall_text[i] || !data->wall_text[3] || data->floor[i] < 0 \
-			|| data->ceil[i] < 0 || !map_str)
+		if (data->floor[i] < 0 || data->ceil[i] < 0 || !map_str)
+			return (1);
+	}
+	i = -1;
+	while (++i < 8)
+	{
+		if (!data->text[i])
 			return (1);
 	}
 	return (0);

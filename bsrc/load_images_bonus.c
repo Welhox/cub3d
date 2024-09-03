@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_images_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:22:49 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 11:27:02 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:55:22 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ void	load_textures(t_data *data, t_img *img)
 {
 	mlx_texture_t	*temp;
 
-	safe_texture(data, &temp, data->wall_text[0]);
+	safe_texture(data, &temp, data->text[0]);
 	safe_txt_to_img(data, temp, &img->wall_txt[0]);
-	safe_texture(data, &temp, data->wall_text[2]);
+	safe_texture(data, &temp, data->text[2]);
 	safe_txt_to_img(data, temp, &img->wall_txt[2]);
-	safe_texture(data, &temp, data->wall_text[3]);
+	safe_texture(data, &temp, data->text[3]);
 	safe_txt_to_img(data, temp, &img->wall_txt[3]);
-	safe_texture(data, &temp, data->wall_text[1]);
+	safe_texture(data, &temp, data->text[1]);
 	safe_txt_to_img(data, temp, &img->wall_txt[1]);
-	safe_texture(data, &temp, "assets/Door03.png");
+	safe_texture(data, &temp, data->text[6]);
 	safe_txt_to_img(data, temp, &data->img->door);
-	safe_texture(data, &temp, "assets/steel_cage2.png");
+	safe_texture(data, &temp, data->text[7]);
 	safe_txt_to_img(data, temp, &data->img->cage);
-	safe_texture(data, &temp, "assets/floor_lava.png");
+	safe_texture(data, &temp, data->text[4]);
 	safe_txt_to_img(data, temp, &data->img->floor_txt);
-	safe_texture(data, &temp, "assets/floor_02.png");
+	safe_texture(data, &temp, data->text[5]);
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
 	safe_texture(data, &temp, "assets/borat.png");
 	safe_txt_to_img(data, temp, &data->img->end);

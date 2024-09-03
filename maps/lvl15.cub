@@ -1,8 +1,12 @@
-NO ./assets/BRICK_3B.PNG
 SO ./assets/BRICK_3D.PNG
 WE ./assets/BRICK_4A.PNG
 EA ./assets/BRICK_6D.PNG
+NO ./assets/BRICK_3B.PNG
 
+FL ./assets/floor_lava.png
+CL ./assets/floor_02.png
+DO ./assets/Door03.png
+CG ./assets/steel_cage2.png
 
 F 0,100,0
 C 0,0,200
