@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 13:55:58 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:30:56 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	init_pl(t_data *data, t_pl *pl)
 	data->pl = pl;
 	data->ms_x = 0.0;
 	data->ms_y = 0.0;
-	data->prev_x = 0.0;
 	pl->data = data;
 	data->fov = 0;
 	data->render_dist = 0;

@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/03 14:56:18 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:30:30 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,11 +171,8 @@ typedef struct s_data
 	float		s_width;
 	float		fov;
 	float		render_dist;
-	float		ms_x;
-	float		ms_y;
-	float		prev_x;
-	float		left;
-	float		right;
+	int32_t		ms_x;
+	int32_t		ms_y;
 	t_pl		*pl;
 	t_ray		*ray;
 	t_img		*img;
