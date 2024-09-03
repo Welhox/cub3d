@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/03 14:55:25 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:31:15 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	update_params(t_data *data, t_ray *ray)
 	data->fov = 60;
 	data->ms_x = data->s_width / 2.0;
 	data->ms_y = data->s_height / 2.0;
-	data->left = data->ms_x - (data->ms_x * 0.95);
-	data->right = data->ms_y + (data->ms_y * 0.95);
 	data->render_dist = 20;
 	data->scale = get_scale(data);
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DG_RD);
@@ -80,7 +78,6 @@ void	mlx_main(t_data *data)
 	initial_render(data);
 	mlx_key_hook(data->mlx, &key_input, data);
 	mlx_mouse_hook(data->mlx, &mouse_input, data);
-	mlx_cursor_hook(data->mlx, &mouse_callback, data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
 	mlx_close_hook(data->mlx, &termination, data);

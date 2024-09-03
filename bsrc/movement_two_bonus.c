@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:26:32 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/03 14:24:52 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:45:54 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	keypress(void *param)
 	t_data	*data;
 
 	data = param;
+	mlx_get_mouse_pos(data->mlx, &data->ms_x, &data->ms_y);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		armageddon(data, NULL);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W) \
@@ -34,34 +35,26 @@ void	keypress(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		move_pl(data, data->pl, RIGHT);
 	if (data->mouse_toggle)
+	{
 		update_mouse(data);
-}
-
-void	mouse_callback(double x, double y, void *param)
-{
-	t_data	*data;
-
-	data = param;
-	data->ms_x = x;
-	data->ms_y = y;
+		mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
+	}
 }
 
 void	update_mouse(void *param)
 {
 	t_data	*data;
-	float	offset;
 
 	data = param;
-	offset = data->ms_x - data->prev_x;
-	data->prev_x = data->ms_x;
-	if (data->ms_x != (data->s_width / 2) \
-		&& data->ms_y != (data->s_height / 2) && data->mouse_toggle)
+	if (data->ms_x < (data->s_width / 2) && data->ms_x >= 0)
 	{
-		data->pl->orient += (offset * 0.1) * DG_RD;
+		data->pl->orient -= 1.5 * data->fm;
 		fix_orientation(&data->pl->orient);
-		mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
-		data->prev_x = data->s_width / 2;
-		data->ms_y = data->s_height / 2;
+	}
+	else if (data->ms_x > (data->s_width / 2) && data->ms_x < data->s_width)
+	{
+		data->pl->orient += 1.5 * data->fm;
+		fix_orientation(&data->pl->orient);
 	}
 }
 
