@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_data_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:09:12 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 17:05:37 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:54:00 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ int	extract_data(char *arg, t_data *data)
 	if (all_data_found(data, map_str))
 		return (ft_nullfree(map_str, 1));
 	if (map_parse(map_str, data))
-		return (ft_nullfree(map_str, 1));
+		return (1);
 	return (0);
 }

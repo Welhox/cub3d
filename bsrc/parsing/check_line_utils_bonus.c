@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 17:05:29 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:13:42 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check_colour_value(int *arr)
 	int	i;
 
 	i = -1;
-	while (arr[++i])
+	while (++i < 4)
 	{
 		if (arr[i] > 255)
 			return (1);
@@ -61,7 +61,6 @@ static int	check_colour_value(int *arr)
 	return (0);
 }
 
-//leaking 24 bytes when colour is garbage
 int	get_color(int *arr, char *str)
 {
 	str += 2;
