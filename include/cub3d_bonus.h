@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/03 16:30:30 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:35:05 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_img
 	mlx_image_t		*fg;
 	mlx_image_t		*fg_ceiling;
 	mlx_image_t		*fg_floor;
-	mlx_image_t		*wall_txt[5];
+	mlx_image_t		*wall_txt[9];
 	mlx_image_t		*door;
 	mlx_image_t		*cage;
 	mlx_image_t		*end;
@@ -157,7 +157,7 @@ typedef struct s_pl
 	t_data		*data;
 }	t_pl;
 
-//wall_text 0N, 1E, 2S, 3W the paths to the textures
+//txt 0N, 1E, 2S, 3W, 4FL, 5CL, 6DO, 7CG the paths to the textures
 typedef struct s_data
 {
 	char		**map;
@@ -166,7 +166,7 @@ typedef struct s_data
 	float		map_y_border;
 	int			floor[4];
 	int			ceil[4];
-	char		*wall_text[5];
+	char		*text[9];
 	float		s_height;
 	float		s_width;
 	float		fov;
@@ -285,6 +285,7 @@ int			check_line(char *line, t_data *data);
 int			get_color(int *arr, char *str);
 int			extract_data(char *arg, t_data *data);
 int			validate_map(t_data *data);
+int			ft_ismap(char *line);
 
 //FREE & ERROR & GREAT SUCCESS
 

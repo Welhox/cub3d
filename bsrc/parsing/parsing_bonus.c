@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:39:55 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 17:05:44 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:04:25 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	validate_data(t_data *data)
 	if (data->ceil[0] < 0 || data->ceil[1] < 0 || data->ceil[2] < 0 \
 		|| data->floor[0] < 0 || data->floor[1] < 0 || data->floor[2] < 0)
 		return (ret_error("invalid floor/ceil color"));
-	while (i < 3)
+	while (i < 8)
 	{
-		fd = open(data->wall_text[i], O_RDONLY);
+		fd = open(data->text[i], O_RDONLY);
 		if (fd < 0)
 			return (ret_error("incorrect textures"));
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 15:29:53 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:59:30 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	armageddon(t_data *data, char *error)
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
 	}
-	while (++i < 4)
-		if (data->wall_text[i])
-			ft_nullfree(data->wall_text[i], 0);
+	while (++i < 8)
+		if (data->text[i])
+			ft_nullfree(data->text[i], 0);
 	if (error)
 	{
 		ft_putendl_fd("Error", 2);

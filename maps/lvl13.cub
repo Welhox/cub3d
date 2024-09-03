@@ -3,6 +3,10 @@ SO ./assets/BRICK_3D.PNG
 WE ./assets/BRICK_4A.PNG
 EA ./assets/BRICK_6D.PNG
 
+FL ./assets/floor_lava.png
+CL ./assets/floor_02.png
+DO ./assets/Door03.png
+CG ./assets/steel_cage2.png
 
 F 220,100,0
 C 225,30,0

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/03 16:30:56 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:00:14 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	init_all(t_data *data, t_ray *ray, t_pl *pl, t_txt *txt)
 	data->map_x_border = 0;
 	data->map_y_border = 0;
 	data->map = NULL;
-	while (++i < 5)
-		data->wall_text[i] = NULL;
+	while (++i < 9)
+		data->text[i] = NULL;
 	i = -1;
 	while (++i < 3)
 	{
