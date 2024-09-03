@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:14:55 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 17:05:40 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:09:48 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	map_init(char **temp_data, t_data *data)
 {
 	int	x;
 	int	max;
+	int	total;
 
 	x = 0;
 	trim_spaces(&temp_data);
@@ -75,6 +76,9 @@ static int	map_init(char **temp_data, t_data *data)
 			return (1);
 		x++;
 	}
+	total = max * (int)data->map_y_border;
+	if (max > 500 || data->map_y_border > 500 || total > 3000)
+		return (1);
 	return (0);
 }
 
@@ -90,15 +94,15 @@ int	map_parse(char *map_str, t_data *data)
 	if (!temp_data)
 		return (ret_error("malloc failed"));
 	if (map_init(temp_data, data))
-		return (ft_nullfree(map_str, 1));
+	{
+		ft_arrfree(temp_data);
+		return (1);
+	}
 	while (temp_data[y])
 	{
-		x = 0;
-		while (temp_data[y][x])
-		{
+		x = -1;
+		while (temp_data[y][++x])
 			data->map[y][x] = temp_data[y][x];
-			x++;
-		}
 		y++;
 	}
 	ft_arrfree(temp_data);
