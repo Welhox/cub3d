@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   toggle_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:24:14 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/02 11:18:45 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:58:04 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,17 @@ void	toggle_tile(t_data *data, t_pl *pl)
 	}
 }
 
+void	mouse_input(mouse_key_t key, action_t action, \
+					modifier_key_t mod, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	if (data->mouse_toggle && key == MLX_MOUSE_BUTTON_LEFT \
+		&& action == MLX_PRESS && mod != MLX_ALT)
+		toggle_tile(data, data->pl);
+}
+
 void	key_input(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
@@ -86,4 +97,17 @@ void	key_input(mlx_key_data_t keydata, void *param)
 	data = param;
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 		toggle_tile(data, data->pl);
+	if (keydata.key == MLX_KEY_M && keydata.action == MLX_PRESS)
+	{
+		if (data->mouse_toggle == 1)
+		{
+			mlx_set_cursor_mode(data->mlx, MLX_MOUSE_NORMAL);
+			data->mouse_toggle = 0;
+		}
+		else
+		{
+			mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+			data->mouse_toggle = 1;
+		}
+	}
 }

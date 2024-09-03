@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:43:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/02 14:53:40 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:25:45 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	*sort_sprites(t_data *data)
 }
 
 void	sprite(void *arg)
-{	
+{
 	int		i;
 	int		index;
 	int		*order;

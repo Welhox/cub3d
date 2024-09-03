@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/02 15:13:08 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:55:25 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	mlx_main(t_data *data)
 	img.mlx = data->mlx;
 	if (!data->mlx)
 		armageddon(data, "mlx failed to initialise");
+	data->mouse_toggle = 1;
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_mouse_pos(data->mlx, data->s_width / 2, data->s_height / 2);
 	load_textures(data, &img);
@@ -78,6 +79,7 @@ void	mlx_main(t_data *data)
 	load_sprites(data);
 	initial_render(data);
 	mlx_key_hook(data->mlx, &key_input, data);
+	mlx_mouse_hook(data->mlx, &mouse_input, data);
 	mlx_cursor_hook(data->mlx, &mouse_callback, data);
 	mlx_loop_hook(data->mlx, &keypress, data);
 	mlx_loop_hook(data->mlx, ray_main, data);
