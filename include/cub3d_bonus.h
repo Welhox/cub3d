@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 15:03:56 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:56:18 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct s_data
 	double		fm;
 	bool		end;
 	int			layers;
+	int			mouse_toggle;
 }	t_data;
 
 //INIT
@@ -260,6 +261,8 @@ void		toggle_tile(t_data *data, t_pl *pl);
 void		mouse_callback(double x, double y, void *param);
 void		update_mouse(void *param);
 void		key_input(mlx_key_data_t keydata, void *param);
+void		mouse_input(mouse_key_t key, action_t action, \
+					modifier_key_t mod, void *param);
 
 //MLX
 
