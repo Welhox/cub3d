@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/03 16:31:15 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:42:28 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ void	update_params(t_data *data, t_ray *ray)
 		armageddon(data, "malloc failure");
 }
 
+void	render_score(t_data *data, t_img *img)
+{
+	data->total_sprites = safe_itoa(data, data->s_count);
+	img->counter = safe_mlx_puts(data, "0", data->s_width - 250, \
+					data->s_height - 150);
+	img->slash = safe_mlx_puts(data, "/", data->s_width - 200, \
+					data->s_height - 150);
+	img->total = safe_mlx_puts(data, data->total_sprites, \
+							data->s_width - 150, data->s_height - 150);
+	mlx_resize_image(img->slash, 50, 50);
+	mlx_resize_image(img->total, 50, 50);
+	mlx_resize_image(img->counter, 50, 50);
+}
+
 void	initial_render(t_data *data)
 {
 	int	ceil;
@@ -50,6 +64,7 @@ void	initial_render(t_data *data)
 	safe_image(data, data->s_width, data->s_height, &data->img->fg_floor);
 	mlx_image_to_window(data->mlx, data->img->fg_floor, 0, 0);
 	minimap(data, data->img);
+	render_score(data, data->img);
 }
 
 void	termination(void *param)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:50:40 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/02 14:55:40 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:42:54 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,27 @@
 
 void	refresh_img(t_data *data, t_img *img)
 {
-	mlx_delete_image(data->mlx, img->ray_grid);
-	mlx_delete_image(data->mlx, img->fg);
+	if (img->counter)
+		safe_delete_img(data, img->counter);
+	safe_delete_img(data, img->ray_grid);
+	safe_delete_img(data, img->fg);
 	if (data->img->sprite)
-		mlx_delete_image(data->mlx, data->img->sprite);
+		safe_delete_img(data, img->sprite);
 	if (img->fg_ceiling != NULL)
-		mlx_delete_image(data->mlx, img->fg_ceiling);
+		safe_delete_img(data, img->fg_ceiling);
 	if (img->fg_floor != NULL)
-		mlx_delete_image(data->mlx, img->fg_floor);
+		safe_delete_img(data, img->fg_floor);
 	if (data->sprites != NULL)
 		safe_image(data, data->s_width, data->s_height, &data->img->sprite);
 	safe_image(data, data->s_width / MMS, data->s_height / MMS, &img->ray_grid);
 	safe_image(data, data->s_width, data->s_height, &img->fg);
 	safe_image(data, data->s_width, data->s_height, &img->fg_ceiling);
 	safe_image(data, data->s_width, data->s_height, &img->fg_floor);
+	ft_nullfree(data->score, 0);
+	data->score = safe_itoa(data, data->cage);
+	img->counter = safe_mlx_puts(data, data->score, data->s_width - 250, \
+					data->s_height - 150);
+	mlx_resize_image(img->counter, 50, 50);
 }
 
 void	wall_face(t_ray *ray, t_txt *txt)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/03 19:59:30 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/09/04 15:20:00 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	free_img(t_data *data, t_img *img)
 	safe_delete_img(data, img->mm_door);
 	safe_delete_img(data, img->cage);
 	safe_delete_img(data, img->door);
+	safe_delete_img(data, img->slash);
+	safe_delete_img(data, img->total);
+	safe_delete_img(data, img->counter);
 }
 
 //oh-oh, something went wrong, oh well, kill it all and start again ;)
@@ -56,6 +59,10 @@ void	free_other(t_data *data)
 		free(data->height);
 	if (data->sprites)
 		free(data->sprites);
+	if (data->total_sprites != NULL)
+		free(data->total_sprites);
+	if (data->score != NULL)
+		free(data->score);
 	ft_mapfree(data->map);
 }
 
