@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/03 20:35:05 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/09/04 15:10:08 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ typedef struct s_img
 	mlx_image_t		*cage;
 	mlx_image_t		*end;
 	mlx_image_t		*sprite;
+	mlx_image_t		*counter;
+	mlx_image_t		*slash;
+	mlx_image_t		*total;
 	mlx_t			*mlx;
 }	t_img;
 
@@ -190,6 +193,8 @@ typedef struct s_data
 	bool		end;
 	int			layers;
 	int			mouse_toggle;
+	char		*score;
+	char		*total_sprites;
 }	t_data;
 
 //INIT
@@ -202,6 +207,7 @@ void		init_img_text(t_img *img);
 float		get_scale(t_data *data);
 int			ft_atoi_cubd(const char *str);
 void		check_door_or_cage(t_txt *txt, t_ray *ray);
+char		*safe_itoa(t_data *data, int n);
 
 //THREADS
 
@@ -273,6 +279,7 @@ void		safe_txt_to_img(t_data *data, mlx_texture_t *text, \
 				mlx_image_t **img);
 void		safe_delete_img(t_data *data, mlx_image_t *img);
 void		minimap(t_data *data, t_img *img);
+mlx_image_t	*safe_mlx_puts(t_data *data, char *str, int x, int y);
 
 //PARSING
 

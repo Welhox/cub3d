@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_two_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:47:20 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/08/30 17:08:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:43:51 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,24 @@ void	check_door_or_cage(t_txt *txt, t_ray *ray)
 		else if (txt->vert_cage == true)
 			txt->cage = true;
 	}
+}
+
+mlx_image_t	*safe_mlx_puts(t_data *data, char *str, int x, int y)
+{
+	mlx_image_t	*img;
+
+	img = mlx_put_string(data->mlx, str, x, y);
+	if (!img)
+		armageddon(data, "string image failed to load");
+	return (img);
+}
+
+char	*safe_itoa(t_data *data, int n)
+{
+	char	*str;
+
+	str = ft_itoa(n);
+	if (!str)
+		armageddon(data, "malloc failure");
+	return (str);
 }

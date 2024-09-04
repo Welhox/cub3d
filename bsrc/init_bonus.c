@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:08:19 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/03 20:00:14 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/09/04 15:10:48 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	init_texture(t_data *data, t_txt *txt)
 	data->height = NULL;
 	data->s_count = 0;
 	data->c_frame = 0;
+	data->total_sprites = NULL;
+	data->score = NULL;
 	data->sprites = NULL;
 	txt->wall_face = 0;
 	txt->wall_x = 0;
