@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:07:39 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 15:29:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:41:42 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h" 
+
+int	check_value(int check)
+{
+	if (check == 2)
+		return (0);
+	if (check == 1)
+		return (1);
+	return (0);
+}
 
 void	free_img(t_data *data, t_img *img)
 {

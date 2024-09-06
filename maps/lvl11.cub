@@ -3,10 +3,10 @@ SO ./assets/handpainted_brick_2k/ruin_wall_03.png
 WE ./assets/handpainted_brick_2k/ruin_wall_03_height.png
 EA ./assets/handpainted_brick_2k/ruin_wall_03_height.png
 
-FL ./assets/floor_lava.png
-CL ./assets/floor_02.png
+BF ./assets/floor_lava.png
+BC ./assets/floor_02.png
 DO ./assets/Door03.png
-CG ./assets/steel_cage2.png
+BS ./assets/steel_cage2.png
 
 F 0,100,0
 C 0,0,200

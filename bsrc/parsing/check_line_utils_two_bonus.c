@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line_utils_two_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:32:22 by casimirri         #+#    #+#             */
-/*   Updated: 2024/09/03 20:36:54 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/09/06 14:39:13 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,13 @@ int	ft_ismap(char *line)
 	if (*line == '\0' || *line == '\n')
 		return (0);
 	return (1);
+}
+
+int	check_value(int check)
+{
+	if (check == 2)
+		return (0);
+	if (check == 1)
+		return (1);
+	return (0);
 }

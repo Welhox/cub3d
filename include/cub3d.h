@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/02 15:06:05 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:42:15 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void		init_img_text(t_img *img);
 
 int			ft_isspace(char c);
 int			ft_atoi_cubd(const char *str);
+int			check_value(int check);
 
 //DDA
 void		get_dist(t_data *data, t_ray *ray);

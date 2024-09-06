@@ -3,10 +3,10 @@ SO ./assets/duck1.png
 WE ./assets/duck1.png
 EA ./assets/duck1.png
 
-FL ./assets/floor_lava.png
-CL ./assets/floor_02.png
+BF ./assets/floor_lava.png
+BC ./assets/floor_02.png
 DO ./assets/Door03.png
-CG ./assets/steel_cage2.png
+BS ./assets/steel_cage2.png
 
 F 220,100,0
 C 225,30,0

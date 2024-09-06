@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:41:18 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/06 11:52:07 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:46:43 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_assets(char *line, t_data *data)
 				data->wall_text[i] = get_path(line);
 				if (!data->wall_text[i])
 					return (1);
-				return (0);
+				return (2);
 			}
 			else
 				return (1);
@@ -69,6 +69,7 @@ static int	check_color(char *line, t_data *data)
 		{
 			if (get_color(data->floor, line) == 1)
 				return (1);
+			return (2);
 		}
 		else
 			return (1);
@@ -79,6 +80,7 @@ static int	check_color(char *line, t_data *data)
 		{
 			if (get_color(data->ceil, line) == 1)
 				return (1);
+			return (2);
 		}
 		else
 			return (1);
@@ -88,6 +90,9 @@ static int	check_color(char *line, t_data *data)
 
 int	check_line(char *line, t_data *data)
 {
+	int	check;
+
+	check = 0;
 	if (ft_empty(line) == 0)
 	{
 		if (data->mapstart < 0)
@@ -95,15 +100,17 @@ int	check_line(char *line, t_data *data)
 		else
 			return (1);
 	}
-	if (check_assets(line, data) == 1)
-		return (1);
-	if (check_color(line, data) == 1)
-		return (1);
+	check = check_assets(line, data);
+	if (check == 1 || check == 2)
+		return (check_value(check));
+	check = check_color(line, data);
+	if (check == 1 || check == 2)
+		return (check_value(check));
 	if (ft_ismap(line) == 0)
 	{
 		if (data->mapstart < 0)
 			data->mapstart = 1;
 		return (0);
 	}
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:08:23 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/04 15:10:08 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:39:38 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ float		get_scale(t_data *data);
 int			ft_atoi_cubd(const char *str);
 void		check_door_or_cage(t_txt *txt, t_ray *ray);
 char		*safe_itoa(t_data *data, int n);
+int			check_value(int check);
 
 //THREADS
 

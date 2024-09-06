@@ -3,13 +3,13 @@ SO ./assets/BRICK_3D.PNG
 WE ./assets/BRICK_4A.PNG
 EA ./assets/BRICK_6D.PNG
 
-FL ./assets/floor_lava.png
-CL ./assets/floor_02.png
+BF ./assets/floor_lava.png
+BC ./assets/floor_02.png
 DO ./assets/Door03.png
-CG ./assets/steel_cage2.png
+BS ./assets/steel_cage2.png
 
-F 220,100,0
-C 225,30,0
+F 0,0,0
+C 25,30,0
 
 11111111111
 11111111111
