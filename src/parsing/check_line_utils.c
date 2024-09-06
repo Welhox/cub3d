@@ -6,7 +6,7 @@
 /*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:17 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/03 12:13:51 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:45:49 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,19 @@ static int	check_colour_value(int *arr)
 
 int	get_color(int *arr, char *str)
 {
-	str += 2;
+	str += 1;
 	while (ft_isspace(*str) && *str)
 		str++;
+	if (ft_isdigit(*str) != 1)
+		return (1);
 	arr[0] = ft_atoi_cubd(str);
 	str = jump_str(str);
+	if (ft_isdigit(*str) != 1)
+		return (1);
 	arr[1] = ft_atoi_cubd(str);
 	str = jump_str(str);
+	if (ft_isdigit(*str) != 1)
+		return (1);
 	arr[2] = ft_atoi_cubd(str);
 	while (*str && (*str >= '0' && *str <= '9'))
 		str++;

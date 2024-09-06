@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:41:18 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/03 20:35:55 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/09/06 11:54:54 by tcampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static int	check_assets(char *line, t_data *data)
 
 static int	check_color(char *line, t_data *data)
 {
-	if (ft_strncmp(line, "F ", 2) == 0)
+	if (ft_strncmp(line, "F", 1) == 0)
 	{
-		if (data->floor[3] == 0)
+		if (data->floor[0] == -1)
 		{
 			if (get_color(data->floor, line) == 1)
 				return (1);
@@ -71,9 +71,9 @@ static int	check_color(char *line, t_data *data)
 		else
 			return (1);
 	}
-	if (ft_strncmp(line, "C ", 2) == 0)
+	if (ft_strncmp(line, "C", 1) == 0)
 	{
-		if (data->ceil[3] == 0)
+		if (data->ceil[0] == -1)
 		{
 			if (get_color(data->ceil, line) == 1)
 				return (1);
