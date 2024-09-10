@@ -71,24 +71,24 @@ libmlx:
 		cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4; \
 	fi
 
-$(NAME): $(OFILES)
+$(NAME): $(BOFILES)
 	@echo "$(COLOUR_BLUE)compiling $(NAME)$(COLOUR_END)"
 	@make -C libft
-	@$(CC) $(CFLAGS) $(OFILES)  $(HEADERS) $(LIBS) $(MLX_LIBS) $(LIBFT_DIR)/$(LIBFTNAME) -o $(NAME) 
+	@$(CC) $(CFLAGS) $(BOFILES)  $(HEADERS) $(LIBS) $(MLX_LIBS) $(LIBFT_DIR)/$(LIBFTNAME) -o $(NAME) 
 	@echo "$(COLOUR_GREEN)$(NAME) compiled successfully$(COLOUR_END)"
 	
-bonus: mlx42 libmlx .bonus
+base: mlx42 libmlx .base
 
-.bonus: $(BOFILES) 
-	@echo "$(COLOUR_BLUE)compiling bonus $(NAME)$(COLOUR_END)"
+.base: $(OFILES) 
+	@echo "$(COLOUR_BLUE)compiling base $(NAME)$(COLOUR_END)"
 	@make -C libft
-	@$(CC) $(CFLAGS) $(BOFILES) $(HEADERS) $(LIBS) $(MLX_LIBS) $(LIBFT_DIR)/$(LIBFTNAME) -o $(NAME) 
-	@echo "$(COLOUR_GREEN)$(NAME)bonus compiled successfully$(COLOUR_END)"
-	@touch .bonus
+	@$(CC) $(CFLAGS) $(OFILES) $(HEADERS) $(LIBS) $(MLX_LIBS) $(LIBFT_DIR)/$(LIBFTNAME) -o $(NAME) 
+	@echo "$(COLOUR_GREEN)$(NAME)base compiled successfully$(COLOUR_END)"
+	@touch .base
 
 clean:
 	@echo "$(COLOUR_GREEN)cleaning $(NAME)$(COLOUR_END)"
-	@rm -f $(OFILES) $(BOFILES) .bonus
+	@rm -f $(OFILES) $(BOFILES) .base
 	@make clean -C libft/
 	@rm -rf $(MLX_DIR)/build
 
@@ -98,4 +98,4 @@ fclean: clean
 
 re: fclean all 
 
-.PHONY: all clean fclean re libmlx bonus
+.PHONY: all clean fclean re libmlx base
