@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcampbel <tcampbel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/04 15:42:28 by tcampbel         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:50:54 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	mlx_main(t_data *data)
 {
 	t_img		img;
 
-	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
+	data->mlx = mlx_init(data->s_width, data->s_height, "Cub3 the ducks", false);
 	data->img = &img;
 	img.mlx = data->mlx;
 	if (!data->mlx)

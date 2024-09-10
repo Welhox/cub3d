@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:42:24 by clundber          #+#    #+#             */
-/*   Updated: 2024/08/30 17:08:39 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:54:44 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,12 @@ void	move_pl(t_data *data, t_pl *pl, t_key key)
 		left_or_right(data, pl, key);
 	if (key == LEFT)
 	{
-		pl->orient -= ((0.6 * PI) * data->fm);
+		pl->orient -= ((0.8 * PI) * data->fm);
 		fix_orientation(&pl->orient);
 	}
 	if (key == RIGHT)
 	{
-		pl->orient += ((0.6 * PI) * data->fm);
+		pl->orient += ((0.8 * PI) * data->fm);
 		fix_orientation(&pl->orient);
 	}
 }

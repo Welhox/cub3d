@@ -5,8 +5,8 @@ NO ./assets/BRICK_3B.PNG
 
 BF ./assets/64x64Tiles/Grass_64x64.png
 BC ./assets/64x64Tiles/Wooden_Floor_Vertical_64x64.png
-DO ./assets/Door03.png
-BS ./assets/steel_cage2.png
+DO ./assets/Door01.png
+BS ./assets/IndustrialSprites/sCrate.png
 
 F 0,100,0
 C 0,0,200
