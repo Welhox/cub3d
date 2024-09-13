@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_images_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:22:49 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/03 19:55:22 by casimirri        ###   ########.fr       */
+/*   Updated: 2024/09/13 13:20:36 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
