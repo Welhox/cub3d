@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:22:49 by clundber          #+#    #+#             */
-/*   Updated: 2024/09/13 14:21:38 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:15:13 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	load_textures(t_data *data, t_img *img)
 	safe_txt_to_img(data, temp, &data->img->floor_txt);
 	safe_texture(data, &temp, data->text[5]);
 	safe_txt_to_img(data, temp, &data->img->ceil_txt);
-	safe_texture(data, &temp, "assets/victory.png");
+	safe_texture(data, &temp, "assets/victory2.png");
 	safe_txt_to_img(data, temp, &data->img->end);
 }
 
