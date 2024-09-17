@@ -6,7 +6,7 @@
 /*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/02 11:45:52 by clundber         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:34:42 by clundber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	mlx_main(t_data *data)
 {
 	t_img	img;
 
-	data->mlx = mlx_init(data->s_width, data->s_height, "Hangover", false);
+	data->mlx = mlx_init(data->s_width, data->s_height, "Cub3 the ducks", false);
 	data->img = &img;
 	img.mlx = data->mlx;
 	if (!data->mlx)
