@@ -1,18 +1,26 @@
+CUB3D, a raycasting project.
 
+In this project, I and tcambel22 made a Wolfenstein 3D style raycaster.
+It uses DDA algorith to calculate the length of the rays to walls (or other objects), and uses this information to generate
+a world, one pixel row at a time. If you do "make base", then it makes a base program, which takes a base .cub file from the maps
+folder as argument. This game only renders walls, and sky / floor as a single colour from the file.
+In order to make the acctual game just run "make". This will make a cub3D executable which takes a .cub file from the maps folder,
+ie lvl1.cub.
+This version renders the same as the base model, but also renders textures for floor, ceiling, doors and sprites. In order to speed
+up processing, we decided to thread the floor, ceiling and sprite calculations to their respective threads. This gave us
+a clear improvement in performance. The game also includes wall collision, catchable ducks, minimap and catchable ducks.
 
+To play the game launch the executable with a map as argument.
 
+W/S & arrow up/down moves the player forward and back.
+A/D strafes left & right.
+Left/right arrows or moving mouse turns the player around.
+Doors can be opened/closed with E or left mouse button.
+Ducks can be caught/released wit hE or left mouse button.
 
+CATCH ALL THE DUCKS TO WIN!
 
-
-
-
-
-
-
-
-
-
-
+The levels are the same, except for different textures used.
 lvl1.cub
 ![Screenshot from 2024-09-17 11-22-27](https://github.com/user-attachments/assets/20db01ef-53dc-46bc-84a5-9f5453018080)
 ![Screenshot from 2024-09-17 11-23-03](https://github.com/user-attachments/assets/275fc002-77ea-45b3-a1c7-f1b4ef856118)
