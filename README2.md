@@ -1,8 +1,19 @@
-CUB3D, a raycasting project.
+# CUBE3D
+
+A 2.5D raycaster created in C using low level graphics
+
+![App Screenshot](https://github.com/Welhox/cub3d/blob/main/assets/CUB3D-GIF.gif)
+## Authors
+- [@Welhox](https://github.com/Welhox)
+- [@tcampbel22](https://github.com/tcampbel22)
 
 In this project, I and tcambel22 made a Wolfenstein 3D style raycaster.
-It uses DDA algorith to calculate the length of the rays to walls (or other objects), and uses this information to generate
-a world, one pixel row at a time. If you do "make base", then it makes a base program, which takes a base .cub file from the maps
+It uses DDA algorithm to calculate the length of the rays to walls (or other objects), and uses this information to generate
+a world, one pixel row at a time. 
+
+
+
+If you do "make base", then it makes a base program, which takes a base .cub file from the maps
 folder as argument. This game only renders walls, and sky / floor as a single colour from the file.
 In order to make the acctual game just run "make". This will make a cub3D executable which takes a .cub file from the maps folder,
 ie lvl1.cub.
