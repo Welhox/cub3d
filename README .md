@@ -33,7 +33,6 @@ To optimize performance, we implemented **multithreading** for rendering the **f
 ✔️ **Interactive Elements** – **Doors** can be opened/closed  
 ✔️ **Collectibles** – Catch **ducks** to win the game!  
 ✔️ **Minimap** – Navigate the world more easily  
-✔️ **Collision Detection** – Prevents walking through walls  
 
 ---
 
@@ -111,7 +110,7 @@ Each level uses different textures, adding variety to the gameplay.
 
 ## 🏗️ Base Mode  
 
-The **base version** of the game features only walls and a single-color floor/sky.  
+The **base version** of the game features only walls and a single-color floor/sky. Distance shading is also absent.  
 
 ### **🔹 Base Map 1 – `base1.cub`**  
 ![base1 Screenshot](https://github.com/user-attachments/assets/b0fe7997-46d3-4c3d-b114-24058b82fa74)  
