@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/17 11:53:04 by clundber         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:15:16 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 1000.0;
-	data->s_width = 1600.0;
+	data->s_height = 600.0;
+	data->s_width = 800.0;
 	data->fov = 60;
 	data->ms_x = data->s_width / 2.0;
 	data->ms_y = data->s_height / 2.0;
