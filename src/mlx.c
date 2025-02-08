@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clundber < clundber@student.hive.fi>       +#+  +:+       +#+        */
+/*   By: casimirri <clundber@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:50:44 by tcampbel          #+#    #+#             */
-/*   Updated: 2024/09/17 11:34:42 by clundber         ###   ########.fr       */
+/*   Updated: 2025/02/08 13:22:10 by casimirri        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	update_params(t_data *data, t_ray *ray)
 {
-	data->s_height = 1000;
-	data->s_width = 1600;
+	data->s_height = 600;
+	data->s_width = 800;
 	data->fov = 60;
 	data->render_dist = 20;
 	ray->proj_plane = (data->s_width / 2) / tan((data->fov / 2) * DG_RD);
