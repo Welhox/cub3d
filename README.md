@@ -19,7 +19,7 @@ A **2.5D raycaster** created in C using low-level graphics, inspired by **Wolfen
 
 ## 🕹️ About the Project  
 
-In this project, **[@Welhox](https://github.com/Welhox) and [@tcampbel22](https://github.com/tcampbel22)** developed a **Wolfenstein 3D-style** raycaster using the **DDA (Digital Differential Analyzer) algorithm**. The game constructs the 3D world one **pixel row at a time** by computing ray distances to walls and objects.  
+In this project, **[@Welhox](https://github.com/Welhox(me) and [@tcampbel22](https://github.com/tcampbel22)** developed a **Wolfenstein 3D-style** raycaster using the **DDA (Digital Differential Analyzer) algorithm**. The game constructs the 3D world one **pixel row at a time** by computing ray distances to walls and objects.  
 
 To optimize performance, we implemented **multithreading** for rendering the **floor, ceiling, and sprites**, leading to a **noticeable performance boost**.  
 
